@@ -1,20 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react'
+import { LogBox } from 'react-native'
+import { Index } from './app/Index'
+import { Provider } from "react-redux";
+import STORE from './app/store/store';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+    LogBox.ignoreLogs([
+        "Non-serializable values were found in the navigation state"
+    ])
+
+    return <Provider store={STORE}><Index /></Provider>
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

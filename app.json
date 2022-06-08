@@ -3,13 +3,14 @@
     "name": "afrofit-app",
     "slug": "afrofit-app",
     "version": "1.0.0",
+    "description": "Getting Afrofit club members to lose weight and stay in shape by dancing.",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#131112"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,16 +19,35 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "MANAGE_DOCUMENTS",
+        "READ_CONTACTS",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "READ_EXTERNAL_STORAGE",
+        "READ_PHONE_STATE",
+        "RECORD_AUDIO",
+        "WAKE_LOCK",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "ACTIVITY_RECOGNITION",
+        "android.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+       
+      ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./app/assets/favicon.png"
     }
   }
 }
