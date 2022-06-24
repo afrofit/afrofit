@@ -18,7 +18,7 @@ export const StyledLargeButton = styled.Pressable<Props>`
 
 export const StyledClearButton = styled.Pressable<Props>`
   width: 100%;
-  height: 65px;
+  height: 30px;
   justify-content: center;
   align-items: center;
 `;

@@ -19,7 +19,7 @@ export const ClearButton: React.FC<Props> = ({
 }) => {
   return (
     <StyledClearButton onPress={onPress}>
-      <Font variant="p" color={color}>
+      <Font variant="sm2" color={color}>
         {title}
       </Font>
     </StyledClearButton>

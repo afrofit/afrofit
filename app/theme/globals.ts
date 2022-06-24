@@ -12,6 +12,7 @@ export const COLORS = {
   lightblue: "#8585ab",
   purple_100: "#65459b",
   purple_300: "#241042",
+  gold: "#FFD700",
 };
 
 export const FONT_WEIGHTS = {
@@ -31,7 +32,7 @@ export const FONT_VARIANTS = {
   pb: { size: "20px", weight: bold },
   smb: { size: "15px", weight: bold },
   sm1: { size: "20px", weight: regular },
-  sm2: { size: "15px", weight: bolder },
+  sm2: { size: "14px", weight: bold },
   smc: { size: "15px", weight: heavy },
   num1: { size: "40px", weight: bold },
   num2: { size: "35px", weight: bold },
@@ -45,5 +46,8 @@ export const DEVICE_HEIGHT = `${Dimensions.get("window").height}px`;
 export const MARGIN_BIG = "20px";
 export const MARGIN = "10px";
 export const TOUCH_OPACITY = 0.8;
-export const CHAMFER = "15px";
+export const CHAMFER = "20px";
 export const CHAMFER_BIG = "50px";
+
+export const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_'{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

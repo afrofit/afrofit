@@ -7,6 +7,7 @@ interface Props {
   caps?: boolean;
   color?: ColorType;
   spacing?: number;
+  align?: "left" | "right" | "center";
 }
 
 export const Font: React.FC<Props> = ({
@@ -15,9 +16,16 @@ export const Font: React.FC<Props> = ({
   caps,
   color,
   spacing,
+  align,
 }) => {
   return (
-    <StyledFont variant={variant} caps={caps} color={color} spacing={spacing}>
+    <StyledFont
+      variant={variant}
+      caps={caps}
+      color={color}
+      spacing={spacing}
+      align={align}
+    >
       {children}
     </StyledFont>
   );

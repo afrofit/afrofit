@@ -5,17 +5,20 @@ interface Props {
   bdColor?: ColorType;
   bgColor?: ColorType;
   disablePadding?: boolean;
+  outlined?: boolean;
 }
 
 export const CardWrapper = styled.View<Props>`
   width: 100%;
   background-color: ${({ bgColor }) =>
-    bgColor ? COLORS[bgColor] : COLORS.gray_200};
+    bgColor ? COLORS[bgColor] : COLORS.gray_300};
   min-height: 30px;
   border-radius: ${CHAMFER};
-  border-width: 1px;
+  border-width: ${({ outlined }) => (outlined ? "1px" : 0)};
   border-color: ${({ bdColor }) =>
     bdColor ? COLORS[bdColor] : COLORS.lightblue};
   padding: ${({ disablePadding }) => (disablePadding ? 0 : "20px")};
   margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
 `;
