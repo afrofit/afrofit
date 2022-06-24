@@ -110,6 +110,7 @@ export const StyledInput: React.FC<Props> = ({
               value={value}
               maxLength={maxLength}
               onFocus={() => onFocus(name)}
+              selectionColor={COLORS.hilite_purpink}
             />
             {secureTextEntry ? (
               <ShowPasswordButton
