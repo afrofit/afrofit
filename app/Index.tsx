@@ -17,8 +17,11 @@ export const Index = () => {
     <>
       <SolidBackground />
       <Screen>
+        <Card>
+          <Font variant="pb">Log me in</Font>
+        </Card>
         {/* <Font variant="h1">Afia's Wedding</Font> */}
-        <Font variant="h2" color="hilite_orange">
+        {/* <Font variant="h2" color="hilite_orange">
           Success!
         </Font>
         <Font variant="h3">Afia's Wedding</Font>
@@ -41,13 +44,12 @@ export const Index = () => {
           2.1k
         </Font>
         <Font variant="num2">60</Font>
-        <Card />
         <LargeButton
           onPress={() => console.log("Tapped")}
           title="A Generic Button"
-        />
+        /> */}
 
-        <SmallButton
+        {/* <SmallButton
           onPress={() => console.log("Tapped")}
           title="Sm Button"
           variant="gradient"
@@ -61,7 +63,7 @@ export const Index = () => {
         <ClearButton
           onPress={() => console.log("Tapped")}
           title="A clear button"
-        />
+        /> */}
       </Screen>
     </>
   );

@@ -1,5 +1,11 @@
-import { Text } from "react-native";
+import * as React from "react";
+import { CardWrapper } from "./styled";
 
-export const Card = () => {
-  return <Text>Card</Text>;
+interface Props {
+  children: any;
+  disablePadding?: boolean;
+}
+
+export const Card: React.FC<Props> = ({ children, disablePadding }) => {
+  return <CardWrapper disablePadding={disablePadding}>{children}</CardWrapper>;
 };
