@@ -1,14 +1,5 @@
-import { COLORS, ColorType } from "./../../../theme/color";
+import { COLORS, ColorType } from "../../../theme/globals";
 import styled from "styled-components/native";
-
-export const StyledImageBackground = styled.Image`
-  resize-mode: cover;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  flex: 1;
-  z-index: -12;
-`;
 
 export const StyledSolidBackground = styled.View<{
   color?: ColorType;
@@ -18,7 +9,7 @@ export const StyledSolidBackground = styled.View<{
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: ${({ color }) => (color ? COLORS[color] : COLORS["black"])};
+  background-color: ${({ color }) => (color ? COLORS[color] : COLORS["dark"])};
   z-index: -10;
   opacity: ${({ opacity }) => (opacity ? opacity : 1)};
 `;

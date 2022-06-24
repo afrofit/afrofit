@@ -1,17 +1,24 @@
 import { FirebaseOptions, initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyAvSOxB8zbkKUgy3WVvKlI7nhNbBFhBR_o",
-  authDomain: "afrofit-app.firebaseapp.com",
-  projectId: "afrofit-app",
-  storageBucket: "afrofit-app.appspot.com",
-  messagingSenderId: "1066691596301",
-  appId: "1:1066691596301:web:cfdaa30aab3f15052b8544",
-  measurementId: "G-7HFSDBMJ75",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
 
 export default app;

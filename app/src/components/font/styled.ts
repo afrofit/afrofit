@@ -1,16 +1,25 @@
-import { COLORS } from "./../../../theme/color";
-import { FontType } from "./types";
+import {
+  COLORS,
+  FONT_WEIGHTS,
+  FONT_VARIANTS,
+  FontVariantsType,
+} from "../../../theme/globals";
 import styled from "styled-components/native";
-import { ColorType } from "../../../theme/color";
+import { ColorType } from "../../../theme/globals";
 
 interface StyledFontProps {
-  variant?: FontType;
+  variant?: FontVariantsType;
   caps?: boolean;
   color?: ColorType;
+  align?: "left" | "right" | "center";
+  weight?: "bold" | "regular" | "heavy";
 }
 export const StyledFont = styled.Text<StyledFontProps>`
-  font-size: 25px;
-  font-weight: 500;
-  color: ${({ color }) => (color ? COLORS[color] : COLORS["white"])};
+  font-size: ${({ variant }) =>
+    variant ? FONT_VARIANTS[variant].size : FONT_VARIANTS["p"].size};
+  font-weight: ${({ variant }) =>
+    variant ? FONT_VARIANTS[variant].weight : FONT_VARIANTS["p"].weight};
+  color: ${({ color }) => (color ? COLORS[color] : COLORS["light"])};
   text-transform: ${({ caps }) => (caps ? "uppercase" : "none")};
+  text-align: ${({ align }) => (align ? align : "left")};
 `;

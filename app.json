@@ -6,25 +6,23 @@
     "description": "Getting Afrofit club members to lose weight and stay in shape by dancing.",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#131112"
+      "backgroundColor": "#141723"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#141723"
       },
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [
@@ -42,8 +40,7 @@
         "com.google.android.c2dm.permission.RECEIVE",
         "ACTIVITY_RECOGNITION",
         "android.permission.ACTIVITY_RECOGNITION",
-        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
-       
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION"
       ]
     },
     "web": {

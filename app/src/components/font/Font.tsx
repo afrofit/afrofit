@@ -1,9 +1,9 @@
+import { FontVariantsType } from "afrofitapp/theme/globals";
 import { StyledFont } from "./styled";
-import { FontType } from "./types";
 
 interface Props {
   children: any;
-  variant?: FontType;
+  variant?: FontVariantsType;
   caps?: boolean;
 }
 
