@@ -13,10 +13,35 @@ export const Index = () => {
     <>
       <SolidBackground />
       <Screen>
-        <Font>Can we change these as we please? YASSS!</Font>
-        <Font caps>Can we change these as we please? YASSS!</Font>
+        <Font variant="h1">Afia's Wedding</Font>
+        <Font variant="h2" color="hilite_orange">
+          Success!
+        </Font>
+        <Font variant="h3">Afia's Wedding</Font>
+        <Font variant="h4">Afia's Wedding</Font>
+        <Font variant="pb">Log me in</Font>
+        <Font variant="p" color="lightblue">
+          Calories burned
+        </Font>
+        <Font variant="smb" caps spacing={3}>
+          Available Ranks
+        </Font>
+        <Font variant="sm1" color="hilite_pink">
+          Sign, instead
+        </Font>
+        <Font variant="sm2">Email</Font>
+        <Font variant="smc" spacing={2} caps>
+          96% Complete
+        </Font>
+        <Font variant="num1" color="hilite_purpink">
+          2.1k
+        </Font>
+        <Font variant="num2">60</Font>
         <Card />
-        <LargeButton onPress={() => console.log("Clicked")} />
+        <LargeButton
+          onPress={() => console.log("Tapped")}
+          title="A Generic Button"
+        />
       </Screen>
     </>
   );

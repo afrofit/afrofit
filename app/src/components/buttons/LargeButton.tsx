@@ -7,9 +7,10 @@ import { COLORS } from "../../../theme/globals";
 
 interface Props {
   onPress: () => void;
+  title: string;
 }
 
-export const LargeButton: React.FC<Props> = ({ onPress }) => {
+export const LargeButton: React.FC<Props> = ({ onPress, title }) => {
   return (
     <StyledLargeButton onPress={onPress}>
       <LinearGradient
@@ -18,7 +19,7 @@ export const LargeButton: React.FC<Props> = ({ onPress }) => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <Font>What a font!</Font>
+        <Font variant="pb">{title}</Font>
       </LinearGradient>
     </StyledLargeButton>
   );

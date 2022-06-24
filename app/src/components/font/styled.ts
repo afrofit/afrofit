@@ -1,6 +1,5 @@
 import {
   COLORS,
-  FONT_WEIGHTS,
   FONT_VARIANTS,
   FontVariantsType,
 } from "../../../theme/globals";
@@ -13,6 +12,7 @@ interface StyledFontProps {
   color?: ColorType;
   align?: "left" | "right" | "center";
   weight?: "bold" | "regular" | "heavy";
+  spacing?: number;
 }
 export const StyledFont = styled.Text<StyledFontProps>`
   font-size: ${({ variant }) =>
@@ -22,4 +22,5 @@ export const StyledFont = styled.Text<StyledFontProps>`
   color: ${({ color }) => (color ? COLORS[color] : COLORS["light"])};
   text-transform: ${({ caps }) => (caps ? "uppercase" : "none")};
   text-align: ${({ align }) => (align ? align : "left")};
+  letter-spacing: ${({ spacing }) => (spacing ? `${spacing}px` : 0)};
 `;
