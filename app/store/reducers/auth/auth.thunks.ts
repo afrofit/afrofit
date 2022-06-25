@@ -5,7 +5,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { AppThunk } from "./../../store";
-import { hideGenericErrorDialog, newRequest } from "../ui/ui.slice";
+import {
+  hideGenericErrorDialog,
+  newRequest,
+  setGenericErrorMessage,
+  showGenericErrorDialog,
+} from "../ui/ui.slice";
 import { setCurrentUser } from "./auth.slice";
 
 export function LogUserIn(userCredentials: UserCredentials): AppThunk {
@@ -26,6 +31,15 @@ export function LogUserIn(userCredentials: UserCredentials): AppThunk {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found") {
+          dispatch(showGenericErrorDialog(true));
+          dispatch(setGenericErrorMessage("Error! User not found."));
+          return;
+        } else {
+          dispatch(showGenericErrorDialog(true));
+          dispatch(setGenericErrorMessage("Error! An unknown error occurred."));
+          return;
+        }
         console.error("Error!", errorCode, errorMessage);
         // ..
       });

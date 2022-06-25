@@ -31,7 +31,7 @@ export const GenericError: React.FC<Props> = ({
             <Feather name={"alert-triangle"} size={25} color={COLORS.fuschia} />
           </StartIconContainer>
           <Font variant="sm1">{message}</Font>
-          <EndIconContainer onClick={onDismissWarning}>
+          <EndIconContainer onPress={onDismissWarning}>
             <Feather name={"x"} size={25} color={COLORS.fuschia} />
           </EndIconContainer>
         </GenericErrorContentsWrapper>

@@ -49,7 +49,7 @@ export const LoginScreen = () => {
   return (
     <>
       <LoaderAbsolute message="Logging you in" visible={false} />
-      <GenericError visible={false} message="A generic error!" />
+
       <SolidBackground />
       <Screen>
         <Placer top={2} left={3}>

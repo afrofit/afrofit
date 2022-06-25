@@ -3,14 +3,16 @@ import { RootState } from "../../store";
 
 export interface UIState {
   requestsLoading: number;
-  showGenericErrorDialog: string;
+  showGenericErrorDialog: boolean;
   isSubmitting: boolean;
+  genericErrorMessage: string;
 }
 
 const initialState: UIState = {
   requestsLoading: 0,
-  showGenericErrorDialog: "",
+  showGenericErrorDialog: false,
   isSubmitting: false,
+  genericErrorMessage: "",
 };
 
 const uiSlice = createSlice({
@@ -23,11 +25,17 @@ const uiSlice = createSlice({
     finishedRequest(state) {
       state.requestsLoading = state.requestsLoading - 1;
     },
-    showGenericErrorDialog(state, action: PayloadAction<string>) {
+    showGenericErrorDialog(state, action: PayloadAction<boolean>) {
       state.showGenericErrorDialog = action.payload;
     },
+    setGenericErrorMessage(state, action: PayloadAction<string>) {
+      state.genericErrorMessage = action.payload;
+    },
+    unsetGenericErrorMessage(state) {
+      state.genericErrorMessage = "";
+    },
     hideGenericErrorDialog(state) {
-      state.showGenericErrorDialog = "";
+      state.showGenericErrorDialog = false;
     },
 
     setIsSubmitting(state, action: PayloadAction<boolean>) {
@@ -42,6 +50,8 @@ export const {
   showGenericErrorDialog,
   hideGenericErrorDialog,
   setIsSubmitting,
+  setGenericErrorMessage,
+  unsetGenericErrorMessage,
 } = uiSlice.actions;
 
 export const selectUiIsLoading = (state: RootState) =>
@@ -49,6 +59,9 @@ export const selectUiIsLoading = (state: RootState) =>
 
 export const selectShowGenericErrorDialog = (state: RootState) =>
   state.ui.showGenericErrorDialog;
+
+export const selectGenericErrorMessage = (state: RootState) =>
+  state.ui.genericErrorMessage;
 
 export const selectIsSubmitting = (state: RootState) => state.ui.isSubmitting;
 
