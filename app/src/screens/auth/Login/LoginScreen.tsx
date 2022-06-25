@@ -13,6 +13,7 @@ import { EMAIL_REGEX } from "../../../../theme/globals";
 import { useNavigation } from "@react-navigation/native";
 import { LoginScreenNavType } from "../../../../src/navigator/types";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
+import { Placer } from "../../../../src/components/elements/Placer";
 
 export const LoginScreen = () => {
   // console.log("Firebase", app);
@@ -41,9 +42,14 @@ export const LoginScreen = () => {
 
   return (
     <>
-      <LoaderAbsolute />
+      <LoaderAbsolute message="Logging you in" visible={false} />
       <SolidBackground />
       <Screen>
+        <Placer right={75} top={3}>
+          <Font align="center" variant="h2" color="hilite_purpink">
+            Login
+          </Font>
+        </Placer>
         <Font align="center" variant="h2" color="hilite_purpink">
           Login
         </Font>
@@ -74,6 +80,7 @@ export const LoginScreen = () => {
             color="hilite_pink"
           />
         </Card>
+
         <LargeButton onPress={handleSubmit(onSubmit)} title="Submit" />
       </Screen>
     </>

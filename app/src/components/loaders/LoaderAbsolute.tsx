@@ -5,6 +5,7 @@ import LottieView from "lottie-react-native";
 import { StyleSheet } from "react-native";
 
 import { AnimationContainer, LoaderBackground } from "./styled";
+import { Font } from "../font/Font";
 
 interface Props {
   message?: string;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export const LoaderAbsolute: React.FC<Props> = ({
-  message = "Loading ...",
+  message,
   visible = true,
 }) => {
   if (!visible) return null;
@@ -25,6 +26,11 @@ export const LoaderAbsolute: React.FC<Props> = ({
 
   return (
     <LoaderBackground>
+      {message && (
+        <Font variant="pb" color="lightblue">
+          {message}
+        </Font>
+      )}
       <AnimationContainer>
         <LottieView
           ref={(animation: any) => (animationRef = animation)}

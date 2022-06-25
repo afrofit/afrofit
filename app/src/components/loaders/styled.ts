@@ -20,3 +20,10 @@ export const AnimationContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const LoaderLocalContainer = styled.View`
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
