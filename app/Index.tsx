@@ -22,10 +22,6 @@ export const Index = () => {
     return dispatch(setGenericErrorMessage(""));
   };
 
-  React.useEffect(() => {
-    console.log("errorMessage", errorMessage, "showError", showError);
-  }, [errorMessage, showError]);
-
   return (
     <>
       {/* <GameNavigator /> */}

@@ -8,7 +8,7 @@ import { useForm, Controller, FieldError } from "react-hook-form";
 
 interface Props {
   clearField: any;
-  secureTextEntry?: boolean;
+  type: "regular" | "password";
   control: any;
   label: string;
   name: string;
@@ -19,7 +19,7 @@ interface Props {
 
 export const StyledInput: React.FC<Props> = ({
   clearField,
-  secureTextEntry = false,
+  type,
   control,
   label,
   name,
@@ -100,7 +100,7 @@ export const StyledInput: React.FC<Props> = ({
             </IconWrapper>
             <InputField
               autoCapitalize="none"
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={type === "password" && currentIcon === "eye"}
               keyboardType={"email-address"}
               onChangeText={onChange}
               onBlur={() => {
@@ -112,7 +112,7 @@ export const StyledInput: React.FC<Props> = ({
               onFocus={() => onFocus(name)}
               selectionColor={COLORS.hilite_purpink}
             />
-            {secureTextEntry ? (
+            {type === "password" ? (
               <ShowPasswordButton
                 currentIcon={currentIcon}
                 onPress={toggleShowPassword}

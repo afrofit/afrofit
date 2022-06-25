@@ -12,6 +12,7 @@ import {
   showGenericErrorDialog,
 } from "../ui/ui.slice";
 import { setCurrentUser } from "./auth.slice";
+import { UserModel } from "../../../models/user.model";
 
 export function LogUserIn(userCredentials: UserCredentials): AppThunk {
   const auth = getAuth();
@@ -23,9 +24,14 @@ export function LogUserIn(userCredentials: UserCredentials): AppThunk {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log("UserCredential", userCredential);
-        const user = userCredential.user;
-        dispatch(setCurrentUser(user));
+        // console.log("UserCredential", userCredential, userCredential.user);
+        let loggedInUser: UserModel;
+        const join_date = new Date().toUTCString();
+        const { user } = userCredential;
+        const { email, uid } = user;
+
+        loggedInUser = { ...(email && { email }), id: uid, join_date };
+        dispatch(setCurrentUser(loggedInUser));
         // ...
       })
       .catch((error) => {

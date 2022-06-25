@@ -63,21 +63,21 @@ export const LoginScreen = () => {
           <Spacer h={10} />
           <StyledInput
             clearField={clearField}
-            secureTextEntry={false}
             name="email"
             label="Email"
             control={control}
             rules={{ required: true, pattern: EMAIL_REGEX }}
             clearError={clearError}
+            type="regular"
           />
           <StyledInput
             clearField={clearField}
-            secureTextEntry
             name="password"
             label="Password"
             control={control}
             rules={{ required: true }}
             clearError={clearError}
+            type="password"
           />
           <ClearButton
             onPress={() => navigation.navigate("ResetPassword")}
