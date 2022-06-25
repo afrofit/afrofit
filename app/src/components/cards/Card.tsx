@@ -1,5 +1,7 @@
-import { ColorType } from "afrofitapp/theme/globals";
 import * as React from "react";
+
+import { ColorType } from "afrofitapp/theme/globals";
+
 import { CardWrapper } from "./styled";
 
 interface Props {

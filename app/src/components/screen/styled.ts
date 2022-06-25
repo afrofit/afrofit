@@ -1,5 +1,6 @@
 import { COLORS, ColorType } from "../../../theme/globals";
 import styled from "styled-components/native";
+import { Platform } from "react-native";
 
 export const StyledSolidBackground = styled.View<{
   color?: ColorType;
@@ -17,6 +18,7 @@ export const StyledSolidBackground = styled.View<{
 export const StyledScreen = styled.View`
   flex: 1;
   padding: 20px;
+  padding-top: ${Platform.OS === "ios" ? "20px" : "40px"};
   background: transparent;
 `;
 

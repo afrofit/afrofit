@@ -1,26 +1,55 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import { RootState } from '../../store';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
 export interface UIState {
-    dummy: string
+  requestsLoading: number;
+  showGenericErrorDialog: string;
+  isSubmitting: boolean;
 }
 
 const initialState: UIState = {
-    dummy: "Nothing yet!"
-}
+  requestsLoading: 0,
+  showGenericErrorDialog: "",
+  isSubmitting: false,
+};
 
 const uiSlice = createSlice({
-    name: "ui",
-    initialState,
-    reducers: {
-        someFunctionName(state, action: PayloadAction<string>) {
-            state.dummy = action.payload;
-        }
-    }
-})
+  name: "ui",
+  initialState,
+  reducers: {
+    newRequest(state) {
+      state.requestsLoading = state.requestsLoading + 1;
+    },
+    finishedRequest(state) {
+      state.requestsLoading = state.requestsLoading - 1;
+    },
+    showGenericErrorDialog(state, action: PayloadAction<string>) {
+      state.showGenericErrorDialog = action.payload;
+    },
+    hideGenericErrorDialog(state) {
+      state.showGenericErrorDialog = "";
+    },
 
-export const {someFunctionName} = uiSlice.actions
+    setIsSubmitting(state, action: PayloadAction<boolean>) {
+      state.isSubmitting = action.payload;
+    },
+  },
+});
 
-export const selectUiDummy = (state: RootState) => state.ui.dummy
+export const {
+  newRequest,
+  finishedRequest,
+  showGenericErrorDialog,
+  hideGenericErrorDialog,
+  setIsSubmitting,
+} = uiSlice.actions;
 
-export default uiSlice.reducer
+export const selectUiIsLoading = (state: RootState) =>
+  state.ui.requestsLoading > 0;
+
+export const selectShowGenericErrorDialog = (state: RootState) =>
+  state.ui.showGenericErrorDialog;
+
+export const selectIsSubmitting = (state: RootState) => state.ui.isSubmitting;
+
+export default uiSlice.reducer;
