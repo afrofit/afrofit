@@ -6,6 +6,7 @@ import { COLORS } from "../../../theme/globals";
 import { LargeButton } from "../../../src/components/buttons/LargeButton";
 import Spacer from "../../../src/components/elements/Spacer";
 import { BorderedImage } from "../../../src/components/image/BorderedImage";
+import { ScreenMarker } from "../../../src/components/screen/ScreenMarker";
 
 export const WelcomeScreen = () => {
   const handleStartGame = () => {
@@ -16,22 +17,25 @@ export const WelcomeScreen = () => {
     <>
       <SolidBackground />
       <Screen>
-        <BorderedImage />
-        <Spacer h={40} />
-        <Font variant="h1" color="lightblue" align="center">
-          Fuel your fitness.
-        </Font>
-        <Font variant="h1" color="purple_100" align="center">
-          Find your rhythm.
-        </Font>
-        <Spacer />
-        <LargeButton onPress={handleStartGame} title="Log me in" />
-        <Spacer />
-        <Font variant="sm2" color="fuschia" align="center">
-          Please note that this app is a value-added product for existing,
-          active members of the Afrofit culture. In order to join, you need to
-          visit our website for instructions.
-        </Font>
+        <ScreenMarker percentage={75}>
+          <BorderedImage />
+          <Spacer h={40} />
+          <Font variant="h1" color="lightblue" align="center">
+            Fuel your fitness.
+          </Font>
+          <Font variant="h1" color="purple_100" align="center">
+            Find your rhythm.
+          </Font>
+        </ScreenMarker>
+        <ScreenMarker>
+          <LargeButton onPress={handleStartGame} title="Log me in" />
+          <Spacer />
+          <Font variant="sm2" color="fuschia" align="center">
+            Please note that this app is a value-added product for existing,
+            active members of the Afrofit culture. In order to join, you need to
+            visit our website for instructions.
+          </Font>
+        </ScreenMarker>
       </Screen>
     </>
   );

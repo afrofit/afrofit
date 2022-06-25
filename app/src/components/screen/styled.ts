@@ -27,3 +27,14 @@ export const StyledSafeArea = styled.SafeAreaView`
   height: 100%;
   width: 100%;
 `;
+
+interface Props {
+  percentage?: number;
+}
+
+export const MarkerComponent = styled.View<Props>`
+  width: 100%;
+  height: ${({ percentage }) => (percentage ? `${percentage}%` : "50%")};
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
