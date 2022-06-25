@@ -10,9 +10,14 @@ import { Font } from "../../../../src/components/font/Font";
 import { StyledInput } from "../../../../src/components/forms/inputs/StyledInput";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import { EMAIL_REGEX } from "../../../../theme/globals";
+import { useNavigation } from "@react-navigation/native";
+import { LoginScreenNavType } from "../../../../src/navigator/types";
+import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 
 export const LoginScreen = () => {
   // console.log("Firebase", app);
+  const navigation = useNavigation<LoginScreenNavType>();
+
   const {
     control,
     handleSubmit,
@@ -36,14 +41,15 @@ export const LoginScreen = () => {
 
   return (
     <>
+      <LoaderAbsolute />
       <SolidBackground />
       <Screen>
-        <Card>
+        <Font align="center" variant="h2" color="hilite_purpink">
+          Login
+        </Font>
+        <Spacer h={30} />
+        <Card padding={15}>
           <Spacer h={10} />
-          <Font align="center" variant="h2" color="hilite_purpink">
-            Login
-          </Font>
-          <Spacer h={30} />
           <StyledInput
             clearField={clearField}
             secureTextEntry={false}
@@ -63,7 +69,7 @@ export const LoginScreen = () => {
             clearError={clearError}
           />
           <ClearButton
-            onPress={() => console.log("Tapped")}
+            onPress={() => navigation.navigate("ResetPassword")}
             title="Forgot your password?"
             color="hilite_pink"
           />

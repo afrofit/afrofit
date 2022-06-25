@@ -10,6 +10,8 @@ import { Font } from "../../../../src/components/font/Font";
 import { StyledInput } from "../../../../src/components/forms/inputs/StyledInput";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import { EMAIL_REGEX } from "../../../../theme/globals";
+import { useNavigation } from "@react-navigation/native";
+import { ResetPasswordScreenNavType } from "app/src/navigator/types";
 
 export const ResetPasswordScreen = () => {
   const {
@@ -19,6 +21,8 @@ export const ResetPasswordScreen = () => {
     clearErrors,
     formState: { errors },
   } = useForm();
+
+  const navigation = useNavigation<ResetPasswordScreenNavType>();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // dispatch(logIn(data));
@@ -54,7 +58,7 @@ export const ResetPasswordScreen = () => {
           />
 
           <ClearButton
-            onPress={() => console.log("Tapped")}
+            onPress={() => navigation.navigate("Login")}
             title="Log me in, instead?"
             color="hilite_pink"
           />

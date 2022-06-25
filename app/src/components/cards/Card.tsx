@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ColorType } from "afrofitapp/theme/globals";
+import { ColorType } from "../../../theme/globals";
 
 import { CardWrapper } from "./styled";
 
@@ -9,6 +9,7 @@ interface Props {
   disablePadding?: boolean;
   bgColor?: ColorType;
   outlined?: boolean;
+  padding?: number;
 }
 
 export const Card: React.FC<Props> = ({
@@ -16,9 +17,11 @@ export const Card: React.FC<Props> = ({
   disablePadding,
   bgColor,
   outlined = true,
+  padding,
 }) => {
   return (
     <CardWrapper
+      padding={padding}
       bgColor={bgColor}
       outlined={outlined}
       disablePadding={disablePadding}

@@ -6,6 +6,7 @@ interface Props {
   bgColor?: ColorType;
   disablePadding?: boolean;
   outlined?: boolean;
+  padding?: number;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -17,7 +18,12 @@ export const CardWrapper = styled.View<Props>`
   border-width: ${({ outlined }) => (outlined ? "1px" : 0)};
   border-color: ${({ bdColor }) =>
     bdColor ? COLORS[bdColor] : COLORS.lightblue};
-  padding: ${({ disablePadding }) => (disablePadding ? 0 : "20px")};
+  padding: ${({ disablePadding, padding }) =>
+    disablePadding && !padding
+      ? 0
+      : !disablePadding && padding
+      ? `${padding}px`
+      : "20px"};
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
