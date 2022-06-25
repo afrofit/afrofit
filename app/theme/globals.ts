@@ -13,6 +13,7 @@ export const COLORS = {
   purple_100: "#65459b",
   purple_300: "#241042",
   gold: "#FFD700",
+  fuschia: "#f7b3c2",
 };
 
 export const FONT_WEIGHTS = {
@@ -24,7 +25,7 @@ export const FONT_WEIGHTS = {
 const { bold, heavy, regular, bolder } = FONT_WEIGHTS;
 
 export const FONT_VARIANTS = {
-  h1: { size: "45px", weight: bold },
+  h1: { size: "42px", weight: bold },
   h2: { size: "35px", weight: regular },
   h3: { size: "28px", weight: regular },
   h4: { size: "25px", weight: bold },

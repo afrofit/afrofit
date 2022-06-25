@@ -8,7 +8,7 @@ type Props = {
 
 export const StyledLargeButton = styled.Pressable<Props>`
   width: 100%;
-  height: 65px;
+  height: 60px;
   border-radius: ${CHAMFER};
   overflow: hidden;
   border-width: ${({ variant }) =>

@@ -3,9 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "afrofitapp/*": ["app/*"]
-    }
+    "allowSyntheticDefaultImports": true
   }
 }

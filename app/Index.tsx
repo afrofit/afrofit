@@ -8,8 +8,8 @@ import { ResetPasswordScreen } from "./src/screens/auth/ResetPassword/ResetPassw
 export const Index = () => {
   return (
     <>
-      <GameNavigator />
-      {/* <AuthNavigator /> */}
+      {/* <GameNavigator /> */}
+      <AuthNavigator />
       {/* <LoginScreen /> */}
       {/* <ResetPasswordScreen /> */}
     </>
