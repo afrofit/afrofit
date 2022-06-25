@@ -8,6 +8,7 @@ interface Props {
   children: any;
   disablePadding?: boolean;
   bgColor?: ColorType;
+  bdColor?: ColorType;
   outlined?: boolean;
   padding?: number;
 }
@@ -16,6 +17,7 @@ export const Card: React.FC<Props> = ({
   children,
   disablePadding,
   bgColor,
+  bdColor,
   outlined = true,
   padding,
 }) => {
@@ -23,6 +25,7 @@ export const Card: React.FC<Props> = ({
     <CardWrapper
       padding={padding}
       bgColor={bgColor}
+      bdColor={bdColor}
       outlined={outlined}
       disablePadding={disablePadding}
     >

@@ -15,10 +15,15 @@ import { LoginScreenNavType } from "../../../../src/navigator/types";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
+import { useDispatch } from "react-redux";
+import { LogUserIn } from "../../../../store/reducers/auth/auth.thunks";
+import { UserCredentials } from "../../../../src/models/UserCredentials";
+import { GenericError } from "../../../../src/components/errors/GenericError";
 
 export const LoginScreen = () => {
   // console.log("Firebase", app);
   const navigation = useNavigation<LoginScreenNavType>();
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -28,8 +33,8 @@ export const LoginScreen = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // dispatch(logIn(data));
+  const onSubmit: SubmitHandler<UserCredentials> = (data) => {
+    dispatch(LogUserIn(data));
     console.log("Data", data);
   };
 
@@ -44,12 +49,13 @@ export const LoginScreen = () => {
   return (
     <>
       <LoaderAbsolute message="Logging you in" visible={false} />
+      <GenericError visible={false} message="A generic error!" />
       <SolidBackground />
       <Screen>
-        <Placer top={3} left={3}>
+        <Placer top={2} left={3}>
           <IconButton onPress={() => navigation.navigate("Welcome")} />
         </Placer>
-        <Font align="center" variant="h2" color="hilite_purpink">
+        <Font align="center" variant="h3" color="hilite_purpink">
           Login
         </Font>
         <Spacer h={20} />

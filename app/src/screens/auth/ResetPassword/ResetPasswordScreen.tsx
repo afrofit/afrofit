@@ -45,10 +45,10 @@ export const ResetPasswordScreen = () => {
       <LoaderAbsolute message="Sending reset link" visible={false} />
       <SolidBackground />
       <Screen>
-        <Placer top={3} left={3}>
+        <Placer top={2} left={3}>
           <IconButton onPress={() => navigation.navigate("Welcome")} />
         </Placer>
-        <Font align="center" variant="h2" color="hilite_purpink">
+        <Font align="center" variant="h3" color="hilite_purpink">
           Reset Password
         </Font>
         <Spacer h={20} />

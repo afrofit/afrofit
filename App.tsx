@@ -1,10 +1,12 @@
 import * as React from "react";
 import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { initializeApp } from "firebase/app";
 
 import { Index } from "./app/Index";
 import { Provider } from "react-redux";
 import STORE from "./app/store/store";
+import { firebaseConfig } from "./app/config/firebase";
 
 export default function App() {
   LogBox.ignoreLogs([
@@ -13,6 +15,10 @@ export default function App() {
     "NativeBase: The contrast ratio of",
     "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
   ]);
+
+  React.useEffect(() => {
+    const app = initializeApp(firebaseConfig);
+  }, []);
 
   return (
     <Provider store={STORE}>

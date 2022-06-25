@@ -1,4 +1,4 @@
-import { FirebaseOptions, initializeApp } from "firebase/app";
+import { FirebaseOptions } from "firebase/app";
 import {
   API_KEY,
   AUTH_DOMAIN,
@@ -9,7 +9,7 @@ import {
   MEASUREMENT_ID,
 } from "@env";
 
-const firebaseConfig: FirebaseOptions = {
+export const firebaseConfig: FirebaseOptions = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
   projectId: PROJECT_ID,
@@ -18,7 +18,3 @@ const firebaseConfig: FirebaseOptions = {
   appId: APP_ID,
   measurementId: MEASUREMENT_ID,
 };
-
-const app = initializeApp(firebaseConfig);
-
-export default app;
