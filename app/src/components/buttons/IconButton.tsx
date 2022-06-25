@@ -7,15 +7,17 @@ interface Props {
   icon?: string;
   onPress: () => void;
   color?: ColorType;
+  size?: number;
 }
 export const IconButton: React.FC<Props> = ({
   icon = "arrow-left-circle",
   onPress,
   color = "lightblue",
+  size = 25,
 }) => {
   return (
     <StyledIconButton onPress={onPress}>
-      <Feather name={icon} size={50} color={COLORS[color]} />
+      <Feather name={icon} size={size} color={COLORS[color]} />
     </StyledIconButton>
   );
 };

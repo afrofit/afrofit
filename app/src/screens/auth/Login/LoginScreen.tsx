@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LoginScreenNavType } from "../../../../src/navigator/types";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 import { Placer } from "../../../../src/components/elements/Placer";
+import { IconButton } from "../../../../src/components/buttons/IconButton";
 
 export const LoginScreen = () => {
   // console.log("Firebase", app);
@@ -45,15 +46,13 @@ export const LoginScreen = () => {
       <LoaderAbsolute message="Logging you in" visible={false} />
       <SolidBackground />
       <Screen>
-        <Placer right={75} top={3}>
-          <Font align="center" variant="h2" color="hilite_purpink">
-            Login
-          </Font>
+        <Placer top={3} left={3}>
+          <IconButton onPress={() => navigation.navigate("Welcome")} />
         </Placer>
         <Font align="center" variant="h2" color="hilite_purpink">
           Login
         </Font>
-        <Spacer h={30} />
+        <Spacer h={20} />
         <Card padding={15}>
           <Spacer h={10} />
           <StyledInput

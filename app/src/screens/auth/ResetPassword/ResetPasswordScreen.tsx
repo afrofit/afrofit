@@ -12,6 +12,9 @@ import { SolidBackground } from "../../../../src/components/screen/SolidBackgrou
 import { EMAIL_REGEX } from "../../../../theme/globals";
 import { useNavigation } from "@react-navigation/native";
 import { ResetPasswordScreenNavType } from "app/src/navigator/types";
+import { Placer } from "../../../../src/components/elements/Placer";
+import { IconButton } from "../../../../src/components/buttons/IconButton";
+import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 
 export const ResetPasswordScreen = () => {
   const {
@@ -39,14 +42,19 @@ export const ResetPasswordScreen = () => {
 
   return (
     <>
+      <LoaderAbsolute message="Sending reset link" visible={false} />
       <SolidBackground />
       <Screen>
+        <Placer top={3} left={3}>
+          <IconButton onPress={() => navigation.navigate("Welcome")} />
+        </Placer>
+        <Font align="center" variant="h2" color="hilite_purpink">
+          Reset Password
+        </Font>
+        <Spacer h={20} />
         <Card>
           <Spacer h={10} />
-          <Font align="center" variant="h2" color="hilite_purpink">
-            Reset Password
-          </Font>
-          <Spacer h={30} />
+
           <StyledInput
             clearField={clearField}
             secureTextEntry={false}
