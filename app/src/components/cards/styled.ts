@@ -8,6 +8,8 @@ interface Props {
   outlined?: boolean;
   padding?: number;
   centeredContent?: boolean;
+  flexDirection?: "row" | "column";
+  marginBottom?: number;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -25,11 +27,13 @@ export const CardWrapper = styled.View<Props>`
       : !disablePadding && padding
       ? `${padding}px`
       : "20px"};
-  margin-bottom: 20px;
+  margin-bottom: ${({ marginBottom }) =>
+    marginBottom ? `${marginBottom}px` : "20px"};
   overflow: hidden;
   position: relative;
   justify-content: ${({ centeredContent }) =>
     centeredContent ? "center" : "flex-start"};
   align-items: ${({ centeredContent }) =>
     centeredContent ? "center" : "flex-start"};
+  flex-direction: ${({ flexDirection }) => flexDirection};
 `;

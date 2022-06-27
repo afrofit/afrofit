@@ -12,6 +12,8 @@ interface Props {
   outlined?: boolean;
   padding?: number;
   centeredContent?: boolean;
+  flexDirection?: "row" | "column";
+  marginBottom?: number;
 }
 
 export const Card: React.FC<Props> = ({
@@ -22,6 +24,8 @@ export const Card: React.FC<Props> = ({
   outlined = true,
   padding,
   centeredContent = false,
+  flexDirection = "column",
+  marginBottom = 0,
 }) => {
   return (
     <CardWrapper
@@ -31,6 +35,8 @@ export const Card: React.FC<Props> = ({
       outlined={outlined}
       disablePadding={disablePadding}
       centeredContent={centeredContent}
+      flexDirection={flexDirection}
+      marginBottom={marginBottom}
     >
       {children}
     </CardWrapper>

@@ -16,7 +16,7 @@ import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 import { useDispatch } from "react-redux";
-import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
+// import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
 import { AlertModal } from "../../../../src/components/modals/AlertModal";
 import { useSelector } from "react-redux";
 import {
@@ -41,7 +41,7 @@ export const ResetPasswordScreen = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     Keyboard.dismiss();
-    dispatch(SendPasswordResetEmail(data));
+    // dispatch(SendPasswordResetEmail(data));
     console.log("Data", data);
   };
 
