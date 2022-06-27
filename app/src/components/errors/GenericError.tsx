@@ -30,7 +30,7 @@ export const GenericError: React.FC<Props> = ({
           <StartIconContainer>
             <Feather name={"alert-triangle"} size={25} color={COLORS.fuschia} />
           </StartIconContainer>
-          <Font variant="sm1">{message}</Font>
+          <Font variant="sm2">{message}</Font>
           <EndIconContainer onPress={onDismissWarning}>
             <Feather name={"x"} size={25} color={COLORS.fuschia} />
           </EndIconContainer>

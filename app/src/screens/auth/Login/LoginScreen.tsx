@@ -30,11 +30,13 @@ export const LoginScreen = () => {
     handleSubmit,
     resetField,
     clearErrors,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit: SubmitHandler<UserCredentials> = (data) => {
     dispatch(LogUserIn(data));
+    reset();
     console.log("Data", data);
   };
 
@@ -48,8 +50,6 @@ export const LoginScreen = () => {
 
   return (
     <>
-      <LoaderAbsolute message="Logging you in" visible={false} />
-
       <SolidBackground />
       <Screen>
         <Placer top={2} left={3}>

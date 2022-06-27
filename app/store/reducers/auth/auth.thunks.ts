@@ -1,4 +1,3 @@
-import { UserCredentials } from "./../../../src/models/UserCredentials";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -6,6 +5,7 @@ import {
 } from "firebase/auth";
 import { AppThunk } from "./../../store";
 import {
+  finishedRequest,
   hideGenericErrorDialog,
   newRequest,
   setGenericErrorMessage,
@@ -13,6 +13,7 @@ import {
 } from "../ui/ui.slice";
 import { setCurrentUser } from "./auth.slice";
 import { UserModel } from "../../../models/user.model";
+import { UserCredentials } from "../../../models/usercredentials.model";
 
 export function LogUserIn(userCredentials: UserCredentials): AppThunk {
   const auth = getAuth();
@@ -32,22 +33,27 @@ export function LogUserIn(userCredentials: UserCredentials): AppThunk {
 
         loggedInUser = { ...(email && { email }), id: uid, join_date };
         dispatch(setCurrentUser(loggedInUser));
-        // ...
+        dispatch(finishedRequest());
       })
       .catch((error) => {
+        dispatch(finishedRequest());
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === "auth/user-not-found") {
           dispatch(showGenericErrorDialog(true));
           dispatch(setGenericErrorMessage("Error! User not found."));
           return;
-        } else {
+        }
+        if (errorCode === "auth/wrong-password") {
           dispatch(showGenericErrorDialog(true));
-          dispatch(setGenericErrorMessage("Error! An unknown error occurred."));
+          dispatch(
+            setGenericErrorMessage("Error! Your credentials don't match.")
+          );
           return;
         }
-        console.error("Error!", errorCode, errorMessage);
-        // ..
+        dispatch(showGenericErrorDialog(true));
+        dispatch(setGenericErrorMessage("Error! An unknown error occurred."));
+        return;
       });
   };
 }

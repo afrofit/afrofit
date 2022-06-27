@@ -9,12 +9,7 @@ import STORE from "./app/store/store";
 import { firebaseConfig } from "./app/config/firebase";
 
 export default function App() {
-  LogBox.ignoreLogs([
-    "Non-serializable values were found in the navigation state",
-    "ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'.",
-    "NativeBase: The contrast ratio of",
-    "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-  ]);
+  LogBox.ignoreAllLogs(true);
 
   React.useEffect(() => {
     const app = initializeApp(firebaseConfig);
