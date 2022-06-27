@@ -2,6 +2,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GenericError } from "./src/components/errors/GenericError";
 import { LoaderAbsolute } from "./src/components/loaders/LoaderAbsolute";
+import { useAuth } from "./src/hooks/useAuth";
 import GameNavigator from "./src/navigator/AppNavigator";
 import AuthNavigator from "./src/navigator/AuthNavigator";
 import { selectCurrentUser } from "./store/reducers/auth/auth.slice";
@@ -17,6 +18,7 @@ import {
 
 export const Index = () => {
   const dispatch = useDispatch();
+  const { user } = useAuth();
 
   const errorMessage = useSelector(selectGenericErrorMessage);
   const showError = useSelector(selectShowGenericErrorDialog);
@@ -35,7 +37,6 @@ export const Index = () => {
 
   return (
     <>
-      {/* <GameNavigator /> */}
       <GenericError
         visible={showError}
         message={errorMessage}
@@ -43,7 +44,7 @@ export const Index = () => {
       />
       <LoaderAbsolute message={loaderMessage} visible={showLoader} />
 
-      <AuthNavigator />
+      {user ? <GameNavigator /> : <AuthNavigator />}
     </>
   );
 };
