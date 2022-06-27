@@ -10,6 +10,7 @@ import {
   newRequest,
   setGenericErrorMessage,
   showGenericErrorDialog,
+  triggerActionCompleted,
 } from "../ui/ui.slice";
 import { setCurrentUser } from "./auth.slice";
 import { UserModel } from "../../../models/user.model";
@@ -28,6 +29,7 @@ export function SendPasswordResetEmail(
       .then((userCredential) => {
         console.log("Reset email has been sent!", userCredential);
         dispatch(finishedRequest());
+        dispatch(triggerActionCompleted(true));
       })
       .catch((error) => {
         dispatch(finishedRequest());

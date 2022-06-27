@@ -18,6 +18,12 @@ import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolut
 import { useDispatch } from "react-redux";
 import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
 import { AlertModal } from "../../../../src/components/modals/AlertModal";
+import { useSelector } from "react-redux";
+import {
+  selectedActionCompleted,
+  triggerActionCompleted,
+} from "../../../../store/reducers/ui/ui.slice";
+import { Keyboard } from "react-native";
 
 export const ResetPasswordScreen = () => {
   const {
@@ -31,7 +37,10 @@ export const ResetPasswordScreen = () => {
   const navigation = useNavigation<ResetPasswordScreenNavType>();
   const dispatch = useDispatch();
 
+  const passwordResetEmailSent = useSelector(selectedActionCompleted);
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    Keyboard.dismiss();
     dispatch(SendPasswordResetEmail(data));
     console.log("Data", data);
   };
@@ -47,8 +56,16 @@ export const ResetPasswordScreen = () => {
   return (
     <>
       <AlertModal
-        onDismiss={() => console.log("Alert dismissed!")}
-        visible={true}
+        onDismiss={() => {
+          dispatch(triggerActionCompleted(false));
+          // do other stuff like redirect etc
+          navigation.navigate("Login");
+          return console.log("Alert dismissed!");
+        }}
+        visible={passwordResetEmailSent}
+        body="This represents the body of this modal and it can contain an awful
+        amount of text and handle it just fine!"
+        title="Success!"
       />
       <LoaderAbsolute message="Sending reset link" visible={false} />
       <SolidBackground />

@@ -8,20 +8,24 @@ import { SmallButton } from "../buttons/SmallButton";
 interface Props {
   onDismiss: () => void;
   visible: boolean;
+  body: string;
+  title: string;
 }
-export const AlertModal: React.FC<Props> = ({ onDismiss, visible }) => {
+export const AlertModal: React.FC<Props> = ({
+  onDismiss,
+  visible,
+  body,
+  title,
+}) => {
   if (!visible) return null;
   return (
     <BackgroundOverlay>
       <Card centeredContent>
         <Font variant="h4" color="hilite_pink">
-          Title
+          {title}
         </Font>
         <Spacer />
-        <Font align="center">
-          This represents the body of this modal and it can contain an awful
-          amount of text and handle it just fine!
-        </Font>
+        <Font align="center">{body}</Font>
         <Spacer h={30} />
         <SmallButton title="OK" onPress={onDismiss} />
       </Card>
