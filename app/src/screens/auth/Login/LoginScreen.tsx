@@ -17,8 +17,8 @@ import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { useDispatch } from "react-redux";
 import { LogUserIn } from "../../../../store/reducers/auth/auth.thunks";
-import { UserCredentials } from "../../../../src/models/UserCredentials";
 import { GenericError } from "../../../../src/components/errors/GenericError";
+import { UserCredentials } from "../../../../models/usercredentials.model";
 
 export const LoginScreen = () => {
   // console.log("Firebase", app);

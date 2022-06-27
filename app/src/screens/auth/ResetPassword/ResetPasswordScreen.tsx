@@ -11,10 +11,12 @@ import { StyledInput } from "../../../../src/components/forms/inputs/StyledInput
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import { EMAIL_REGEX } from "../../../../theme/globals";
 import { useNavigation } from "@react-navigation/native";
-import { ResetPasswordScreenNavType } from "app/src/navigator/types";
+import { ResetPasswordScreenNavType } from "../../../../src/navigator/types";
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
+import { useDispatch } from "react-redux";
+// import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
 
 export const ResetPasswordScreen = () => {
   const {
@@ -26,9 +28,10 @@ export const ResetPasswordScreen = () => {
   } = useForm();
 
   const navigation = useNavigation<ResetPasswordScreenNavType>();
+  const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // dispatch(logIn(data));
+    // dispatch(SendPasswordResetEmail(data));
     console.log("Data", data);
   };
 
@@ -57,12 +60,12 @@ export const ResetPasswordScreen = () => {
 
           <StyledInput
             clearField={clearField}
-            secureTextEntry={false}
             name="email"
             label="Email"
             control={control}
             rules={{ required: true, pattern: EMAIL_REGEX }}
             clearError={clearError}
+            type="regular"
           />
 
           <ClearButton

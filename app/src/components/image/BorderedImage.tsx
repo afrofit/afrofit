@@ -18,8 +18,8 @@ export const BorderedImage: React.FC<Props> = ({
   align = "center",
   size = "lg",
 }) => {
-  const [fadeDuration, setFadeDuration] = React.useState<number>(2000);
-  const [rotateDuration, setRotateDuration] = React.useState<number>(2100);
+  const [fadeDuration, setFadeDuration] = React.useState<number>(500);
+  const [rotateDuration, setRotateDuration] = React.useState<number>(1000);
 
   useFocusEffect(
     React.useCallback(() => {

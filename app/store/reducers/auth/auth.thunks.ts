@@ -1,6 +1,6 @@
 import {
   getAuth,
-  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { AppThunk } from "./../../store";
@@ -15,8 +15,38 @@ import { setCurrentUser } from "./auth.slice";
 import { UserModel } from "../../../models/user.model";
 import { UserCredentials } from "../../../models/usercredentials.model";
 
+const auth = getAuth();
+
+export function SendPasswordResetEmail(
+  userEmail: Omit<UserCredentials, "password">
+): AppThunk {
+  const { email } = userEmail;
+  return (dispatch) => {
+    dispatch(newRequest());
+    dispatch(hideGenericErrorDialog());
+    sendPasswordResetEmail(auth, email)
+      .then((userCredential) => {
+        console.log("Reset email has been sent!", userCredential);
+        dispatch(finishedRequest());
+      })
+      .catch((error) => {
+        dispatch(finishedRequest());
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found") {
+          dispatch(showGenericErrorDialog(true));
+          dispatch(setGenericErrorMessage("Error! User not found."));
+          return;
+        }
+
+        dispatch(showGenericErrorDialog(true));
+        dispatch(setGenericErrorMessage("Error! An unknown error occurred."));
+        return;
+      });
+  };
+}
+
 export function LogUserIn(userCredentials: UserCredentials): AppThunk {
-  const auth = getAuth();
   const { email, password } = userCredentials;
   return (dispatch) => {
     dispatch(newRequest());
