@@ -1,5 +1,6 @@
-import { COLORS, ColorType } from "./../../../theme/globals";
 import styled from "styled-components/native";
+import { Animated } from "react-native";
+import { COLORS, ColorType } from "./../../../theme/globals";
 
 interface Props {
   color?: ColorType;
@@ -53,14 +54,13 @@ export const ImageContainer = styled.View<Props>`
   overflow: hidden;
   width: 95%;
   height: 95%;
-  background-color: ${({ color }) =>
-    color ? COLORS[color] : COLORS["fuschia"]};
+  background-color: ${({ color }) => (color ? COLORS[color] : COLORS["dark"])};
   position: absolute;
   top: 2.5%;
   left: 2.5%;
 `;
 
-export const StyledImage = styled.Image`
+export const StyledImage = styled(Animated.Image)`
   height: 100%;
   width: 100%;
 `;
