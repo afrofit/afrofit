@@ -12,7 +12,7 @@ interface Props {
 export const Section: React.FC<Props> = ({ title, children }) => {
   return (
     <SectionWrapper>
-      <Font variant="smb" spacing={1} caps>
+      <Font variant="smb" spacing={1} caps color="lightblue">
         {title}
       </Font>
       <Spacer h={10} />

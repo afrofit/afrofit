@@ -7,6 +7,11 @@ import { Header } from "./components/Header";
 import { Section } from "../../../../src/components/section/Section";
 import { Font } from "../../../../src/components/font/Font";
 import { ListHorizontal } from "../../../../src/components/lists/ListHorizontal";
+import styled from "styled-components/native";
+import { Card } from "../../../../src/components/cards/Card";
+import { ActivityTodayList } from "./components/ActivityTodayList";
+import Spacer from "../../../../src/components/elements/Spacer";
+import { StoryList } from "./components/StoryList";
 
 export const HomeScreen = () => {
   // const { documents: stories } = useCollection("stories");
@@ -19,15 +24,12 @@ export const HomeScreen = () => {
       <SolidBackground />
       <Screen>
         <Header username="olasupoodebiyi" />
+        <Spacer h={10} />
         <Section title="Your activity today">
-          <Font variant="smb" spacing={1}>
-            <ListHorizontal />
-          </Font>
+          <ActivityTodayList />
         </Section>
         <Section title="Your stories">
-          <Font variant="smb" spacing={1}>
-            Content coming
-          </Font>
+          <StoryList />
         </Section>
       </Screen>
     </>

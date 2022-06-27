@@ -23,4 +23,6 @@ export const StyledFont = styled.Text<StyledFontProps>`
   text-transform: ${({ caps }) => (caps ? "uppercase" : "none")};
   text-align: ${({ align }) => (align ? align : "left")};
   letter-spacing: ${({ spacing }) => (spacing ? `${spacing}px` : 0)};
+  padding: 0;
+  margin: 0;
 `;

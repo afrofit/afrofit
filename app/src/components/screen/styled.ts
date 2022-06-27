@@ -21,6 +21,8 @@ export const StyledScreen = styled.View`
   padding-top: ${Platform.OS === "ios" ? "20px" : "40px"};
   background: transparent;
   position: relative;
+
+  width: 100%;
 `;
 
 export const StyledSafeArea = styled.SafeAreaView`

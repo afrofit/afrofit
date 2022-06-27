@@ -14,6 +14,7 @@ interface Props {
   centeredContent?: boolean;
   flexDirection?: "row" | "column";
   marginBottom?: number;
+  isSquare: boolean;
 }
 
 export const Card: React.FC<Props> = ({
@@ -26,6 +27,7 @@ export const Card: React.FC<Props> = ({
   centeredContent = false,
   flexDirection = "column",
   marginBottom = 0,
+  isSquare = false,
 }) => {
   return (
     <CardWrapper
@@ -37,6 +39,7 @@ export const Card: React.FC<Props> = ({
       centeredContent={centeredContent}
       flexDirection={flexDirection}
       marginBottom={marginBottom}
+      isSquare={isSquare}
     >
       {children}
     </CardWrapper>

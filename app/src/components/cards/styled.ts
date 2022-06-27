@@ -10,6 +10,7 @@ interface Props {
   centeredContent?: boolean;
   flexDirection?: "row" | "column";
   marginBottom?: number;
+  isSquare?: boolean;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -17,7 +18,7 @@ export const CardWrapper = styled.View<Props>`
   background-color: ${({ bgColor }) =>
     bgColor ? COLORS[bgColor] : COLORS.gray_300};
   min-height: 30px;
-  border-radius: ${CHAMFER};
+  border-radius: ${({ isSquare }) => (isSquare ? 0 : CHAMFER)};
   border-width: ${({ outlined }) => (outlined ? "1px" : 0)};
   border-color: ${({ bdColor }) =>
     bdColor ? COLORS[bdColor] : COLORS.lightblue};

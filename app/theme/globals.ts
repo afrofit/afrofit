@@ -35,8 +35,8 @@ export const FONT_VARIANTS = {
   sm1: { size: "20px", weight: regular },
   sm2: { size: "14px", weight: bold },
   smc: { size: "15px", weight: heavy },
-  num1: { size: "40px", weight: bold },
-  num2: { size: "35px", weight: bold },
+  num1: { size: "40px", weight: regular },
+  num2: { size: "35px", weight: regular },
 };
 
 export type ColorType = keyof typeof COLORS;
