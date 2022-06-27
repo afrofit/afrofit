@@ -16,7 +16,8 @@ import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 import { useDispatch } from "react-redux";
-// import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
+import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
+import { AlertModal } from "../../../../src/components/modals/AlertModal";
 
 export const ResetPasswordScreen = () => {
   const {
@@ -31,7 +32,7 @@ export const ResetPasswordScreen = () => {
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // dispatch(SendPasswordResetEmail(data));
+    dispatch(SendPasswordResetEmail(data));
     console.log("Data", data);
   };
 
@@ -45,6 +46,10 @@ export const ResetPasswordScreen = () => {
 
   return (
     <>
+      <AlertModal
+        onDismiss={() => console.log("Alert dismissed!")}
+        visible={true}
+      />
       <LoaderAbsolute message="Sending reset link" visible={false} />
       <SolidBackground />
       <Screen>

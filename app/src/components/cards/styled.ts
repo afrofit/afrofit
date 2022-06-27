@@ -7,6 +7,7 @@ interface Props {
   disablePadding?: boolean;
   outlined?: boolean;
   padding?: number;
+  centeredContent?: boolean;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -27,4 +28,8 @@ export const CardWrapper = styled.View<Props>`
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
+  justify-content: ${({ centeredContent }) =>
+    centeredContent ? "center" : "flex-start"};
+  align-items: ${({ centeredContent }) =>
+    centeredContent ? "center" : "flex-start"};
 `;

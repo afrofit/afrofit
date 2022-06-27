@@ -7,6 +7,7 @@ export interface UIState {
   isSubmitting: boolean;
   genericErrorMessage: string;
   loaderMessage: string;
+  actionCompleted: boolean;
 }
 
 const initialState: UIState = {
@@ -15,6 +16,7 @@ const initialState: UIState = {
   isSubmitting: false,
   genericErrorMessage: "",
   loaderMessage: "Loading...",
+  actionCompleted: false,
 };
 
 const uiSlice = createSlice({
@@ -48,6 +50,9 @@ const uiSlice = createSlice({
     setIsSubmitting(state, action: PayloadAction<boolean>) {
       state.isSubmitting = action.payload;
     },
+    triggerActionCompleted(state, action: PayloadAction<boolean>) {
+      state.actionCompleted = action.payload;
+    },
   },
 });
 
@@ -61,6 +66,7 @@ export const {
   unsetGenericErrorMessage,
   setLoaderMessage,
   unsetLoaderMessage,
+  triggerActionCompleted,
 } = uiSlice.actions;
 
 export const selectUiIsLoading = (state: RootState) =>
@@ -75,5 +81,8 @@ export const selectGenericErrorMessage = (state: RootState) =>
 export const selectLoaderMessage = (state: RootState) => state.ui.loaderMessage;
 
 export const selectIsSubmitting = (state: RootState) => state.ui.isSubmitting;
+
+export const selectedActionCompleted = (state: RootState) =>
+  state.ui.actionCompleted;
 
 export default uiSlice.reducer;

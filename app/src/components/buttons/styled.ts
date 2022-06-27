@@ -25,7 +25,7 @@ export const StyledClearButton = styled.Pressable<Props>`
 
 export const StyledSmallButton = styled.Pressable<Props>`
   width: 160px;
-  height: 65px;
+  height: 50px;
   border-radius: ${CHAMFER_BIG};
   overflow: hidden;
   border-width: ${({ variant }) =>

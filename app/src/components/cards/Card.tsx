@@ -11,6 +11,7 @@ interface Props {
   bdColor?: ColorType;
   outlined?: boolean;
   padding?: number;
+  centeredContent?: boolean;
 }
 
 export const Card: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const Card: React.FC<Props> = ({
   bdColor,
   outlined = true,
   padding,
+  centeredContent = false,
 }) => {
   return (
     <CardWrapper
@@ -28,6 +30,7 @@ export const Card: React.FC<Props> = ({
       bdColor={bdColor}
       outlined={outlined}
       disablePadding={disablePadding}
+      centeredContent={centeredContent}
     >
       {children}
     </CardWrapper>
