@@ -9,11 +9,11 @@ export const useAuth = () => {
     const unsubFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        unsubFromAuthStateChanged();
       } else {
-        setUser(undefined);
+        setUser(null);
       }
     });
+    return unsubFromAuthStateChanged;
   }, []);
 
   return { user };
