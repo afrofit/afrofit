@@ -3,7 +3,7 @@ import { UserModel } from "../../../models/user.model";
 import { RootState } from "../../store";
 
 export interface AuthState {
-  currentUser: UserModel | null;
+  currentUser: any;
 }
 
 const initialState: AuthState = {

@@ -29,4 +29,6 @@ export const ListWrapper = styled.ScrollView`
   overflow: hidden;
   border-width: 1px;
   border-color: ${COLORS.hilite_purpink};
+  background-color: red;
+  /* z-index: 20; */
 `;

@@ -18,7 +18,8 @@ import {
 
 export const Index = () => {
   const dispatch = useDispatch();
-  // const { user } = useAuth();
+  const { user } = useAuth();
+  // const user = false;
 
   const errorMessage = useSelector(selectGenericErrorMessage);
   const showError = useSelector(selectShowGenericErrorDialog);
@@ -30,22 +31,22 @@ export const Index = () => {
     console.log("CurrentUser", currentUser);
   }, [currentUser]);
 
-  // const handleHideError = () => {
-  //   dispatch(hideGenericErrorDialog());
-  //   return dispatch(setGenericErrorMessage(""));
-  // };
+  const handleHideError = () => {
+    dispatch(hideGenericErrorDialog());
+    return dispatch(setGenericErrorMessage(""));
+  };
 
   return (
     <>
-      {/* <GenericError
+      <GenericError
         visible={showError}
         message={errorMessage}
         onDismissWarning={handleHideError}
       />
       <LoaderAbsolute message={loaderMessage} visible={showLoader} />
 
-      {user ? <GameNavigator /> : <AuthNavigator />} */}
-      <GameNavigator />
+      {user ? <GameNavigator /> : <AuthNavigator />}
+      {/* <GameNavigator /> */}
     </>
   );
 };

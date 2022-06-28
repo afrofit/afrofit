@@ -1,22 +1,20 @@
-// import * as React from "react";
-// import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import * as React from "react";
+import { auth } from "../../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
-// const auth = getAuth();
+export const useAuth = () => {
+  const [user, setUser] = React.useState<any>();
 
-// export const useAuth = () => {
-//   const [user, setUser] = React.useState<User>();
+  React.useEffect(() => {
+    const unsubFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        unsubFromAuthStateChanged();
+      } else {
+        setUser(undefined);
+      }
+    });
+  }, []);
 
-//   React.useEffect(() => {
-//     const unsubFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         setUser(user);
-//       } else {
-//         setUser(undefined);
-//       }
-//     });
-
-//     return unsubFromAuthStateChanged;
-//   }, []);
-
-//   return { user };
-// };
+  return { user };
+};

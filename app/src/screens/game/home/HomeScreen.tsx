@@ -1,12 +1,12 @@
 import { Screen } from "../../../../src/components/screen/Screen";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import * as React from "react";
-import { useCollection } from "../../../../src/hooks/useCollection";
+// import { useCollection } from "../../../../src/hooks/useCollection";
 
 import { Header } from "./components/Header";
 import { Section } from "../../../../src/components/section/Section";
 import { Font } from "../../../../src/components/font/Font";
-import { ListHorizontal } from "../../../../src/components/lists/ListHorizontal";
+// import { ListHorizontal } from "../../../../src/components/lists/ListHorizontal";
 import styled from "styled-components/native";
 import { Card } from "../../../../src/components/cards/Card";
 import { ActivityTodayList } from "./components/ActivityTodayList";

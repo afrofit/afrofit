@@ -16,7 +16,7 @@ import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolut
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { useDispatch } from "react-redux";
-// import { LogUserIn } from "../../../../store/reducers/auth/auth.thunks";
+import { LogUserIn } from "../../../../store/reducers/auth/auth.thunks";
 import { GenericError } from "../../../../src/components/errors/GenericError";
 import { UserCredentials } from "../../../../models/usercredentials.model";
 
@@ -35,7 +35,7 @@ export const LoginScreen = () => {
   } = useForm();
 
   const onSubmit: SubmitHandler<UserCredentials> = (data) => {
-    // dispatch(LogUserIn(data));
+    dispatch(LogUserIn(data));
     reset();
     console.log("Data", data);
   };
