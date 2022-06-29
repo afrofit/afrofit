@@ -56,6 +56,7 @@ export const StoryList = () => {
             key={data.id}
             outlined={false}
             bgColor={data.color as ColorType}
+            onPress={() => console.log("This card pressed!" + data.id)}
           >
             <CardContentWrapper>
               <Placer left={-5}>
@@ -73,16 +74,6 @@ export const StoryList = () => {
                 {data.title}
               </Font>
             </CardContentWrapper>
-            {/* <ItemWrapper last={index + 1 === DATA.length}>
-              <NumWrapper>
-               
-              </NumWrapper>
-              <LabelWrapper>
-                <Font variant="p" color="lightblue">
-                  {data.title}
-                </Font>
-              </LabelWrapper>
-            </ItemWrapper> */}
           </Card>
         );
       })}

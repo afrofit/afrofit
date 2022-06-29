@@ -11,15 +11,17 @@ interface Props {
   color?: ColorType;
   align?: "left" | "right" | "center";
   size?: "lg" | "md" | "sm" | "xs";
+  imageUrl?: string;
 }
 
 export const BorderedImage: React.FC<Props> = ({
   color,
   align = "center",
   size = "lg",
+  imageUrl,
 }) => {
-  const [fadeDuration, setFadeDuration] = React.useState<number>(500);
-  const [rotateDuration, setRotateDuration] = React.useState<number>(1000);
+  const fadeDuration = 500;
+  const rotateDuration = 1000;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -52,7 +54,12 @@ export const BorderedImage: React.FC<Props> = ({
           <Inset>
             <ImageContainer>
               <StyledImage
-                source={require("../../../assets/images/art/sample_image.png")}
+                // source={require("../../../assets/images/art/sample_image.png")}
+                source={
+                  imageUrl
+                    ? { uri: imageUrl }
+                    : require("../../../assets/images/art/sample_image.png")
+                }
                 style={{
                   opacity: imageOpacity,
                   transform: [

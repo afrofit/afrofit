@@ -38,3 +38,5 @@ export const CardWrapper = styled.View<Props>`
     centeredContent ? "center" : "flex-start"};
   flex-direction: ${({ flexDirection }) => flexDirection};
 `;
+
+export const Tappable = styled.Pressable``;

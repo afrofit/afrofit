@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { ColorType } from "../../../theme/globals";
 
-import { CardWrapper } from "./styled";
+import { CardWrapper, Tappable } from "./styled";
 
 interface Props {
   children: any;
@@ -14,7 +14,8 @@ interface Props {
   centeredContent?: boolean;
   flexDirection?: "row" | "column";
   marginBottom?: number;
-  isSquare: boolean;
+  isSquare?: boolean;
+  onPress?: () => void;
 }
 
 export const Card: React.FC<Props> = ({
@@ -28,20 +29,23 @@ export const Card: React.FC<Props> = ({
   flexDirection = "column",
   marginBottom = 0,
   isSquare = false,
+  onPress,
 }) => {
   return (
-    <CardWrapper
-      padding={padding}
-      bgColor={bgColor}
-      bdColor={bdColor}
-      outlined={outlined}
-      disablePadding={disablePadding}
-      centeredContent={centeredContent}
-      flexDirection={flexDirection}
-      marginBottom={marginBottom}
-      isSquare={isSquare}
-    >
-      {children}
-    </CardWrapper>
+    <Tappable onPress={onPress}>
+      <CardWrapper
+        padding={padding}
+        bgColor={bgColor}
+        bdColor={bdColor}
+        outlined={outlined}
+        disablePadding={disablePadding}
+        centeredContent={centeredContent}
+        flexDirection={flexDirection}
+        marginBottom={marginBottom}
+        isSquare={isSquare}
+      >
+        {children}
+      </CardWrapper>
+    </Tappable>
   );
 };
