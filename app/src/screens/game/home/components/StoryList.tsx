@@ -62,9 +62,6 @@ export const StoryList: React.FC<Props> = ({ stories }) => {
         stories.length &&
         stories
           .sort((a, b) => (a.order > b.order ? 1 : -1))
-          .map((story) => {
-            return { ...story, value: "Fetching" };
-          })
           .map((story, index: number) => {
             return (
               <Card
@@ -87,7 +84,7 @@ export const StoryList: React.FC<Props> = ({ stories }) => {
                   </Placer>
                   <TagWrapper>
                     <Font variant="sm2" color="lightblue" caps>
-                      {story.value}
+                      {story.difficulty}
                     </Font>
                   </TagWrapper>
                   <Spacer h={10} />

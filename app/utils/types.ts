@@ -7,4 +7,5 @@ export type StoryType = {
   title: string;
   id: string;
   thumbnail: string;
+  difficulty: string;
 };
