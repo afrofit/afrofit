@@ -8,36 +8,16 @@ import {
   triggerActionCompleted,
 } from "../ui/ui.slice";
 import { setCurrentUser, setCurrentUserProfile } from "./auth.slice";
-import { UserModel } from "../../../models/user.model";
 import { UserCredentials } from "../../../models/usercredentials.model";
 import { auth, db, storage } from "../../../config/firebase";
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  User,
 } from "firebase/auth";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import { UserProfileModel } from "../../../models/userprofile.model";
-
-export function GetUserProfilePhoto(userId: string): AppThunk {
-  return (dispatch) => {
-    dispatch(newRequest());
-    dispatch(hideGenericErrorDialog());
-
-    const imageRef = ref(storage, `profile_pics/${userId}.png`);
-
-    getDownloadURL(imageRef)
-      .then((url) => url)
-      .catch((error) => console.error(error));
-  };
-}
 
 export function SendPasswordResetEmail(
   userEmail: Omit<UserCredentials, "password">
@@ -78,10 +58,10 @@ export function LogUserIn(userCredentials: UserCredentials): AppThunk {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential: any) => {
-        // console.log("UserCredential", userCredential);
-        // let loggedInUser: UserModel;
         const { user } = userCredential;
         const { email, uid } = user;
+        // Here just go and fetch current user profile and set it on state
+
         const join_date = new Date().toUTCString();
         const loggedInUser = { ...(email && { email }), id: uid, join_date };
         dispatch(setCurrentUser(loggedInUser));
@@ -110,17 +90,17 @@ export function LogUserIn(userCredentials: UserCredentials): AppThunk {
   };
 }
 
-export function FetchUserCurrentUserProfle(currentUser: any): AppThunk {
+export function FetchUserCurrentUserProfle(currentUserId: string): AppThunk {
   return (dispatch) => {
     dispatch(newRequest());
     dispatch(hideGenericErrorDialog());
 
-    const docRef = doc(db, "user-profiles", currentUser.id);
+    const docRef = doc(db, "user-profiles", currentUserId);
 
     getDoc(docRef)
       .then((docSnapshot) => {
         if (docSnapshot.exists()) {
-          const imageRef = ref(storage, `profile_pics/${currentUser.id}.png`);
+          const imageRef = ref(storage, `profile_pics/${currentUserId}.png`);
           getDownloadURL(imageRef)
             .then((url) => {
               const {
@@ -154,6 +134,7 @@ export function FetchUserCurrentUserProfle(currentUser: any): AppThunk {
               );
             });
         } else {
+          dispatch(finishedRequest());
           throw new Error("Error fetching your profile!");
         }
       })

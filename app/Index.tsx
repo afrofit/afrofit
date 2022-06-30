@@ -5,7 +5,7 @@ import { LoaderAbsolute } from "./src/components/loaders/LoaderAbsolute";
 import { useAuth } from "./src/hooks/useAuth";
 import GameNavigator from "./src/navigator/AppNavigator";
 import AuthNavigator from "./src/navigator/AuthNavigator";
-import { selectCurrentUser } from "./store/reducers/auth/auth.slice";
+import { selectCurrentUserProfile } from "./store/reducers/auth/auth.slice";
 
 import {
   hideGenericErrorDialog,
@@ -18,18 +18,17 @@ import {
 
 export const Index = () => {
   const dispatch = useDispatch();
-  const { user } = useAuth();
-  // const user = false;
+  const { checkUserAuth } = useAuth();
 
   const errorMessage = useSelector(selectGenericErrorMessage);
   const showError = useSelector(selectShowGenericErrorDialog);
-  const currentUser = useSelector(selectCurrentUser);
+  const currentUserProfile = useSelector(selectCurrentUserProfile);
   const loaderMessage = useSelector(selectLoaderMessage);
   const showLoader = useSelector(selectUiIsLoading);
 
   React.useEffect(() => {
-    console.log("CurrentUser", currentUser);
-  }, [currentUser]);
+    checkUserAuth();
+  }, []);
 
   const handleHideError = () => {
     dispatch(hideGenericErrorDialog());
@@ -45,8 +44,7 @@ export const Index = () => {
       />
       <LoaderAbsolute message={loaderMessage} visible={showLoader} />
 
-      {user ? <GameNavigator /> : <AuthNavigator />}
-      {/* <GameNavigator /> */}
+      {currentUserProfile ? <GameNavigator /> : <AuthNavigator />}
     </>
   );
 };

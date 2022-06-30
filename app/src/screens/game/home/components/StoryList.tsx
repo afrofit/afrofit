@@ -17,6 +17,7 @@ import {
 } from "./StoryList.styled";
 import Spacer from "../../../../../src/components/elements/Spacer";
 import { Placer } from "../../../../../src/components/elements/Placer";
+import { StoryType } from "app/utils/types";
 
 const DATA = [
   {
@@ -45,38 +46,54 @@ const DATA = [
   },
 ];
 
-export const StoryList = () => {
+interface Props {
+  stories: StoryType[] | null;
+}
+
+export const StoryList: React.FC<Props> = ({ stories }) => {
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
-      {DATA.map((data, index: number) => {
-        return (
-          <Card
-            marginBottom={10}
-            disablePadding
-            key={data.id}
-            outlined={false}
-            bgColor={data.color as ColorType}
-            onPress={() => console.log("This card pressed!" + data.id)}
-          >
-            <CardContentWrapper>
-              <Placer left={-5}>
-                <CardImage
-                  source={require("../../../../../assets/images/art/sample.png")}
-                />
-              </Placer>
-              <TagWrapper>
-                <Font variant="sm2" color="lightblue" caps>
-                  {data.value}
-                </Font>
-              </TagWrapper>
-              <Spacer h={10} />
-              <Font variant="h3" color="dark">
-                {data.title}
-              </Font>
-            </CardContentWrapper>
-          </Card>
-        );
-      })}
+      {!stories && (
+        <Font variant={"sm2"} color="hilite_purpink">
+          Oops! No stories for you to play right now.
+        </Font>
+      )}
+      {stories &&
+        stories.length &&
+        stories
+          .sort((a, b) => (a.order > b.order ? 1 : -1))
+          .map((story) => {
+            return { ...story, value: "Fetching" };
+          })
+          .map((story, index: number) => {
+            return (
+              <Card
+                marginBottom={10}
+                disablePadding
+                key={story.id}
+                outlined={false}
+                bgColor={story.color as ColorType}
+                onPress={() => console.log("This card pressed!" + story.id)}
+              >
+                <CardContentWrapper>
+                  <Placer left={-5}>
+                    <CardImage
+                      source={require("../../../../../assets/images/art/sample.png")}
+                    />
+                  </Placer>
+                  <TagWrapper>
+                    <Font variant="sm2" color="lightblue" caps>
+                      {story.value}
+                    </Font>
+                  </TagWrapper>
+                  <Spacer h={10} />
+                  <Font variant="h3" color="dark">
+                    {story.title}
+                  </Font>
+                </CardContentWrapper>
+              </Card>
+            );
+          })}
     </StoryListWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { ColorType, FontVariantsType } from "afrofitapp/theme/globals";
+import { ColorType, FontVariantsType } from "../../../theme/globals";
 import { StyledFont } from "./styled";
 
 interface Props {

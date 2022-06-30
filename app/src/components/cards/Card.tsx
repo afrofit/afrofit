@@ -16,6 +16,8 @@ interface Props {
   marginBottom?: number;
   isSquare?: boolean;
   onPress?: () => void;
+  first?: boolean;
+  last?: boolean;
 }
 
 export const Card: React.FC<Props> = ({
@@ -29,6 +31,8 @@ export const Card: React.FC<Props> = ({
   flexDirection = "column",
   marginBottom = 0,
   isSquare = false,
+  first,
+  last,
   onPress,
 }) => {
   return (
@@ -43,6 +47,8 @@ export const Card: React.FC<Props> = ({
         flexDirection={flexDirection}
         marginBottom={marginBottom}
         isSquare={isSquare}
+        first={first}
+        last={last}
       >
         {children}
       </CardWrapper>

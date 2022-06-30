@@ -11,6 +11,8 @@ interface Props {
   flexDirection?: "row" | "column";
   marginBottom?: number;
   isSquare?: boolean;
+  first?: boolean;
+  last?: boolean;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -18,7 +20,38 @@ export const CardWrapper = styled.View<Props>`
   background-color: ${({ bgColor }) =>
     bgColor ? COLORS[bgColor] : COLORS.gray_300};
   min-height: 30px;
-  border-radius: ${({ isSquare }) => (isSquare ? 0 : CHAMFER)};
+  border-top-left-radius: ${({ isSquare, first, last }) =>
+    isSquare && first
+      ? CHAMFER
+      : isSquare && last
+      ? 0
+      : isSquare && !last && !first
+      ? 0
+      : CHAMFER};
+  border-top-right-radius: ${({ isSquare, first, last }) =>
+    isSquare && first
+      ? CHAMFER
+      : isSquare && last
+      ? 0
+      : isSquare && !last && !first
+      ? 0
+      : CHAMFER};
+  border-bottom-left-radius: ${({ isSquare, first, last }) =>
+    isSquare && first
+      ? 0
+      : isSquare && last
+      ? CHAMFER
+      : isSquare && !last && !first
+      ? 0
+      : CHAMFER};
+  border-bottom-right-radius: ${({ isSquare, first, last }) =>
+    isSquare && first
+      ? 0
+      : isSquare && last
+      ? CHAMFER
+      : isSquare && !last && !first
+      ? 0
+      : CHAMFER};
   border-width: ${({ outlined }) => (outlined ? "1px" : 0)};
   border-color: ${({ bdColor }) =>
     bdColor ? COLORS[bdColor] : COLORS.lightblue};

@@ -1,6 +1,4 @@
-import { ColorType } from "../../../../../theme/globals";
 import * as React from "react";
-import { ScrollView } from "react-native-gesture-handler";
 import { Card } from "../../../../../src/components/cards/Card";
 import { Font } from "../../../../../src/components/font/Font";
 import {
@@ -9,47 +7,44 @@ import {
   ListWrapper,
   NumWrapper,
 } from "./ActivityTodayList.styled";
+import { formattedStat } from "../../../../../utils/formatters";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "calories burned",
-    value: "2.1K",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "body movements",
-    value: "100",
-  },
-];
+type TodaysActivityType = { calories_burned: number; body_movements: number };
+interface Props {
+  todaysActivity: TodaysActivityType;
+}
 
-export const ActivityTodayList = () => {
+export const ActivityTodayList: React.FC<Props> = ({ todaysActivity }) => {
   return (
     <ListWrapper>
-      {DATA.map((data, index: number) => {
-        return (
-          <Card
-            marginBottom={0.1}
-            disablePadding
-            key={data.id}
-            outlined={false}
-            isSquare
-          >
-            <ItemWrapper last={index + 1 === DATA.length}>
-              <NumWrapper>
-                <Font variant="h3" color="hilite_purpink" caps>
-                  {data.value}
-                </Font>
-              </NumWrapper>
-              <LabelWrapper>
-                <Font variant="p" color="lightblue">
-                  {data.title}
-                </Font>
-              </LabelWrapper>
-            </ItemWrapper>
-          </Card>
-        );
-      })}
+      <Card marginBottom={0.1} disablePadding outlined={false} isSquare first>
+        <ItemWrapper first={true} last={false}>
+          <NumWrapper>
+            <Font variant="h3" color="hilite_purpink" caps>
+              {formattedStat(todaysActivity.calories_burned)}
+            </Font>
+          </NumWrapper>
+          <LabelWrapper>
+            <Font variant="p" color="lightblue">
+              calories burned
+            </Font>
+          </LabelWrapper>
+        </ItemWrapper>
+      </Card>
+      <Card marginBottom={0.1} disablePadding outlined={false} isSquare last>
+        <ItemWrapper last={true}>
+          <NumWrapper>
+            <Font variant="h3" color="hilite_purpink" caps>
+              {formattedStat(todaysActivity.body_movements)}
+            </Font>
+          </NumWrapper>
+          <LabelWrapper>
+            <Font variant="p" color="lightblue">
+              body movements
+            </Font>
+          </LabelWrapper>
+        </ItemWrapper>
+      </Card>
     </ListWrapper>
   );
 };

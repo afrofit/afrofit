@@ -9,38 +9,39 @@ import { Section } from "../../../../src/components/section/Section";
 import { ActivityTodayList } from "./components/ActivityTodayList";
 import Spacer from "../../../../src/components/elements/Spacer";
 import { StoryList } from "./components/StoryList";
-import { useDocument } from "../../../../src/hooks/useDocument";
 import { useSelector } from "react-redux";
-import {
-  selectCurrentUser,
-  selectCurrentUserProfile,
-  setCurrentUserProfile,
-} from "../../../../store/reducers/auth/auth.slice";
-import { doc, getDoc } from "firebase/firestore";
-import { db, storage } from "../../../../config/firebase";
+import { selectCurrentUserProfile } from "../../../../store/reducers/auth/auth.slice";
+
 import { useDispatch } from "react-redux";
-import { UserProfileModel } from "app/models/userprofile.model";
-import { getDownloadURL, ref } from "firebase/storage";
-import { FetchUserCurrentUserProfle } from "../../../../store/reducers/auth/auth.thunks";
+
+import { selectTodaysActivity } from "../../../../store/reducers/activity/activity.slice";
+import { FetchUserActivityToday } from "../../../../store/reducers/activity/activity.thunks";
 
 export const HomeScreen = () => {
-  const currentUser = useSelector(selectCurrentUser);
   const currentUserProfile = useSelector(selectCurrentUserProfile);
+  const todaysActivity = useSelector(selectTodaysActivity);
   const dispatch = useDispatch();
 
   const [error, setError] = React.useState<string | null>(null);
 
   const { documents: stories } = useCollection("stories");
 
+  const storied = null;
+  const todaysActivityd = { calories_burned: 10, body_movements: 10 };
+
   React.useEffect(() => {
-    currentUser &&
-      currentUser.id &&
-      dispatch(FetchUserCurrentUserProfle(currentUser));
-  }, [currentUser]);
+    if (currentUserProfile) {
+      dispatch(FetchUserActivityToday(currentUserProfile?.user_id));
+    }
+  }, []);
 
   React.useEffect(() => {
     console.log("currentUserProfile", currentUserProfile);
   }, [currentUserProfile]);
+
+  React.useEffect(() => {
+    console.log("stories", stories);
+  }, [stories]);
 
   return (
     <>
@@ -52,10 +53,10 @@ export const HomeScreen = () => {
         />
         <Spacer h={10} />
         <Section title="Your activity today">
-          <ActivityTodayList />
+          <ActivityTodayList todaysActivity={todaysActivity} />
         </Section>
         <Section title="Your stories">
-          <StoryList />
+          <StoryList stories={stories} />
         </Section>
       </Screen>
     </>

@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 interface Props {
   last?: boolean;
+  first?: boolean;
 }
 export const ItemWrapper = styled.View<Props>`
   /* margin-bottom: 20px; */
@@ -12,6 +13,8 @@ export const ItemWrapper = styled.View<Props>`
   padding-bottom: 10px;
   border-bottom-width: ${({ last }) => (last ? 0 : "1px")};
   border-bottom-color: ${COLORS.hilite_purpink};
+  border-top-left-radius: ${CHAMFER};
+  border-top-right-radius: ${CHAMFER};
 `;
 
 export const NumWrapper = styled.View`
