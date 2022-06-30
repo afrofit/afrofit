@@ -6,4 +6,5 @@ export type StoryType = {
   story_success_text: string;
   title: string;
   id: string;
+  thumbnail: string;
 };

@@ -1,6 +1,6 @@
+import * as React from "react";
 import { db } from "../../config/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import * as React from "react";
 
 export const useCollection = (c: string) => {
   const [documents, setDocuments] = React.useState<any[] | null>(null);

@@ -78,7 +78,11 @@ export const StoryList: React.FC<Props> = ({ stories }) => {
                 <CardContentWrapper>
                   <Placer left={-5}>
                     <CardImage
-                      source={require("../../../../../assets/images/art/sample.png")}
+                      source={
+                        story.thumbnail
+                          ? { uri: story.thumbnail }
+                          : require("../../../../../assets/images/art/sample.png")
+                      }
                     />
                   </Placer>
                   <TagWrapper>

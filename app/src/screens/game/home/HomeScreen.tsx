@@ -26,9 +26,6 @@ export const HomeScreen = () => {
 
   const { documents: stories } = useCollection("stories");
 
-  const storied = null;
-  const todaysActivityd = { calories_burned: 10, body_movements: 10 };
-
   React.useEffect(() => {
     if (currentUserProfile) {
       dispatch(FetchUserActivityToday(currentUserProfile?.user_id));
