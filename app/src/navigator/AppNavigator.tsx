@@ -19,13 +19,14 @@ const ICON_SIZE = 30;
 
 export type GameStackParamList = {
   GameRoot: undefined;
-  StoryScreen: undefined;
-  StoryIntroScreen: undefined;
-  ChapterIntroScreen: undefined;
+  StoryScreen: { storyId: string };
+  StoryIntroScreen: { storyId: string };
+  ChapterIntroScreen: { chapterId: string };
   DanceScreen: undefined;
   StoryFinish: undefined;
   ChapterFail: undefined;
   ChapterPass: undefined;
+  Home: undefined;
 };
 
 export type GameScreensStackParamList = {

@@ -19,38 +19,15 @@ import Spacer from "../../../../../src/components/elements/Spacer";
 import { Placer } from "../../../../../src/components/elements/Placer";
 import { StoryType } from "app/utils/types";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Afia's Wedding",
-    value: "98% complete",
-    color: "hilite_orange",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Frank's Return",
-    value: "96% complete",
-    color: "purple_100",
-  },
-  {
-    id: "3ac68afc-c6as-48d3-a4f8-fbd91aa97f63",
-    title: "Ellie's Chance",
-    value: "Not started",
-    color: "hilite_purpink",
-  },
-  {
-    id: "3ac68afc-c6as-48d3-ass8-fbd91aa97f63",
-    title: "Golden's Way",
-    value: "Not started",
-    color: "hilite_pink",
-  },
-];
-
 interface Props {
   stories: StoryType[] | null;
+  handleNavigateToStory: (storyId: string) => void;
 }
 
-export const StoryList: React.FC<Props> = ({ stories }) => {
+export const StoryList: React.FC<Props> = ({
+  stories,
+  handleNavigateToStory,
+}) => {
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
       {!stories && (
@@ -70,7 +47,7 @@ export const StoryList: React.FC<Props> = ({ stories }) => {
                 key={story.id}
                 outlined={false}
                 bgColor={story.color as ColorType}
-                onPress={() => console.log("This card pressed!" + story.id)}
+                onPress={() => handleNavigateToStory(story.id)}
               >
                 <CardContentWrapper>
                   <Placer left={-5}>

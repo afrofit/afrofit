@@ -16,13 +16,15 @@ import { useDispatch } from "react-redux";
 
 import { selectTodaysActivity } from "../../../../store/reducers/activity/activity.slice";
 import { FetchUserActivityToday } from "../../../../store/reducers/activity/activity.thunks";
+import { useNavigation } from "@react-navigation/native";
+import { HomeScreenNavType } from "../../../../src/navigator/types";
 
 export const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavType>();
+
   const currentUserProfile = useSelector(selectCurrentUserProfile);
   const todaysActivity = useSelector(selectTodaysActivity);
   const dispatch = useDispatch();
-
-  const [error, setError] = React.useState<string | null>(null);
 
   const { documents: stories } = useCollection("stories");
 
@@ -32,13 +34,17 @@ export const HomeScreen = () => {
     }
   }, []);
 
-  React.useEffect(() => {
-    console.log("currentUserProfile", currentUserProfile);
-  }, [currentUserProfile]);
+  // React.useEffect(() => {
+  //   console.log("currentUserProfile", currentUserProfile);
+  // }, [currentUserProfile]);
 
-  React.useEffect(() => {
-    console.log("stories", stories);
-  }, [stories]);
+  // React.useEffect(() => {
+  //   console.log("stories", stories);
+  // }, [stories]);
+
+  const handleNavigateToStory = (storyId: string) => {
+    navigation.navigate("StoryIntroScreen", { storyId });
+  };
 
   return (
     <>
@@ -53,7 +59,10 @@ export const HomeScreen = () => {
           <ActivityTodayList todaysActivity={todaysActivity} />
         </Section>
         <Section title="Your stories">
-          <StoryList stories={stories} />
+          <StoryList
+            stories={stories}
+            handleNavigateToStory={handleNavigateToStory}
+          />
         </Section>
       </Screen>
     </>

@@ -73,3 +73,37 @@ export const CardWrapper = styled.View<Props>`
 `;
 
 export const Tappable = styled.Pressable``;
+
+/* VertiCard */
+export const VertiCardWrapper = styled.View`
+  width: 100%;
+  background-color: ${COLORS.gray_300};
+  height: 110px;
+  border-radius: ${CHAMFER};
+  border-width: 1px;
+  border-color: ${COLORS.lightblue};
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex-direction: row;
+  overflow: hidden;
+`;
+
+interface VertiCardChildProps {
+  middle?: boolean;
+  first?: boolean;
+  last?: boolean;
+}
+
+export const VertiCardChild = styled.View<VertiCardChildProps>`
+  flex: 1;
+  border-color: ${COLORS.lightblue};
+  border-left-width: ${({ middle }) => (middle ? "1px" : 0)};
+  border-right-width: ${({ middle }) => (middle ? "1px" : 0)};
+  border-bottom-left-radius: ${({ first }) => (first ? CHAMFER : 0)};
+  border-bottom-right-radius: ${({ last }) => (last ? CHAMFER : 0)};
+  border-top-left-radius: ${({ first }) => (first ? CHAMFER : 0)};
+  border-top-right-radius: ${({ last }) => (last ? CHAMFER : 0)};
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+`;
