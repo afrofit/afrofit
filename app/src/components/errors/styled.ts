@@ -13,6 +13,7 @@ export const EndIconContainer = styled.Pressable`
   width: 30px;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
 `;
 
 export const StartIconContainer = styled.View`
@@ -20,10 +21,12 @@ export const StartIconContainer = styled.View`
   width: 30px;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 `;
 
 export const GenericErrorContentsWrapper = styled.View`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  width: 100%;
 `;

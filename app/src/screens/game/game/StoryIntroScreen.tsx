@@ -37,6 +37,10 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
       dispatch(FetchUserStoryActivity(storyId, currentUserProfile.user_id));
   }, []);
 
+  React.useEffect(() => {
+    console.log("currentStory", currentStory);
+  }, [currentStory]);
+
   const handleGoBack = () => {
     dispatch(unSetCurrentStory());
     navigation.navigate("Home");
@@ -72,7 +76,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
                 }
               />
             </VideoContainer>
-            <Font align="center" variant="p" color="light">
+            <Font align="center" variant="p" color="lightblue">
               {currentStory.description}
             </Font>
             <VertiCard

@@ -29,7 +29,7 @@ export const IconWrapper = styled.View`
   width: 50%;
   /* align-items: flex-end; */
   /* margin-right: 20px; */
-  padding: 10px;
+  padding: 5px;
 `;
 
 export const LabelWrapper = styled.View`

@@ -87,6 +87,7 @@ export function FetchUserStoryActivity(
                 docSnapshot.forEach((doc: any) => {
                   chaptersArray.push({ ...doc.data(), id: doc.id });
                 });
+                console.log("chaptersArray", chaptersArray);
 
                 const totalTargetSteps = chaptersArray
                   .map((chapter) => {
@@ -103,12 +104,19 @@ export function FetchUserStoryActivity(
                   userSteps,
                 };
 
+                console.log("finalCurrentStoryData", finalCurrentStoryData);
+
                 dispatch(setCurrentStory(finalCurrentStoryData));
               }
 
               return dispatch(finishedRequest());
             })
             .catch((error) => {
+              console.error(error);
+              dispatch(showGenericErrorDialog(true));
+              dispatch(
+                setGenericErrorMessage("Error fetching the current story.")
+              );
               return dispatch(finishedRequest());
             });
         }
@@ -117,9 +125,7 @@ export function FetchUserStoryActivity(
         dispatch(finishedRequest());
         console.error(error);
         dispatch(showGenericErrorDialog(true));
-        dispatch(
-          setGenericErrorMessage("There was an error fetching current story.")
-        );
+        dispatch(setGenericErrorMessage("Wrror fetching current story."));
       });
   };
 }
@@ -223,6 +229,7 @@ export function FetchStoryChapters(
   };
 }
 
+/*
 export function FetchUserChapterActivity(currentUserId: string): AppThunk {
   return (dispatch) => {
     dispatch(newRequest());
@@ -243,3 +250,4 @@ export function FetchUserChapterActivity(currentUserId: string): AppThunk {
     }
   };
 }
+*/

@@ -42,7 +42,7 @@ export const HomeScreen = () => {
   //   console.log("stories", stories);
   // }, [stories]);
 
-  const handleNavigateToStory = (storyId: string) => {
+  const handleNavigateToStoryIntro = (storyId: string) => {
     navigation.navigate("StoryIntroScreen", { storyId });
   };
 
@@ -61,7 +61,7 @@ export const HomeScreen = () => {
         <Section title="Your stories">
           <StoryList
             stories={stories}
-            handleNavigateToStory={handleNavigateToStory}
+            handleNavigateToStory={handleNavigateToStoryIntro}
           />
         </Section>
       </Screen>
