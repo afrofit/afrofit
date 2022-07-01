@@ -12,9 +12,6 @@ interface Props {
   bodyMoves: number;
 }
 export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
-  React.useEffect(() => {
-    console.log("BodyMoves", bodyMoves);
-  }, [bodyMoves]);
   return (
     <VertiCardWrapper>
       <VertiCardChild first>

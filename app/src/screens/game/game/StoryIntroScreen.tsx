@@ -42,9 +42,9 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
     navigation.navigate("Home");
   };
 
-  React.useEffect(() => {
-    console.log("CurrentStory", currentStory);
-  }, [currentStory]);
+  const handleStartStory = () => {
+    navigation.navigate("StoryScreen", { storyId });
+  };
 
   return (
     <>
@@ -77,10 +77,10 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
             </Font>
             <VertiCard
               bodyMoves={currentStory.totalTargetSteps - currentStory.userSteps}
-            ></VertiCard>
+            />
             <LargeButton
               title={currentStory.userSteps ? "Continue Story" : "Start story"}
-              onPress={() => console.log("Story started!")}
+              onPress={handleStartStory}
             />
           </>
         )}

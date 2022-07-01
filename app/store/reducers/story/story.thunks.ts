@@ -1,4 +1,8 @@
 import {
+  PlayedChapterRawType,
+  PlayedChapterType,
+} from "./../../../utils/types";
+import {
   collection,
   doc,
   getDocs,
@@ -17,8 +21,12 @@ import {
   showGenericErrorDialog,
 } from "../ui/ui.slice";
 import { auth, db, storage } from "../../../config/firebase";
-import { setCurrentStory } from "./story.slice";
-import { ChapterType, StoryType } from "../../../utils/types";
+import {
+  setCurrentChapters,
+  setCurrentStory,
+  unSetCurrentChapters,
+} from "./story.slice";
+import { ChapterType, PlayedStoryType, StoryType } from "../../../utils/types";
 
 export function FetchUserStoryActivity(
   storyId: string,
@@ -30,12 +38,10 @@ export function FetchUserStoryActivity(
 
     const docRef = doc(db, "stories", storyId);
 
-    console.log("....Launching......");
-
     getDoc(docRef)
       .then((docSnapshot) => {
         if (docSnapshot.exists()) {
-          const currentStory = docSnapshot.data();
+          const currentStory = { ...docSnapshot.data() };
 
           const chaptersArray: ChapterType[] = [];
           const playedChaptersArray: any[] = [];
@@ -47,7 +53,8 @@ export function FetchUserStoryActivity(
 
           const playedChaptersQuery = query(
             collection(db, "played_chapter"),
-            where("story_id", "==", storyId)
+            where("story_id", "==", storyId),
+            where("user_id", "==", currentUserId)
           );
 
           let userSteps: number = 0;
@@ -56,14 +63,8 @@ export function FetchUserStoryActivity(
             .then((docSnapshot) => {
               if (docSnapshot) {
                 docSnapshot.forEach((doc: any) => {
-                  //   console.log("PlayedChaptersQuery", {
-                  //     ...doc.data(),
-                  //     id: doc.id,
-                  //   });
                   playedChaptersArray.push({ ...doc.data(), id: doc.id });
                 });
-
-                console.log("PlayedChaptersArray", playedChaptersArray);
 
                 if (playedChaptersArray.length) {
                   userSteps = playedChaptersArray
@@ -84,11 +85,8 @@ export function FetchUserStoryActivity(
             .then((docSnapshot) => {
               if (docSnapshot) {
                 docSnapshot.forEach((doc: any) => {
-                  //   console.log("StoriesQuery", { ...doc.data(), id: doc.id });
                   chaptersArray.push({ ...doc.data(), id: doc.id });
                 });
-
-                console.log("ChaptersArray", chaptersArray);
 
                 const totalTargetSteps = chaptersArray
                   .map((chapter) => {
@@ -98,14 +96,14 @@ export function FetchUserStoryActivity(
                     return previous + current;
                   });
 
-                dispatch(
-                  setCurrentStory({
-                    ...currentStory,
-                    id: currentStory.story_id,
-                    totalTargetSteps,
-                    userSteps,
-                  })
-                );
+                const finalCurrentStoryData: any = {
+                  ...currentStory,
+                  id: currentStory.story_id,
+                  totalTargetSteps,
+                  userSteps,
+                };
+
+                dispatch(setCurrentStory(finalCurrentStoryData));
               }
 
               return dispatch(finishedRequest());
@@ -113,9 +111,6 @@ export function FetchUserStoryActivity(
             .catch((error) => {
               return dispatch(finishedRequest());
             });
-          // get all chapters and accumulate the target_steps
-          // get all played chapters and accumulate user_steps
-          // calc time left off of this
         }
       })
       .catch((error) => {
@@ -138,16 +133,91 @@ export function FetchStoryChapters(
     dispatch(hideGenericErrorDialog());
 
     try {
-      const q = query(
-        collection(db, "stories"),
+      const chapterQuery = query(
+        collection(db, "chapters"),
         where("story_id", "==", storyId)
       );
+
+      const playedChaptersQuery = query(
+        collection(db, "played_chapter"),
+        where("story_id", "==", storyId),
+        where("user_id", "==", currentUserId)
+      );
+
+      const chaptersArray: PlayedChapterType[] = [];
+      const playedChaptersArray: PlayedChapterRawType[] = [];
+
+      getDocs(playedChaptersQuery)
+        .then((docSnapshot) => {
+          if (docSnapshot) {
+            docSnapshot.forEach((doc: any) => {
+              playedChaptersArray.push({ ...doc.data(), id: doc.id });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(showGenericErrorDialog(true));
+          dispatch(
+            setGenericErrorMessage(
+              "There was an error fetching story chapters."
+            )
+          );
+        });
+
+      getDocs(chapterQuery)
+        .then((docSnapshot) => {
+          if (docSnapshot) {
+            docSnapshot.forEach((doc: any) => {
+              chaptersArray.push({ ...doc.data(), id: doc.id });
+            });
+
+            let newChaptersArray: any[];
+
+            if (playedChaptersArray.length) {
+              // Here, let's check
+              newChaptersArray = chaptersArray.map((chapter) => {
+                for (const [index, item] of playedChaptersArray.entries()) {
+                  if (playedChaptersArray[index]["chapter_id"] === chapter.id) {
+                    return {
+                      ...chapter,
+                      user_steps: item.user_steps,
+                      user_time: item.user_time,
+                    };
+                  }
+
+                  return { ...chapter };
+                }
+              });
+            } else {
+              newChaptersArray = chaptersArray;
+            }
+
+            dispatch(
+              setCurrentChapters(
+                newChaptersArray.sort((a, b) => (a.order > b.order ? 1 : -1))
+              )
+            );
+            dispatch(finishedRequest());
+          } else {
+            dispatch(unSetCurrentChapters());
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(showGenericErrorDialog(true));
+          dispatch(
+            setGenericErrorMessage(
+              "There was an error fetching story chapters."
+            )
+          );
+        });
     } catch (error) {
       dispatch(finishedRequest());
       console.error(error);
       dispatch(showGenericErrorDialog(true));
       dispatch(
-        setGenericErrorMessage("There was an error fetching current story.")
+        setGenericErrorMessage("There was an error fetching story chapters.")
       );
     }
   };
