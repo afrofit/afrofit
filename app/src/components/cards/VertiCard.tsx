@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   calculateCaloriesFromBodyMovements,
   calculateDanceTimeFromBodyMovements,
+  formattedStat,
 } from "../../../utils/formatters";
 import Spacer from "../elements/Spacer";
 import { Font } from "../font/Font";
@@ -11,6 +12,9 @@ interface Props {
   bodyMoves: number;
 }
 export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
+  React.useEffect(() => {
+    console.log("BodyMoves", bodyMoves);
+  }, [bodyMoves]);
   return (
     <VertiCardWrapper>
       <VertiCardChild first>
@@ -28,12 +32,12 @@ export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">
-          {bodyMoves}
+          {formattedStat(bodyMoves, true)}
         </Font>
       </VertiCardChild>
       <VertiCardChild last>
         <Font variant="sm2" color="lightblue" align="center">
-          Dance Time
+          Dance (Mins)
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">

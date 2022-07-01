@@ -14,7 +14,10 @@ import { VideoView } from "../../../../src/components/video/VideoView";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUserProfile } from "../../../../store/reducers/auth/auth.slice";
 import { FetchUserStoryActivity } from "../../../../store/reducers/story/story.thunks";
-import { selectCurrentStory } from "../../../../store/reducers/story/story.slice";
+import {
+  selectCurrentStory,
+  unSetCurrentStory,
+} from "../../../../store/reducers/story/story.slice";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -35,7 +38,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   }, []);
 
   const handleGoBack = () => {
-    // set currentStory to null.... THEN
+    dispatch(unSetCurrentStory());
     navigation.navigate("Home");
   };
 

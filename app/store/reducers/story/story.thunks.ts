@@ -30,6 +30,8 @@ export function FetchUserStoryActivity(
 
     const docRef = doc(db, "stories", storyId);
 
+    console.log("....Launching......");
+
     getDoc(docRef)
       .then((docSnapshot) => {
         if (docSnapshot.exists()) {
@@ -38,13 +40,13 @@ export function FetchUserStoryActivity(
           const chaptersArray: ChapterType[] = [];
           const playedChaptersArray: any[] = [];
 
-          const storiesQuery = query(
-            collection(db, "stories"),
+          const chaptersQuery = query(
+            collection(db, "chapters"),
             where("story_id", "==", storyId)
           );
 
           const playedChaptersQuery = query(
-            collection(db, "stories"),
+            collection(db, "played_chapter"),
             where("story_id", "==", storyId)
           );
 
@@ -54,15 +56,22 @@ export function FetchUserStoryActivity(
             .then((docSnapshot) => {
               if (docSnapshot) {
                 docSnapshot.forEach((doc: any) => {
-                  console.log({ ...doc.data(), id: doc.id });
+                  //   console.log("PlayedChaptersQuery", {
+                  //     ...doc.data(),
+                  //     id: doc.id,
+                  //   });
                   playedChaptersArray.push({ ...doc.data(), id: doc.id });
                 });
 
-                userSteps = chaptersArray
-                  .map((chapter) => chapter.target_steps)
-                  .reduce((previous, current) => {
-                    return previous + current;
-                  });
+                console.log("PlayedChaptersArray", playedChaptersArray);
+
+                if (playedChaptersArray.length) {
+                  userSteps = playedChaptersArray
+                    .map((chapter) => chapter.user_steps)
+                    .reduce((previous, current) => {
+                      return previous + current;
+                    });
+                }
               } else {
                 userSteps = 0;
               }
@@ -71,16 +80,20 @@ export function FetchUserStoryActivity(
               console.error(error);
             });
 
-          getDocs(storiesQuery)
+          getDocs(chaptersQuery)
             .then((docSnapshot) => {
               if (docSnapshot) {
                 docSnapshot.forEach((doc: any) => {
-                  console.log({ ...doc.data(), id: doc.id });
+                  //   console.log("StoriesQuery", { ...doc.data(), id: doc.id });
                   chaptersArray.push({ ...doc.data(), id: doc.id });
                 });
 
-                const totalTargetSteps: number = chaptersArray
-                  .map((chapter) => chapter.target_steps)
+                console.log("ChaptersArray", chaptersArray);
+
+                const totalTargetSteps = chaptersArray
+                  .map((chapter) => {
+                    return chapter.target_steps;
+                  })
                   .reduce((previous, current) => {
                     return previous + current;
                   });
