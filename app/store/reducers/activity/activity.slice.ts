@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CALORIE_MULTPLIER } from "../../../utils/formatters";
 import { RootState } from "../../store";
 import { TodaysActivityType } from "./types";
 
@@ -8,8 +9,6 @@ const initialState: Omit<ActivityState, "user_id" | "id" | "local_date"> = {
   calories_burned: 0,
   body_movements: 0,
 };
-
-const CALORIE_MULTPLIER = 0.00175;
 
 const activitySlice = createSlice({
   name: "activity",

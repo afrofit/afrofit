@@ -40,7 +40,6 @@ export function FetchUserActivityToday(currentUserId: string): AppThunk {
       const docSnapshot = await getDocs(q);
       if (docSnapshot) {
         docSnapshot.forEach((doc: any) => {
-          console.log(doc.id, "=>", doc.data());
           todaysActivityArray.push({ ...doc.data(), id: doc.id });
         });
 
@@ -63,11 +62,9 @@ export function FetchUserActivityToday(currentUserId: string): AppThunk {
         )[0];
 
         if (isToday(latestActivity.local_date)) {
-          console.log("Yes!");
           dispatch(setTodaysActivity(latestActivity));
           return dispatch(finishedRequest());
         } else {
-          console.log("No!");
           // Let's create an activity here and then send that up
           await addDoc(docRef, {
             body_movements: 0,

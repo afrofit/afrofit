@@ -4,6 +4,7 @@ import authReducer from "./reducers/auth/auth.slice";
 import performanceReducer from "./reducers/performance/performance.slice";
 import marathonReducer from "./reducers/marathon/marathon.slice";
 import activityReducer from "./reducers/activity/activity.slice";
+import storyReducer from "./reducers/story/story.slice";
 
 export const rootReducer = combineReducers({
   ui: uiReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   performance: performanceReducer,
   marathon: marathonReducer,
   activity: activityReducer,
+  story: storyReducer,
 });

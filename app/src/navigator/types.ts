@@ -28,6 +28,6 @@ export type StoryIntroScreenNavType = StackNavigationProp<
 >;
 
 export type HomeScreenNavType = StackNavigationProp<
-  GameScreensStackParamList,
+  GameScreensStackParamList & GameStackParamList,
   "Home"
 >;

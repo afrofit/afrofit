@@ -1,4 +1,6 @@
 import * as React from "react";
+import type {} from "redux-thunk/extend-redux";
+
 import { useDispatch, useSelector } from "react-redux";
 import { GenericError } from "./src/components/errors/GenericError";
 import { LoaderAbsolute } from "./src/components/loaders/LoaderAbsolute";

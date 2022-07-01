@@ -1,14 +1,16 @@
 import * as React from "react";
+import {
+  calculateCaloriesFromBodyMovements,
+  calculateDanceTimeFromBodyMovements,
+} from "../../../utils/formatters";
 import Spacer from "../elements/Spacer";
 import { Font } from "../font/Font";
 import { VertiCardChild, VertiCardWrapper } from "./styled";
 
 interface Props {
-  value1: number;
-  value2: number;
-  value3: number;
+  bodyMoves: number;
 }
-export const VertiCard: React.FC<Props> = ({ value1, value2, value3 }) => {
+export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
   return (
     <VertiCardWrapper>
       <VertiCardChild first>
@@ -17,7 +19,7 @@ export const VertiCard: React.FC<Props> = ({ value1, value2, value3 }) => {
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">
-          25k
+          {calculateCaloriesFromBodyMovements(bodyMoves)}
         </Font>
       </VertiCardChild>
       <VertiCardChild middle>
@@ -26,7 +28,7 @@ export const VertiCard: React.FC<Props> = ({ value1, value2, value3 }) => {
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">
-          13
+          {bodyMoves}
         </Font>
       </VertiCardChild>
       <VertiCardChild last>
@@ -35,7 +37,7 @@ export const VertiCard: React.FC<Props> = ({ value1, value2, value3 }) => {
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">
-          60
+          {calculateDanceTimeFromBodyMovements(bodyMoves)}
         </Font>
       </VertiCardChild>
     </VertiCardWrapper>

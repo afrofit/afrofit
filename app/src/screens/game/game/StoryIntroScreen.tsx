@@ -1,7 +1,8 @@
+import * as React from "react";
+
 import { Font } from "../../../../src/components/font/Font";
 import { Screen } from "../../../../src/components/screen/Screen";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
-import * as React from "react";
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { useNavigation } from "@react-navigation/native";
@@ -10,6 +11,10 @@ import { FontConstrainer, VideoContainer } from "./styled";
 import { LargeButton } from "../../../../src/components/buttons/LargeButton";
 import { VertiCard } from "../../../../src/components/cards/VertiCard";
 import { VideoView } from "../../../../src/components/video/VideoView";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUserProfile } from "../../../../store/reducers/auth/auth.slice";
+import { FetchUserStoryActivity } from "../../../../store/reducers/story/story.thunks";
+import { selectCurrentStory } from "../../../../store/reducers/story/story.slice";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -18,12 +23,25 @@ interface Props {
 export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   const { storyId } = route.params;
 
+  const dispatch = useDispatch();
   const navigation = useNavigation<StoryIntroScreenNavType>();
+
+  const currentUserProfile = useSelector(selectCurrentUserProfile);
+  const currentStory = useSelector(selectCurrentStory);
+
+  React.useEffect(() => {
+    currentUserProfile &&
+      dispatch(FetchUserStoryActivity(storyId, currentUserProfile.user_id));
+  }, []);
 
   const handleGoBack = () => {
     // set currentStory to null.... THEN
     navigation.navigate("Home");
   };
+
+  React.useEffect(() => {
+    console.log("CurrentStory", currentStory);
+  }, [currentStory]);
 
   return (
     <>
@@ -32,27 +50,37 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
         <Placer top={2} left={3}>
           <IconButton onPress={handleGoBack} />
         </Placer>
-        <FontConstrainer>
-          <Font align="center" variant="h2" color="light">
-            Afia's Wedding
-          </Font>
-        </FontConstrainer>
-        <VideoContainer size="sm">
-          <VideoView
-            onVideoFinished={() => console.log("Video finished")}
-            onVideoHalfwayFinished={() => console.log("Video halfway finished")}
-            loop
-          />
-        </VideoContainer>
-        <Font align="center" variant="p" color="light">
-          You have to help Afia achieve her goals so that she can be happy and
-          then you can be fit!
-        </Font>
-        <VertiCard value1={1} value2={2} value3={3}></VertiCard>
-        <LargeButton
-          title="Start story"
-          onPress={() => console.log("Story started!")}
-        />
+        {currentStory && (
+          <>
+            <FontConstrainer>
+              <Font align="center" variant="h2" color="light">
+                {currentStory.title}
+              </Font>
+            </FontConstrainer>
+            <VideoContainer size="sm">
+              <VideoView
+                onVideoFinished={() => null}
+                onVideoHalfwayFinished={() => null}
+                loop
+                videoUrl={
+                  currentStory.userSteps
+                    ? currentStory.intro_video_alt
+                    : currentStory.intro_video
+                }
+              />
+            </VideoContainer>
+            <Font align="center" variant="p" color="light">
+              {currentStory.description}
+            </Font>
+            <VertiCard
+              bodyMoves={currentStory.totalTargetSteps - currentStory.userSteps}
+            ></VertiCard>
+            <LargeButton
+              title={currentStory.userSteps ? "Continue Story" : "Start story"}
+              onPress={() => console.log("Story started!")}
+            />
+          </>
+        )}
       </Screen>
     </>
   );

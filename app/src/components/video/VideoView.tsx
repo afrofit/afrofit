@@ -5,11 +5,10 @@ import { BackgroundVideoStyles } from "./styled";
 
 interface Props {
   videoUrl?: string;
-  onVideoFinished?: () => void;
-  onVideoHalfwayFinished?: () => void;
+  onVideoFinished: () => void;
+  onVideoHalfwayFinished: () => void;
   onPause?: () => void;
   onPlay?: () => void;
-  children?: React.ReactNode;
   loop?: boolean;
 }
 
@@ -17,7 +16,6 @@ export const VideoView: React.FC<Props> = ({
   videoUrl,
   onVideoFinished,
   onVideoHalfwayFinished,
-  children,
   loop = false,
 }) => {
   const [videoLoading, setVideoLoading] = React.useState(false);
@@ -26,6 +24,17 @@ export const VideoView: React.FC<Props> = ({
     React.useState<AVPlaybackStatus | null>();
 
   const videoRef = React.useRef<Video>(null);
+
+  React.useEffect(() => {
+    return () => {
+      unloadVideo().then(() => console.log("Video unloaded!"));
+    };
+  }, []);
+
+  const unloadVideo = async () => {
+    await videoRef?.current?.stopAsync();
+    return videoRef?.current?.unloadAsync();
+  };
 
   const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
     if (status.isLoaded) {

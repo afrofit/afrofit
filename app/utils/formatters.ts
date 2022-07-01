@@ -1,3 +1,7 @@
+export const CALORIE_MULTPLIER = 0.00175;
+
+export const DANCE_TIME_MULTIPLIER = 2.25;
+
 export const formattedStat = (unit: number, int: boolean = false): string => {
   if (unit === 0) return `${unit}`;
   if (unit < 0 || unit > 999999) return "";
@@ -15,4 +19,14 @@ export const formattedStat = (unit: number, int: boolean = false): string => {
     }
   }
   return "";
+};
+
+export const calculateDanceTimeFromBodyMovements = (bodyMoves: number) => {
+  const danceTime = bodyMoves * DANCE_TIME_MULTIPLIER;
+  return formattedStat(danceTime);
+};
+
+export const calculateCaloriesFromBodyMovements = (bodyMoves: number) => {
+  const calories = bodyMoves * CALORIE_MULTPLIER;
+  return formattedStat(calories);
 };
