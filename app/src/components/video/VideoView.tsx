@@ -57,7 +57,9 @@ export const VideoView: React.FC<Props> = ({
       source={
         videoUrl
           ? { uri: videoUrl }
-          : require("../../../assets/videos/dance_sample.mp4")
+          : {
+              uri: "https://res.cloudinary.com/afrofitapp/video/upload/v1644272290/stories/video/story_1/girl_dancing_hqf3ca.mp4",
+            }
       }
       style={BackgroundVideoStyles.video}
       resizeMode={ResizeMode.COVER}

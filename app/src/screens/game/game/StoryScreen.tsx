@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useNavigation } from "@react-navigation/native";
 import { StoryScreenNavType } from "../../../../src/navigator/types";
-import { selectCurrentUserProfile } from "../../../../store/reducers/auth/auth.slice";
+import { selectUser } from "../../../../store/reducers/auth/auth.slice";
 import {
   selectCurrentChapters,
   selectCurrentStory,
@@ -18,7 +18,7 @@ import Spacer from "../../../../src/components/elements/Spacer";
 import { VertiCard } from "../../../../src/components/cards/VertiCard";
 import { Section } from "../../../../src/components/section/Section";
 import { ChapterList } from "./components/ChapterList";
-import { FetchStoryChapters } from "../../../../store/reducers/story/story.thunks";
+import { FetchStoryChapters } from "../../../../store/reducers/story/thunks/fetch-story-chapters.thunk";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -30,14 +30,14 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
 
-  const currentUserProfile = useSelector(selectCurrentUserProfile);
+  const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
   const currentChapters = useSelector(selectCurrentChapters);
 
   React.useEffect(() => {
-    currentUserProfile &&
+    currentUser &&
       currentStory &&
-      dispatch(FetchStoryChapters(storyId, currentUserProfile.user_id));
+      dispatch(FetchStoryChapters(storyId, currentUser.userId));
   }, []);
 
   React.useEffect(() => {

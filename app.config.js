@@ -21,8 +21,11 @@ export default {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: false,
+      bundleIdentifier: "com.afrofit.afrofit",
     },
     android: {
+      package: "com.afrofit.afrofit",
+      versionCode: 1,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",

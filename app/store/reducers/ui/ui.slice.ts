@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 
 export interface UIState {
   requestsLoading: number;
-  showGenericErrorDialog: boolean;
+  showGenericErrorDialog: string;
   isSubmitting: boolean;
   genericErrorMessage: string;
   loaderMessage: string;
@@ -12,7 +12,7 @@ export interface UIState {
 
 const initialState: UIState = {
   requestsLoading: 0,
-  showGenericErrorDialog: false,
+  showGenericErrorDialog: "",
   isSubmitting: false,
   genericErrorMessage: "",
   loaderMessage: "Loading...",
@@ -29,11 +29,8 @@ const uiSlice = createSlice({
     finishedRequest(state) {
       state.requestsLoading = state.requestsLoading - 1;
     },
-    showGenericErrorDialog(state, action: PayloadAction<boolean>) {
+    showGenericErrorDialog(state, action: PayloadAction<string>) {
       state.showGenericErrorDialog = action.payload;
-    },
-    setGenericErrorMessage(state, action: PayloadAction<string>) {
-      state.genericErrorMessage = action.payload;
     },
     setLoaderMessage(state, action: PayloadAction<string>) {
       state.loaderMessage = action.payload;
@@ -41,11 +38,9 @@ const uiSlice = createSlice({
     unsetLoaderMessage(state) {
       state.loaderMessage = "";
     },
-    unsetGenericErrorMessage(state) {
-      state.genericErrorMessage = "";
-    },
+
     hideGenericErrorDialog(state) {
-      state.showGenericErrorDialog = false;
+      state.showGenericErrorDialog = "";
     },
     setIsSubmitting(state, action: PayloadAction<boolean>) {
       state.isSubmitting = action.payload;
@@ -62,8 +57,6 @@ export const {
   showGenericErrorDialog,
   hideGenericErrorDialog,
   setIsSubmitting,
-  setGenericErrorMessage,
-  unsetGenericErrorMessage,
   setLoaderMessage,
   unsetLoaderMessage,
   triggerActionCompleted,

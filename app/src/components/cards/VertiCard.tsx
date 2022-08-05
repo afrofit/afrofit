@@ -34,7 +34,7 @@ export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
       </VertiCardChild>
       <VertiCardChild last>
         <Font variant="sm2" color="lightblue" align="center">
-          Dance (Mins)
+          Time (Mins)
         </Font>
         <Spacer h={5} />
         <Font variant="num2" color="hilite_orange" align="center">

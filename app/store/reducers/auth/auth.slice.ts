@@ -1,16 +1,16 @@
-import { UserProfileModel } from "./../../../models/userprofile.model";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserModel } from "../../../models/user.model";
+import { UserModel } from "app/types/UserModel";
 import { RootState } from "../../store";
 
 export interface AuthState {
-  currentUser: any;
-  currentUserProfile: UserProfileModel | null;
+  currentUser?: UserModel | null;
+  token: string | null;
+  isSubscribed: boolean;
 }
 
 const initialState: AuthState = {
-  currentUser: null,
-  currentUserProfile: null,
+  token: null,
+  isSubscribed: false,
 };
 
 const authSlice = createSlice({
@@ -20,30 +20,26 @@ const authSlice = createSlice({
     setCurrentUser(state, action: PayloadAction<any>) {
       state.currentUser = action.payload;
     },
-    setCurrentUserProfile(state, action: PayloadAction<UserProfileModel>) {
-      state.currentUserProfile = action.payload;
+    storeUserToken(state, action: PayloadAction<string>) {
+      state.token = action.payload;
     },
-    // updateCurrentUserProfilePic(state, action: PayloadAction<string>) {
-    //   state.currentUserProfile = {...state.currentUserProfile, profile_pic: action.payload}
-    // },
-    unsetCurrentUser(state) {
-      state.currentUser = null;
+    setIsSubscribed(state, action: PayloadAction<boolean>) {
+      state.isSubscribed = action.payload;
     },
-    unsetCurrentUserProfile(state) {
-      state.currentUser = null;
+    logout() {
+      return initialState;
     },
   },
 });
 
-export const {
-  setCurrentUser,
-  setCurrentUserProfile,
-  unsetCurrentUser,
-  unsetCurrentUserProfile,
-} = authSlice.actions;
+export const { setCurrentUser, storeUserToken, setIsSubscribed, logout } =
+  authSlice.actions;
 
-export const selectCurrentUser = (state: RootState) => state.auth.currentUser;
-export const selectCurrentUserProfile = (state: RootState) =>
-  state.auth.currentUserProfile;
+export const selectUserIsSubscribed = (state: RootState) =>
+  state.auth.isSubscribed;
+export const selectUserIsLoggedIn = (state: RootState) =>
+  !!state.auth.currentUser;
+export const selectUser = (state: RootState) => state.auth.currentUser;
+export const selectUserToken = (state: RootState) => state.auth.token;
 
 export default authSlice.reducer;

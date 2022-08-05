@@ -4,49 +4,56 @@ import type {} from "redux-thunk/extend-redux";
 import { useDispatch, useSelector } from "react-redux";
 import { GenericError } from "./src/components/errors/GenericError";
 import { LoaderAbsolute } from "./src/components/loaders/LoaderAbsolute";
-import { useAuth } from "./src/hooks/useAuth";
 import GameNavigator from "./src/navigator/AppNavigator";
 import AuthNavigator from "./src/navigator/AuthNavigator";
-import { selectCurrentUserProfile } from "./store/reducers/auth/auth.slice";
 
+import DEVICE_STORAGE from "./api/device-storage";
 import {
   hideGenericErrorDialog,
   selectGenericErrorMessage,
   selectLoaderMessage,
   selectShowGenericErrorDialog,
   selectUiIsLoading,
-  setGenericErrorMessage,
 } from "./store/reducers/ui/ui.slice";
+
+import { setCurrentUser } from "./store/reducers/auth/auth.slice";
+import { selectUser } from "./store/reducers/auth/auth.slice";
+import { UserModel } from "./types/UserModel";
 
 export const Index = () => {
   const dispatch = useDispatch();
-  const { checkUserAuth } = useAuth();
 
   const errorMessage = useSelector(selectGenericErrorMessage);
   const showError = useSelector(selectShowGenericErrorDialog);
-  const currentUserProfile = useSelector(selectCurrentUserProfile);
   const loaderMessage = useSelector(selectLoaderMessage);
   const showLoader = useSelector(selectUiIsLoading);
+  const currentUser = useSelector(selectUser);
+
+  const checkAuth = React.useCallback(() => {
+    DEVICE_STORAGE.GET_STORED_USER().then((result: UserModel | null) => {
+      console.log("user?: ", result);
+      if (result) return dispatch(setCurrentUser(result));
+    });
+  }, []);
 
   React.useEffect(() => {
-    checkUserAuth();
+    checkAuth();
   }, []);
 
   const handleHideError = () => {
-    dispatch(hideGenericErrorDialog());
-    return dispatch(setGenericErrorMessage(""));
+    return dispatch(hideGenericErrorDialog());
   };
 
   return (
     <>
       <GenericError
-        visible={showError}
+        visible={!!showError}
         message={errorMessage}
         onDismissWarning={handleHideError}
       />
       <LoaderAbsolute message={loaderMessage} visible={showLoader} />
 
-      {currentUserProfile ? <GameNavigator /> : <AuthNavigator />}
+      {currentUser ? <GameNavigator /> : <AuthNavigator />}
     </>
   );
 };

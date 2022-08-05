@@ -12,12 +12,12 @@ import { LargeButton } from "../../../../src/components/buttons/LargeButton";
 import { VertiCard } from "../../../../src/components/cards/VertiCard";
 import { VideoView } from "../../../../src/components/video/VideoView";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUserProfile } from "../../../../store/reducers/auth/auth.slice";
-import { FetchUserStoryActivity } from "../../../../store/reducers/story/story.thunks";
 import {
   selectCurrentStory,
   unSetCurrentStory,
 } from "../../../../store/reducers/story/story.slice";
+import { selectUser } from "../../../../store/reducers/auth/auth.slice";
+import { FetchUserStoryActivity } from "../../../../store/reducers/story/thunks/fetch-user-story-activity.thunk";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -29,12 +29,12 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryIntroScreenNavType>();
 
-  const currentUserProfile = useSelector(selectCurrentUserProfile);
+  const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
 
   React.useEffect(() => {
-    currentUserProfile &&
-      dispatch(FetchUserStoryActivity(storyId, currentUserProfile.user_id));
+    currentUser &&
+      dispatch(FetchUserStoryActivity(storyId, currentUser.userId));
   }, []);
 
   React.useEffect(() => {

@@ -17,7 +17,7 @@ interface ItemProps {
   first?: boolean;
   last?: boolean;
   title: string;
-  value: number;
+  value?: number | null;
   onPress: () => void;
 }
 
@@ -27,7 +27,7 @@ export const ChapterItem: React.FC<ItemProps> = ({
   first,
   last,
   title,
-  value,
+  value = 0,
   onPress,
 }) => {
   return (

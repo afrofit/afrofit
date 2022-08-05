@@ -16,12 +16,10 @@ import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolut
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { useDispatch } from "react-redux";
-import { LogUserIn } from "../../../../store/reducers/auth/auth.thunks";
 import { GenericError } from "../../../../src/components/errors/GenericError";
-import { UserCredentials } from "../../../../models/usercredentials.model";
+import { LogUserIn } from "../../../../store/reducers/auth/thunks/login.thunk";
 
 export const LoginScreen = () => {
-  // console.log("Firebase", app);
   const navigation = useNavigation<LoginScreenNavType>();
   const dispatch = useDispatch();
 
@@ -34,10 +32,10 @@ export const LoginScreen = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit: SubmitHandler<UserCredentials> = (data) => {
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log("Data", data);
     dispatch(LogUserIn(data));
     reset();
-    console.log("Data", data);
   };
 
   const clearField = (name: string) => {
