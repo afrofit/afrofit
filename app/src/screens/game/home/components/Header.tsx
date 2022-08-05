@@ -3,19 +3,19 @@ import * as React from "react";
 import { ImagePositioner, TextPositioner } from "../styled";
 import { BorderedImage } from "../../../../../src/components/image/BorderedImage";
 import { Font } from "../../../../../src/components/font/Font";
-import { storage } from "../../../../../config/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
+import { Avatar } from "../../../../../src/components/image/Avatar";
 
 interface Props {
   username: string;
-  imageUrl?: string;
+  dpId: number;
 }
 
-export const Header: React.FC<Props> = ({ username, imageUrl }) => {
+export const Header: React.FC<Props> = ({ username, dpId }) => {
+  const imageUrl = `../../../../../assets/images/dp/${dpId}.png`;
   return (
     <Card centeredContent={true} flexDirection="row" marginBottom={20}>
       <ImagePositioner>
-        <BorderedImage size="xs" imageUrl={imageUrl} />
+        <Avatar size="xs" imageId={dpId} />
       </ImagePositioner>
       <TextPositioner>
         <Font variant="sm2" color="lightblue">

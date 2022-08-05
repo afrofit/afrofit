@@ -6,19 +6,20 @@ import { LinearGradient } from "expo-linear-gradient";
 import { COLORS, ColorType } from "../../../theme/globals";
 import { ImageContainer, Inset, RoundBorder, StyledImage } from "./styled";
 import { useFocusEffect } from "@react-navigation/native";
+import { AVATAR_MAP } from "./data";
 
 interface Props {
   color?: ColorType;
   align?: "left" | "right" | "center";
   size?: "lg" | "md" | "sm" | "xs";
-  imageUrl?: string;
+  imageId: number;
 }
 
-export const BorderedImage: React.FC<Props> = ({
+export const Avatar: React.FC<Props> = ({
   color,
   align = "center",
   size = "lg",
-  imageUrl,
+  imageId = 12,
 }) => {
   const fadeDuration = 500;
   const rotateDuration = 1000;
@@ -54,11 +55,7 @@ export const BorderedImage: React.FC<Props> = ({
           <Inset>
             <ImageContainer>
               <StyledImage
-                source={
-                  imageUrl
-                    ? { uri: imageUrl }
-                    : require("../../../assets/images/art/sample_image.png")
-                }
+                source={AVATAR_MAP[imageId].url}
                 style={{
                   opacity: imageOpacity,
                   transform: [

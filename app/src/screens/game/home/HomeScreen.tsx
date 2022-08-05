@@ -27,7 +27,7 @@ export const HomeScreen = () => {
 
   React.useEffect(() => {
     if (currentUser) {
-      dispatch(FetchTodaysActivity(currentUser?.userId));
+      // dispatch(FetchTodaysActivity(currentUser?.userId));
     }
   }, []);
 
@@ -35,13 +35,15 @@ export const HomeScreen = () => {
     navigation.navigate("StoryIntroScreen", { storyId });
   };
 
+  if (!currentUser) return null;
+
   return (
     <>
       <SolidBackground />
       <Screen>
         <Header
-          username={currentUser?.username || "Fetching username..."}
-          imageUrl={"currentUser?.displayPicId"}
+          username={currentUser.username || "Fetching username..."}
+          dpId={currentUser.displayPicId}
         />
         <Spacer h={10} />
         <Section title="Your activity today">
