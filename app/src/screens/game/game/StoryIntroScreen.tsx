@@ -66,7 +66,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
               </Font>
             </FontConstrainer>
             <VideoContainer size="sm">
-              {/* <VideoView
+              <VideoView
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
                 loop
@@ -75,7 +75,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
                     ? STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt
                     : STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo
                 }
-              /> */}
+              />
             </VideoContainer>
             <Font align="center" variant="p" color="lightblue">
               {currentStory.description}

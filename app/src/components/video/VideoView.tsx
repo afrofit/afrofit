@@ -4,7 +4,7 @@ import { millisecondsToSeconds } from "date-fns";
 import { BackgroundVideoStyles } from "./styled";
 
 interface Props {
-  videoUrl?: string;
+  videoUrl: string;
   onVideoFinished: () => void;
   onVideoHalfwayFinished: () => void;
   onPause?: () => void;
@@ -22,6 +22,8 @@ export const VideoView: React.FC<Props> = ({
 
   const [videoStatus, setVideoStatus] =
     React.useState<AVPlaybackStatus | null>();
+
+  console.log("videoUrl", videoUrl);
 
   const videoRef = React.useRef<Video>(null);
 
@@ -54,13 +56,7 @@ export const VideoView: React.FC<Props> = ({
   return (
     <Video
       ref={videoRef}
-      source={
-        videoUrl
-          ? { uri: videoUrl }
-          : {
-              uri: "https://res.cloudinary.com/afrofitapp/video/upload/v1644272290/stories/video/story_1/girl_dancing_hqf3ca.mp4",
-            }
-      }
+      source={{ uri: videoUrl }}
       style={BackgroundVideoStyles.video}
       resizeMode={ResizeMode.COVER}
       onPlaybackStatusUpdate={onPlaybackStatusUpdate}

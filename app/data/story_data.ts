@@ -3,33 +3,33 @@ import { StoryType } from "../types/StoryModel";
 export const STORY_DATA_EXTRAS_MAP: {
   [key: string]: {
     thumbUrl: number;
-    introVideo: number;
-    introVideoAlt: number;
+    introVideo: string;
+    introVideoAlt: string;
     failAudio: number;
   };
 } = {
   story001: {
     thumbUrl: require("../assets/images/storythumbs/1.png"),
-    introVideo: require("../assets/audio/story/1/story001_intro.mp3"),
-    introVideoAlt: require("../assets/audio/story/1/story001_intro_alt.mp3"),
+    introVideo: "https://streamable.com/b0dkh1",
+    introVideoAlt: "https://streamable.com/b0dkh1",
     failAudio: require("../assets/audio/story/1/story001_fail_audio.mp3"),
   },
   story002: {
     thumbUrl: require("../assets/images/storythumbs/2.png"),
-    introVideo: require("../assets/audio/story/2/story002_intro.mp3"),
-    introVideoAlt: require("../assets/audio/story/2/story002_intro_alt.mp3"),
+    introVideo: "https://streamable.com/b0dkh1",
+    introVideoAlt: "https://streamable.com/b0dkh1",
     failAudio: require("../assets/audio/story/2/story002_fail_audio.mp3"),
   },
   story003: {
     thumbUrl: require("../assets/images/storythumbs/3.png"),
-    introVideo: require("../assets/audio/story/3/story003_intro.mp3"),
-    introVideoAlt: require("../assets/audio/story/3/story003_intro_alt.mp3"),
+    introVideo: "https://streamable.com/b0dkh1",
+    introVideoAlt: "https://streamable.com/b0dkh1",
     failAudio: require("../assets/audio/story/3/story003_fail_audio.mp3"),
   },
   story004: {
     thumbUrl: require("../assets/images/storythumbs/4.png"),
-    introVideo: require("../assets/audio/story/4/story004_intro.mp3"),
-    introVideoAlt: require("../assets/audio/story/4/story004_intro_alt.mp3"),
+    introVideo: "https://streamable.com/b0dkh1",
+    introVideoAlt: "https://streamable.com/b0dkh1",
     failAudio: require("../assets/audio/story/4/story004_fail_audio.mp3"),
   },
 };
