@@ -12,7 +12,10 @@ import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 
-import { selectTodaysActivity } from "../../../../store/reducers/activity/activity.slice";
+import {
+  selectTodaysActivity,
+  selectUserPerformance,
+} from "../../../../store/reducers/activity/activity.slice";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavType } from "../../../../src/navigator/types";
 import { selectUser } from "../../../../store/reducers/auth/auth.slice";
@@ -21,10 +24,11 @@ import { GetUserPerformanceData } from "../../../../store/reducers/activity/thun
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
+  const dispatch = useDispatch();
 
   const currentUser = useSelector(selectUser);
   const todaysActivity = useSelector(selectTodaysActivity);
-  const dispatch = useDispatch();
+  const userPerformanceData = useSelector(selectUserPerformance);
 
   React.useEffect(() => {
     if (currentUser) {
@@ -52,10 +56,7 @@ export const HomeScreen = () => {
           <ActivityTodayList todaysActivity={todaysActivity} />
         </Section>
         <Section title="Your stories">
-          {/* <StoryList
-            stories={stories}
-            handleNavigateToStory={handleNavigateToStoryIntro}
-          /> */}
+          <StoryList handleNavigateToStory={handleNavigateToStoryIntro} />
         </Section>
       </Screen>
     </>
