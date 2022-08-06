@@ -23,8 +23,6 @@ export const VideoView: React.FC<Props> = ({
   const [videoStatus, setVideoStatus] =
     React.useState<AVPlaybackStatus | null>();
 
-  console.log("videoUrl", videoUrl);
-
   const videoRef = React.useRef<Video>(null);
 
   React.useEffect(() => {
@@ -56,7 +54,8 @@ export const VideoView: React.FC<Props> = ({
   return (
     <Video
       ref={videoRef}
-      source={{ uri: videoUrl }}
+      // source={{ uri: videoUrl }}
+      source={require("../../../assets/video/sample_dance.mp4")}
       style={BackgroundVideoStyles.video}
       resizeMode={ResizeMode.COVER}
       onPlaybackStatusUpdate={onPlaybackStatusUpdate}
