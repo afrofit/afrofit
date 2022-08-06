@@ -1,10 +1,37 @@
 import { StoryType } from "../types/StoryModel";
 
-export const STORYTHUMBS_MAP: { [key: number]: { url: number } } = {
-  1: { url: require("../assets/images/storythumbs/1.png") },
-  2: { url: require("../assets/images/storythumbs/2.png") },
-  3: { url: require("../assets/images/storythumbs/3.png") },
-  4: { url: require("../assets/images/storythumbs/4.png") },
+export const STORY_DATA_EXTRAS_MAP: {
+  [key: string]: {
+    thumbUrl: number;
+    introVideo: number;
+    introVideoAlt: number;
+    failAudio: number;
+  };
+} = {
+  story001: {
+    thumbUrl: require("../assets/images/storythumbs/1.png"),
+    introVideo: require("../assets/audio/story/1/story001_intro.mp3"),
+    introVideoAlt: require("../assets/audio/story/1/story001_intro_alt.mp3"),
+    failAudio: require("../assets/audio/story/1/story001_fail_audio.mp3"),
+  },
+  story002: {
+    thumbUrl: require("../assets/images/storythumbs/2.png"),
+    introVideo: require("../assets/audio/story/2/story002_intro.mp3"),
+    introVideoAlt: require("../assets/audio/story/2/story002_intro_alt.mp3"),
+    failAudio: require("../assets/audio/story/2/story002_fail_audio.mp3"),
+  },
+  story003: {
+    thumbUrl: require("../assets/images/storythumbs/3.png"),
+    introVideo: require("../assets/audio/story/3/story003_intro.mp3"),
+    introVideoAlt: require("../assets/audio/story/3/story003_intro_alt.mp3"),
+    failAudio: require("../assets/audio/story/3/story003_fail_audio.mp3"),
+  },
+  story004: {
+    thumbUrl: require("../assets/images/storythumbs/4.png"),
+    introVideo: require("../assets/audio/story/4/story004_intro.mp3"),
+    introVideoAlt: require("../assets/audio/story/4/story004_intro_alt.mp3"),
+    failAudio: require("../assets/audio/story/4/story004_fail_audio.mp3"),
+  },
 };
 
 export const STORY_DATA: StoryType[] = [
@@ -16,8 +43,6 @@ export const STORY_DATA: StoryType[] = [
     description:
       "You must help Afia train to get in shape for her long awaited wedding!",
     difficulty: "easy",
-    introVideo: "videolink.com",
-    introVideoAlt: "videolink.com",
     storySuccessText:
       "So you've made Afia's dream come true! You've not only helped her change her body and habits but you've changed her life!",
   },
@@ -29,8 +54,6 @@ export const STORY_DATA: StoryType[] = [
     description:
       "You've got to help Frank train to be at his very best when his girlfriend returns from the reality TV show.",
     difficulty: "medium",
-    introVideo: "videolink.com",
-    introVideoAlt: "videolink.com",
     storySuccessText:
       "Oh ye amazing trainer! Now Frank can focus on his deejaying knowing full well that he's covered! You go fam!",
   },
@@ -42,8 +65,6 @@ export const STORY_DATA: StoryType[] = [
     description:
       "You've got to help Eliana train to impress Coach Sampson of the Tornadoes so she can get into the team and start her pro football career.",
     difficulty: "hard",
-    introVideo: "videolink.com",
-    introVideoAlt: "videolink.com",
     storySuccessText:
       "You are a dream come true! You've amazed everyone, especially Eliana's family. You're superb! Just super!",
   },
@@ -55,8 +76,6 @@ export const STORY_DATA: StoryType[] = [
     description:
       "You must help AJ train to get into proper shape for his fight against Gregg. He will need to bulk up by 25kg. Good luck!",
     difficulty: "super hard",
-    introVideo: "videolink.com",
-    introVideoAlt: "videolink.com",
     storySuccessText:
       "You are a champ! You are an amazing trainer! Here's to you staying on top! You cleared everyone's doubts! R-E-S-P-E-C-T!",
   },

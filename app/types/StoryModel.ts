@@ -9,8 +9,6 @@ export type StoryType = {
   storySuccessText: string;
   title: string;
   difficulty: DifficultyType;
-  introVideo: string;
-  introVideoAlt: string;
 };
 
 export type StorySummaryType = Pick<
@@ -18,8 +16,9 @@ export type StorySummaryType = Pick<
   "id" | "color" | "difficulty" | "order" | "title"
 >;
 
-export type PlayedStoryType = {
-  storyId: string;
+export type PlayedStoryType = StoryType & {
   totalTargetSteps: number;
   userSteps: number;
+  userTime: number;
+  playedStoryId: string;
 };

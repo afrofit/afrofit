@@ -35,8 +35,6 @@ export function GetUserPerformanceData(userId: string): AppThunk {
           caloriesBurned: caloriesBurned,
         };
 
-        console.log("transformedData", transformedData);
-
         dispatch(setUserPerformance(transformedData));
       } else {
         dispatch(finishedRequest());

@@ -1,5 +1,53 @@
 import { ChapterType } from "../../types/ChapterModel";
 
+export const CHAPTER3_AUDIO_MAP: { [key: string]: { url: number } } = {
+  story003_chapter1: {
+    url: require("../../assets/audio/chapters/3/story003_chapter1.mp3"),
+  },
+  story003_chapter2: {
+    url: require("../../assets/audio/chapters/3/story003_chapter2.mp3"),
+  },
+  story003_chapter3: {
+    url: require("../../assets/audio/chapters/3/story003_chapter3.mp3"),
+  },
+  story003_chapter4: {
+    url: require("../../assets/audio/chapters/3/story003_chapter4.mp3"),
+  },
+  story003_chapter5: {
+    url: require("../../assets/audio/chapters/3/story003_chapter5.mp3"),
+  },
+  story003_chapter6: {
+    url: require("../../assets/audio/chapters/3/story003_chapter6.mp3"),
+  },
+  story003_chapter7: {
+    url: require("../../assets/audio/chapters/3/story003_chapter7.mp3"),
+  },
+  story003_chapter8: {
+    url: require("../../assets/audio/chapters/3/story003_chapter8.mp3"),
+  },
+  story003_chapter9: {
+    url: require("../../assets/audio/chapters/3/story003_chapter9.mp3"),
+  },
+  story003_chapter10: {
+    url: require("../../assets/audio/chapters/3/story003_chapter10.mp3"),
+  },
+  story003_chapter11: {
+    url: require("../../assets/audio/chapters/3/story003_chapter11.mp3"),
+  },
+  story003_chapter12: {
+    url: require("../../assets/audio/chapters/3/story003_chapter12.mp3"),
+  },
+  story003_chapter13: {
+    url: require("../../assets/audio/chapters/3/story003_chapter13.mp3"),
+  },
+  story003_chapter14: {
+    url: require("../../assets/audio/chapters/3/story003_chapter14.mp3"),
+  },
+  story003_chapter15: {
+    url: require("../../assets/audio/chapters/3/story003_chapter15.mp3"),
+  },
+};
+
 export const CHAPTER_3_DATA: ChapterType[] = [
   {
     id: "story003_chapter1",

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChapterType, StoryType, PlayedStoryType } from "../../../utils/types";
+import { ChapterType } from "../../../types/ChapterModel";
+import { PlayedStoryType } from "../../../types/StoryModel";
 import { RootState } from "../../store";
 
 export interface StoryState {

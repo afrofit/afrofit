@@ -1,5 +1,68 @@
 import { ChapterType } from "../../types/ChapterModel";
 
+export const CHAPTER4_AUDIO_MAP: { [key: string]: { url: number } } = {
+  story004_chapter1: {
+    url: require("../../assets/audio/chapters/4/story004_chapter1.mp3"),
+  },
+  story004_chapter2: {
+    url: require("../../assets/audio/chapters/4/story004_chapter2.mp3"),
+  },
+  story004_chapter3: {
+    url: require("../../assets/audio/chapters/4/story004_chapter3.mp3"),
+  },
+  story004_chapter4: {
+    url: require("../../assets/audio/chapters/4/story004_chapter4.mp3"),
+  },
+  story004_chapter5: {
+    url: require("../../assets/audio/chapters/4/story004_chapter5.mp3"),
+  },
+  story004_chapter6: {
+    url: require("../../assets/audio/chapters/4/story004_chapter6.mp3"),
+  },
+  story004_chapter7: {
+    url: require("../../assets/audio/chapters/4/story004_chapter7.mp3"),
+  },
+  story004_chapter8: {
+    url: require("../../assets/audio/chapters/4/story004_chapter8.mp3"),
+  },
+  story004_chapter9: {
+    url: require("../../assets/audio/chapters/4/story004_chapter9.mp3"),
+  },
+  story004_chapter10: {
+    url: require("../../assets/audio/chapters/4/story004_chapter10.mp3"),
+  },
+  story004_chapter11: {
+    url: require("../../assets/audio/chapters/4/story004_chapter11.mp3"),
+  },
+  story004_chapter12: {
+    url: require("../../assets/audio/chapters/4/story004_chapter12.mp3"),
+  },
+  story004_chapter13: {
+    url: require("../../assets/audio/chapters/4/story004_chapter13.mp3"),
+  },
+  story004_chapter14: {
+    url: require("../../assets/audio/chapters/4/story004_chapter14.mp3"),
+  },
+  story004_chapter15: {
+    url: require("../../assets/audio/chapters/4/story004_chapter15.mp3"),
+  },
+  story004_chapter16: {
+    url: require("../../assets/audio/chapters/4/story004_chapter16.mp3"),
+  },
+  story004_chapter17: {
+    url: require("../../assets/audio/chapters/4/story004_chapter17.mp3"),
+  },
+  story004_chapter18: {
+    url: require("../../assets/audio/chapters/4/story004_chapter18.mp3"),
+  },
+  story004_chapter19: {
+    url: require("../../assets/audio/chapters/4/story004_chapter19.mp3"),
+  },
+  story004_chapter20: {
+    url: require("../../assets/audio/chapters/4/story004_chapter20.mp3"),
+  },
+};
+
 export const CHAPTER_4_DATA: ChapterType[] = [
   {
     id: "story004_chapter1",

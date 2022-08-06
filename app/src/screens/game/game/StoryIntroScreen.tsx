@@ -18,6 +18,7 @@ import {
 } from "../../../../store/reducers/story/story.slice";
 import { selectUser } from "../../../../store/reducers/auth/auth.slice";
 import { FetchUserStoryActivity } from "../../../../store/reducers/story/thunks/fetch-user-story-activity.thunk";
+import { STORY_DATA_EXTRAS_MAP } from "../../../../data/story_data";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -65,16 +66,16 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
               </Font>
             </FontConstrainer>
             <VideoContainer size="sm">
-              <VideoView
+              {/* <VideoView
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
                 loop
                 videoUrl={
                   currentStory.userSteps
-                    ? currentStory.intro_video_alt
-                    : currentStory.intro_video
+                    ? STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt
+                    : STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo
                 }
-              />
+              /> */}
             </VideoContainer>
             <Font align="center" variant="p" color="lightblue">
               {currentStory.description}

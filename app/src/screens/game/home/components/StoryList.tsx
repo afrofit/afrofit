@@ -12,7 +12,10 @@ import {
 import Spacer from "../../../../../src/components/elements/Spacer";
 import { Placer } from "../../../../../src/components/elements/Placer";
 
-import { STORYTHUMBS_MAP, STORY_DATA } from "../../../../../data/story_data";
+import {
+  STORY_DATA_EXTRAS_MAP,
+  STORY_DATA,
+} from "../../../../../data/story_data";
 
 interface Props {
   handleNavigateToStory: (storyId: string) => void;
@@ -22,7 +25,7 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
       {STORY_DATA.sort((a, b) => (a.order > b.order ? 1 : -1)).map((story) => {
-        const imageSource = STORYTHUMBS_MAP[story.order].url;
+        const imageSource = STORY_DATA_EXTRAS_MAP[story.id].thumbUrl;
         return (
           <Card
             marginBottom={10}
