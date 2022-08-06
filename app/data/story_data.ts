@@ -6,6 +6,7 @@ export const STORYTHUMBS_MAP: { [key: number]: { url: number } } = {
   3: { url: require("../assets/images/storythumbs/3.png") },
   4: { url: require("../assets/images/storythumbs/4.png") },
 };
+
 export const STORY_DATA: StoryType[] = [
   {
     id: "story001",

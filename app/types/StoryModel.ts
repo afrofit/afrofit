@@ -18,7 +18,8 @@ export type StorySummaryType = Pick<
   "id" | "color" | "difficulty" | "order" | "title"
 >;
 
-export type PlayedStoryType = StoryType & {
+export type PlayedStoryType = {
+  storyId: string;
   totalTargetSteps: number;
   userSteps: number;
 };

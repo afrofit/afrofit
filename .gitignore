@@ -14,4 +14,4 @@ web-build/
 .DS_Store
 .env
 trash
-dance_sample.mp4
+*.mp4
