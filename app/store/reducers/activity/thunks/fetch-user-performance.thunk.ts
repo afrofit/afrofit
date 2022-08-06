@@ -9,31 +9,39 @@ import {
   showGenericErrorDialog,
 } from "../../ui/ui.slice";
 import API_CLIENT from "../../../../api/api-client";
-import { setTodaysActivity } from "../activity.slice";
-import { TodaysActivityType } from "../types";
+import { PerformanceType } from "../types";
+import { setUserPerformance } from "../activity.slice";
 
-const fetchUserTodaysActivityApi = async (userId: string) => {
-  return await API_CLIENT.get(`performance/today/${userId}`);
+const fetchUserPerformanceApi = async (userId: string) => {
+  return await API_CLIENT.get(`performance/overall/${userId}`);
 };
 
-export function GetUserTodaysActivityData(userId: string): AppThunk {
+export function GetUserPerformanceData(userId: string): AppThunk {
   return async (dispatch) => {
     try {
       dispatch(newRequest());
       dispatch(hideGenericErrorDialog());
 
-      const response: ApiResponse<any, any> = await fetchUserTodaysActivityApi(
+      const response: ApiResponse<any, any> = await fetchUserPerformanceApi(
         userId
       );
       if (response && response.data) {
-        const { todaysActivity }: { todaysActivity: TodaysActivityType } =
-          response.data;
+        const { totalUserSteps, totalUserTime, caloriesBurned } =
+          response.data.performance;
 
-        dispatch(setTodaysActivity(todaysActivity));
+        const transformedData: PerformanceType = {
+          danceMoves: totalUserSteps,
+          minutesDanced: totalUserTime,
+          caloriesBurned: caloriesBurned,
+        };
+
+        console.log("transformedData", transformedData);
+
+        dispatch(setUserPerformance(transformedData));
       } else {
         dispatch(finishedRequest());
         return showGenericErrorDialog(
-          `An error occured fetching your daily activity data.`
+          `An error occured fetching your performance data.`
         );
       }
       dispatch(finishedRequest());

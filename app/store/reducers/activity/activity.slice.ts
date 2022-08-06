@@ -1,43 +1,47 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CALORIE_MULTPLIER } from "../../../utils/formatters";
 import { RootState } from "../../store";
-import { TodaysActivityType } from "./types";
+import { PerformanceType, TodaysActivityType } from "./types";
 
-type ActivityState = TodaysActivityType;
+export interface PerformanceState {
+  performance: PerformanceType;
+  todaysActivity: TodaysActivityType;
+}
 
-const initialState: Omit<ActivityState, "user_id" | "id" | "local_date"> = {
-  calories_burned: 0,
-  body_movements: 0,
+const initialState: PerformanceState = {
+  todaysActivity: {
+    bodyMovements: 0,
+    caloriesBurned: 0,
+  },
+  performance: {
+    caloriesBurned: 0,
+    danceMoves: 0,
+    minutesDanced: 0,
+  },
 };
 
 const activitySlice = createSlice({
   name: "activity",
   initialState,
   reducers: {
-    updateTodaysActivity(state, action: PayloadAction<ActivityState>) {
-      const { body_movements } = action.payload;
-      state.body_movements += body_movements;
-      state.calories_burned += body_movements * CALORIE_MULTPLIER;
+    setTodaysActivity(state, action: PayloadAction<TodaysActivityType>) {
+      state.todaysActivity = action.payload;
     },
-    setTodaysActivity(state, action: PayloadAction<ActivityState>) {
-      const { body_movements } = action.payload;
-      state.body_movements = body_movements;
-      state.calories_burned = body_movements * CALORIE_MULTPLIER;
+    setUserPerformance(state, action: PayloadAction<PerformanceType>) {
+      const { danceMoves, minutesDanced, caloriesBurned } = action.payload;
+      state.performance = { danceMoves, minutesDanced, caloriesBurned };
     },
-    resetTodaysActivity(state) {
+    resetActivityData(state) {
       state = initialState;
     },
   },
 });
 
-export const { setTodaysActivity, resetTodaysActivity, updateTodaysActivity } =
+export const { setTodaysActivity, setUserPerformance, resetActivityData } =
   activitySlice.actions;
 
-export const selectTodaysActivity = (state: RootState) => {
-  return {
-    calories_burned: state.activity.calories_burned,
-    body_movements: state.activity.body_movements,
-  };
-};
+export const selectTodaysActivity = (state: RootState) =>
+  state.activity.todaysActivity;
+export const selectUserPerformance = (state: RootState) =>
+  state.activity.performance;
 
 export default activitySlice.reducer;

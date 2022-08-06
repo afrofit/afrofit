@@ -1,3 +1,6 @@
+import { AxiosError } from "axios";
+import { ApiResponse } from "apisauce";
+
 import { UserLoginCredentials } from "./../../../../types/UserLoginCredentials";
 import {
   finishedRequest,
@@ -7,10 +10,8 @@ import {
 } from "../../ui/ui.slice";
 import { AppThunk } from "../../../../store/store";
 import API_CLIENT from "../../../../api/api-client";
-import { AxiosError } from "axios";
 import DEVICE_STORAGE from "../../../../api/device-storage";
 import { storeUserToken } from "../auth.slice";
-import { ApiResponse } from "apisauce";
 
 const logInApi = async (userCredentials: UserLoginCredentials) => {
   const { email, password } = userCredentials;

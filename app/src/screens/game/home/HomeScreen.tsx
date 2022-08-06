@@ -16,7 +16,8 @@ import { selectTodaysActivity } from "../../../../store/reducers/activity/activi
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavType } from "../../../../src/navigator/types";
 import { selectUser } from "../../../../store/reducers/auth/auth.slice";
-import { FetchTodaysActivity } from "../../../../store/reducers/activity/thunks/fetch-todays-activity.thunk";
+import { GetUserTodaysActivityData } from "../../../../store/reducers/activity/thunks/fetch-todays-activity.thunk";
+import { GetUserPerformanceData } from "../../../../store/reducers/activity/thunks/fetch-user-performance.thunk";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
@@ -27,7 +28,8 @@ export const HomeScreen = () => {
 
   React.useEffect(() => {
     if (currentUser) {
-      // dispatch(FetchTodaysActivity(currentUser?.userId));
+      dispatch(GetUserTodaysActivityData(currentUser.userId));
+      dispatch(GetUserPerformanceData(currentUser.userId));
     }
   }, []);
 

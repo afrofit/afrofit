@@ -8,8 +8,8 @@ import {
   NumWrapper,
 } from "./ActivityTodayList.styled";
 import { formattedStat } from "../../../../../utils/formatters";
+import { TodaysActivityType } from "../../../../../store/reducers/activity/types";
 
-type TodaysActivityType = { calories_burned: number; body_movements: number };
 interface Props {
   todaysActivity: TodaysActivityType;
 }
@@ -21,7 +21,7 @@ export const ActivityTodayList: React.FC<Props> = ({ todaysActivity }) => {
         <ItemWrapper first={true} last={false}>
           <NumWrapper>
             <Font variant="h3" color="hilite_purpink" caps>
-              {formattedStat(todaysActivity.calories_burned)}
+              {formattedStat(todaysActivity.caloriesBurned)}
             </Font>
           </NumWrapper>
           <LabelWrapper>
@@ -35,7 +35,7 @@ export const ActivityTodayList: React.FC<Props> = ({ todaysActivity }) => {
         <ItemWrapper last={true}>
           <NumWrapper>
             <Font variant="h3" color="hilite_purpink" caps>
-              {formattedStat(todaysActivity.body_movements)}
+              {formattedStat(todaysActivity.bodyMovements)}
             </Font>
           </NumWrapper>
           <LabelWrapper>
