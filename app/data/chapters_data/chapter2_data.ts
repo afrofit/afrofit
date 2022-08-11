@@ -1,3 +1,4 @@
+import { TEMP_VIDEO_LINK } from "../../../app/constants/device";
 import { ChapterType } from "../../types/ChapterModel";
 
 export const CHAPTER2_AUDIO_MAP: { [key: string]: { url: number } } = {
@@ -39,59 +40,69 @@ export const CHAPTER_2_DATA: ChapterType[] = [
     order: 1,
     storyId: "story002",
     targetSteps: 600,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter2",
     order: 2,
     storyId: "story002",
     targetSteps: 650,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter3",
     order: 3,
     storyId: "story002",
     targetSteps: 700,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter4",
     order: 4,
     storyId: "story004",
     targetSteps: 750,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter5",
     order: 5,
     storyId: "story002",
     targetSteps: 850,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter6",
     order: 6,
     storyId: "story002",
     targetSteps: 950,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter7",
     order: 7,
     storyId: "story002",
     targetSteps: 1050,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter8",
     order: 8,
     storyId: "story002",
     targetSteps: 1200,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter9",
     order: 9,
     storyId: "story002",
     targetSteps: 1200,
+    videoUrl: TEMP_VIDEO_LINK,
   },
   {
     id: "story002_chapter10",
     order: 10,
     storyId: "story002",
     targetSteps: 1500,
+    videoUrl: TEMP_VIDEO_LINK,
   },
 ];

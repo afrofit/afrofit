@@ -5,6 +5,7 @@ interface Props {
   last?: boolean;
   first?: boolean;
 }
+
 export const ItemWrapper = styled.Pressable<Props>`
   /* margin-bottom: 20px; */
   flex-direction: row;
@@ -44,4 +45,13 @@ export const ListWrapper = styled.ScrollView`
   border-color: ${COLORS.hilite_purpink};
   height: 45%;
   /* z-index: 20; */
+`;
+
+export const StatsListWrapper = styled.ScrollView`
+  border-radius: ${CHAMFER};
+  overflow: hidden;
+  border-width: 1px;
+  border-color: ${COLORS.hilite_purpink};
+  /* z-index: 20; */
+  margin-bottom: 20px;
 `;

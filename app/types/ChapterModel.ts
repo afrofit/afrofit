@@ -3,6 +3,7 @@ export type ChapterType = {
   order: number;
   storyId: string;
   targetSteps: number;
+  videoUrl: string;
 };
 
 export type PlayedChapterType = {
@@ -18,4 +19,6 @@ export type ChapterPlayedType = {
   targetSteps: number;
   userSteps: number;
   userTime: number;
+  chapterDbId?: string;
+  videoUrl: string;
 };

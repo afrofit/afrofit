@@ -48,18 +48,18 @@ export const ChapterItem: React.FC<ItemProps> = ({
         disabled={disabled}
       >
         <LabelWrapper>
-          <Font variant="p" color="lightblue">
+          <Font variant="p" color={disabled ? "gray_100" : "lightblue"}>
             {title}
           </Font>
         </LabelWrapper>
         <NumWrapper>
-          {value ? (
+          {!disabled ? (
             <Font variant="h3" color="hilite_purpink" caps>
               {value} %
             </Font>
           ) : (
             <IconWrapper>
-              <Feather name={"lock"} size={25} color={COLORS.lightblue} />
+              <Feather name={"lock"} size={25} color={COLORS.hilite_purpink} />
             </IconWrapper>
           )}
         </NumWrapper>

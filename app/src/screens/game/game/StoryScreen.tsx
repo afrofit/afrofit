@@ -58,6 +58,9 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
 
   const handleGoToChapter = (chapterId: string) => {
     console.log("ChapterID", chapterId);
+    navigation.navigate("ChapterIntroScreen", {
+      chapterId,
+    });
   };
 
   return (

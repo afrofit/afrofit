@@ -1,3 +1,4 @@
+import { CHAMFER } from "./../../../../theme/globals";
 import { COLORS, CHAMFER_BIG } from "../../../../theme/globals";
 import styled from "styled-components/native";
 
@@ -18,4 +19,37 @@ export const VideoContainer = styled.View<VideoContainerProps>`
   margin-top: 20px;
   margin-bottom: 20px;
   overflow: hidden;
+`;
+
+export const DanceVideoContainer = styled.View<VideoContainerProps>`
+  height: 100%;
+  width: 80%;
+  background-color: ${COLORS.lightblue};
+  border-radius: ${CHAMFER};
+  align-self: center;
+  overflow: hidden;
+`;
+
+export const ContentContainer = styled.View<{ mb?: number }>`
+  flex: 1;
+  margin-top: 30;
+  margin-bottom: ${({ mb }) => (mb ? `${mb}px` : 90)};
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ImageContainer = styled.View`
+  /* margin-top: 30; */
+  margin-left: -20;
+  margin-bottom: 30;
+  height: 200px;
+  width: 100%;
+  align-items: center;
 `;
