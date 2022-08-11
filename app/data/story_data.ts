@@ -10,26 +10,34 @@ export const STORY_DATA_EXTRAS_MAP: {
 } = {
   story001: {
     thumbUrl: require("../assets/images/storythumbs/1.png"),
-    introVideo: "https://streamable.com/b0dkh1",
-    introVideoAlt: "https://streamable.com/b0dkh1",
+    introVideo:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
+    introVideoAlt:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
     failAudio: require("../assets/audio/story/1/story001_fail_audio.mp3"),
   },
   story002: {
     thumbUrl: require("../assets/images/storythumbs/2.png"),
-    introVideo: "https://streamable.com/b0dkh1",
-    introVideoAlt: "https://streamable.com/b0dkh1",
+    introVideo:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
+    introVideoAlt:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
     failAudio: require("../assets/audio/story/2/story002_fail_audio.mp3"),
   },
   story003: {
     thumbUrl: require("../assets/images/storythumbs/3.png"),
-    introVideo: "https://streamable.com/b0dkh1",
-    introVideoAlt: "https://streamable.com/b0dkh1",
+    introVideo:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
+    introVideoAlt:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
     failAudio: require("../assets/audio/story/3/story003_fail_audio.mp3"),
   },
   story004: {
     thumbUrl: require("../assets/images/storythumbs/4.png"),
-    introVideo: "https://streamable.com/b0dkh1",
-    introVideoAlt: "https://streamable.com/b0dkh1",
+    introVideo:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
+    introVideoAlt:
+      "https://firebasestorage.googleapis.com/v0/b/afrofit-app.appspot.com/o/story%2Fvideo%2F1%2Fsample_video.mp4.mp4?alt=media&token=94b18c80-e220-4db8-be7b-fc768afd3bb7",
     failAudio: require("../assets/audio/story/4/story004_fail_audio.mp3"),
   },
 };

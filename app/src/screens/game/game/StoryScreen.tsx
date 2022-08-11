@@ -19,6 +19,7 @@ import { VertiCard } from "../../../../src/components/cards/VertiCard";
 import { Section } from "../../../../src/components/section/Section";
 import { ChapterList } from "./components/ChapterList";
 import { FetchStoryChapters } from "../../../../store/reducers/story/thunks/fetch-story-chapters.thunk";
+import { STORY_DATA_EXTRAS_MAP } from "../../../../../app/data/story_data";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -37,12 +38,19 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
   React.useEffect(() => {
     currentUser &&
       currentStory &&
-      dispatch(FetchStoryChapters(storyId, currentUser.userId));
+      dispatch(
+        FetchStoryChapters(
+          storyId,
+          currentUser.userId,
+          currentStory.playedStoryId
+        )
+      );
   }, []);
 
   React.useEffect(() => {
     console.log("currentStory", currentStory);
-  }, [currentStory]);
+    console.log("currentChapters", currentChapters);
+  }, [currentStory, currentChapters]);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -59,7 +67,10 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
         <Placer top={2} left={3}>
           <IconButton onPress={handleGoBack} />
         </Placer>
-        <BorderedImage size="sm" imageUrl={currentStory?.thumbnail} />
+        <BorderedImage
+          size="sm"
+          imageUrl={STORY_DATA_EXTRAS_MAP[currentStory!.id].thumbUrl}
+        />
         <Spacer />
         <Font variant="h4" align="center">
           {currentStory ? currentStory.title : "Loading title..."}
@@ -77,6 +88,7 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
           <ChapterList
             currentChapters={currentChapters}
             onTapCell={handleGoToChapter}
+            lastCompletedChapter={currentStory!.lastChapterCompleted}
           />
         </Section>
       </Screen>

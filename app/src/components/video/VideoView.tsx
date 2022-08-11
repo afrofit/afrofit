@@ -2,6 +2,7 @@ import * as React from "react";
 import { AVPlaybackStatus, ResizeMode, Video } from "expo-av";
 import { millisecondsToSeconds } from "date-fns";
 import { BackgroundVideoStyles } from "./styled";
+import { Font } from "../font/Font";
 
 interface Props {
   videoUrl: string;
@@ -55,6 +56,7 @@ export const VideoView: React.FC<Props> = ({
     <Video
       ref={videoRef}
       // source={{ uri: videoUrl }}
+
       source={require("../../../assets/video/sample_dance.mp4")}
       style={BackgroundVideoStyles.video}
       resizeMode={ResizeMode.COVER}

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChapterType } from "../../../types/ChapterModel";
+import { ChapterPlayedType } from "../../../types/ChapterModel";
 import { PlayedStoryType } from "../../../types/StoryModel";
 import { RootState } from "../../store";
 
 export interface StoryState {
   currentStory: PlayedStoryType | null;
-  currentChapter: ChapterType | null;
-  currentChapters: ChapterType[] | null;
+  currentChapter: ChapterPlayedType | null;
+  currentChapters: ChapterPlayedType[] | null;
 }
 
 const initialState: StoryState = {
@@ -22,10 +22,10 @@ const storySlice = createSlice({
     setCurrentStory(state, action: PayloadAction<PlayedStoryType>) {
       state.currentStory = action.payload;
     },
-    setCurrentChapter(state, action: PayloadAction<ChapterType>) {
+    setCurrentChapter(state, action: PayloadAction<ChapterPlayedType>) {
       state.currentChapter = action.payload;
     },
-    setCurrentChapters(state, action: PayloadAction<ChapterType[]>) {
+    setCurrentChapters(state, action: PayloadAction<ChapterPlayedType[]>) {
       state.currentChapters = action.payload;
     },
     unSetCurrentStory(state) {

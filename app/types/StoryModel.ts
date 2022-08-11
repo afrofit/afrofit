@@ -21,4 +21,5 @@ export type PlayedStoryType = StoryType & {
   userSteps: number;
   userTime: number;
   playedStoryId: string;
+  lastChapterCompleted: number;
 };

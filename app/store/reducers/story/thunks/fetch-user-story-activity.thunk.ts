@@ -39,6 +39,7 @@ export function FetchUserStoryActivity(
           userSteps,
           userTime,
           id: playedStoryId,
+          lastChapterCompleted,
         } = response.data.playedStory;
 
         const CURRENT_STORY = STORY_DATA.find((story) => story.id === storyId);
@@ -59,6 +60,7 @@ export function FetchUserStoryActivity(
           userSteps,
           userTime,
           playedStoryId,
+          lastChapterCompleted,
         };
         dispatch(setCurrentStory(currentStory));
       } else {

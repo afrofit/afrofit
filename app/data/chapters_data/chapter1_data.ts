@@ -55,7 +55,7 @@ export const CHAPTER_1_DATA: ChapterType[] = [
   {
     id: "story001_chapter4",
     order: 4,
-    storyId: "story004",
+    storyId: "story001",
     targetSteps: 700,
   },
   {

@@ -11,7 +11,7 @@ interface Props {
   color?: ColorType;
   align?: "left" | "right" | "center";
   size?: "lg" | "md" | "sm" | "xs";
-  imageUrl?: string;
+  imageUrl: string | number;
 }
 
 export const BorderedImage: React.FC<Props> = ({
@@ -55,8 +55,10 @@ export const BorderedImage: React.FC<Props> = ({
             <ImageContainer>
               <StyledImage
                 source={
-                  imageUrl
+                  typeof imageUrl === "string"
                     ? { uri: imageUrl }
+                    : typeof imageUrl === "number"
+                    ? imageUrl
                     : require("../../../assets/images/art/sample_image.png")
                 }
                 style={{

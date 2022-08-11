@@ -1,18 +1,20 @@
 import * as React from "react";
 import { ListWrapper } from "./ChapterList.styled";
 import { ChapterItem } from "./ChapterItem";
-import { PlayedChapterType } from "../../../../../utils/types";
 import { Font } from "../../../../../src/components/font/Font";
 import { calculatePercentageCompleted } from "../../../../../utils/calculators";
+import { ChapterPlayedType } from "../../../../../../app/types/ChapterModel";
 
 interface Props {
-  currentChapters: PlayedChapterType[] | null;
+  currentChapters: ChapterPlayedType[] | null;
   onTapCell: (chapterId: string) => void;
+  lastCompletedChapter: number;
 }
 
 export const ChapterList: React.FC<Props> = ({
   currentChapters,
   onTapCell,
+  lastCompletedChapter,
 }) => {
   if (!currentChapters || currentChapters.length < 1)
     return (
@@ -20,7 +22,7 @@ export const ChapterList: React.FC<Props> = ({
     );
   return (
     <ListWrapper>
-      {currentChapters.map((chapter: PlayedChapterType, index: number) => {
+      {currentChapters.map((chapter: ChapterPlayedType, index: number) => {
         return (
           <ChapterItem
             key={chapter.id}
@@ -28,15 +30,16 @@ export const ChapterList: React.FC<Props> = ({
             isSquare
             first={index === 0}
             last={index + 1 === currentChapters.length}
-            title={`Chapter ${index + 1}`}
+            title={`Chapter ${chapter.order}`}
             value={
-              chapter.user_steps
+              chapter.userSteps
                 ? calculatePercentageCompleted(
-                    chapter.user_steps,
-                    chapter.target_steps
+                    chapter.userSteps,
+                    chapter.targetSteps
                   )
                 : 0
             }
+            disabled={lastCompletedChapter !== chapter.order}
             onPress={() => onTapCell(chapter.id)}
           />
         );

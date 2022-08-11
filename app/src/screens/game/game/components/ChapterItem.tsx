@@ -18,6 +18,7 @@ interface ItemProps {
   last?: boolean;
   title: string;
   value?: number | null;
+  disabled?: boolean;
   onPress: () => void;
 }
 
@@ -28,6 +29,7 @@ export const ChapterItem: React.FC<ItemProps> = ({
   last,
   title,
   value = 0,
+  disabled = true,
   onPress,
 }) => {
   return (
@@ -39,7 +41,12 @@ export const ChapterItem: React.FC<ItemProps> = ({
       first={first}
       last={last}
     >
-      <ItemWrapper first={true} last={false} onPress={onPress}>
+      <ItemWrapper
+        first={true}
+        last={false}
+        onPress={onPress}
+        disabled={disabled}
+      >
         <LabelWrapper>
           <Font variant="p" color="lightblue">
             {title}
