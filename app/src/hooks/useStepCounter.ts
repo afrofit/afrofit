@@ -26,6 +26,7 @@ const useStepCounter = () => {
   const stopStepCounting = () => {
     bodyMovementSubscription?.remove();
     bodyMovementSubscription = null;
+    console.log("counting stopped!");
   };
 
   return {

@@ -54,6 +54,8 @@ export const DanceScreen = () => {
     currentChapter.userSteps
   );
 
+  const currentTargetDanceSteps =
+    currentChapter.targetSteps - currentChapter.userSteps;
   const timeLeftToDance = 20000;
 
   /**Step Counter */
@@ -82,10 +84,12 @@ export const DanceScreen = () => {
     // Just set the GameStatus as "Ongoing"
     if (count === 10) {
       videoControlsRef.current.pauseVideo();
+      stopTimer();
       return setShowSuccessModal(true);
     }
     if (count === 0) {
       videoControlsRef.current.pauseVideo();
+      stopTimer();
       return setShowTimeUpModal(true);
     }
   }, [count]);
@@ -98,8 +102,10 @@ export const DanceScreen = () => {
 
   const handleDancePlayback = () => {
     if (gamePaused) {
+      startTimer();
       videoControlsRef.current.playVideo();
     } else {
+      stopTimer();
       videoControlsRef.current.pauseVideo();
     }
     setGamePaused(!gamePaused);
@@ -107,6 +113,10 @@ export const DanceScreen = () => {
 
   React.useEffect(() => {
     startDance();
+
+    return () => {
+      stopStepCounting();
+    };
   }, []);
 
   /** Handle Outcomes */
@@ -117,6 +127,7 @@ export const DanceScreen = () => {
 
   const handlePassChapter = () => {
     // check if this is last chapter in story
+
     if (lastChapter) return navigation.navigate("StoryFinish");
     return navigation.navigate("ChapterPass");
   };
@@ -187,7 +198,7 @@ export const DanceScreen = () => {
         </ContentContainer>
         <DanceStatsContainer>
           <DanceStatsItem
-            description={`of ${currentChapter.targetSteps} movements`}
+            description={`of ${currentTargetDanceSteps} movements`}
             value={stepCount}
           />
           <Spacer h={5} />
