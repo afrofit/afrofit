@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useCountdown } from "usehooks-ts";
+import { useInterval, useCountdown } from "usehooks-ts";
+
+import { secondsToMinutes } from "date-fns";
 
 import { Font } from "../../../../src/components/font/Font";
 import { Screen } from "../../../../src/components/screen/Screen";
@@ -28,6 +30,7 @@ import { ConfirmModal } from "../../../../../app/src/components/modals/ConfirmMo
 import useStepCounter from "../../../../../app/src/hooks/useStepCounter";
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 import { CHAPTER_DATA } from "../../../../../app/data/chapter_data";
+import { calculateDanceTimeFromBodyMovementsMS } from "../../../../../app/utils/formatters";
 
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
@@ -41,6 +44,8 @@ export const DanceScreen = () => {
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [showTimeUpModal, setShowTimeUpModal] = React.useState(false);
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+  const [sessionUserSteps, setSessionUserSteps] = React.useState(0);
+  const [timeDancedMS, setTimeDancedMS] = React.useState(0);
 
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
@@ -55,25 +60,42 @@ export const DanceScreen = () => {
   );
 
   const currentTargetDanceSteps =
-    currentChapter.targetSteps - currentChapter.userSteps;
-  const timeLeftToDance = 20000;
+    currentChapter.targetSteps - currentChapter.userSteps - sessionUserSteps;
+
+  /**Calculators */
+  const timeLeftToDance = React.useMemo(() => {
+    return calculateDanceTimeFromBodyMovementsMS(currentTargetDanceSteps);
+  }, [currentTargetDanceSteps]);
+
+  //Calculate actual time spent by user in each session
 
   /**Step Counter */
   const {
     pedometerIsAvailable,
     startStepCounting,
     stopStepCounting,
-    setStepCount,
     stepCount,
   } = useStepCounter();
 
-  /** Timer */
+  /** Timers */
   const [count, { start: startTimer, stop: stopTimer, reset: resetTimer }] =
     useCountdown({
-      seconds: timeLeftToDance / 1000,
+      seconds: timeLeftToDance,
       interval: 1000,
       isIncrement: false,
     });
+
+  useInterval(
+    () => {
+      setTimeDancedMS(timeDancedMS + 1000);
+    },
+
+    !gamePaused ? 1000 : null
+  );
+
+  React.useEffect(() => {
+    console.log("timeDancedMS", timeDancedMS);
+  }, [timeDancedMS]);
 
   /** Game Status Setter */
   React.useEffect(() => {
@@ -102,10 +124,13 @@ export const DanceScreen = () => {
 
   const handleDancePlayback = () => {
     if (gamePaused) {
+      startStepCounting();
       startTimer();
       videoControlsRef.current.playVideo();
     } else {
+      stopStepCounting();
       stopTimer();
+      setSessionUserSteps(currentUserSteps);
       videoControlsRef.current.pauseVideo();
     }
     setGamePaused(!gamePaused);
@@ -123,6 +148,7 @@ export const DanceScreen = () => {
   const chaptersLength = CHAPTER_DATA.filter(
     (chapter) => chapter.storyId === currentStory.id
   ).length;
+
   const lastChapter = currentStory.order === chaptersLength;
 
   const handlePassChapter = () => {
@@ -202,7 +228,10 @@ export const DanceScreen = () => {
             value={stepCount}
           />
           <Spacer h={5} />
-          <DanceStatsItem description="dance minutes left" value={count} />
+          <DanceStatsItem
+            description={`dance ${count > 60 ? "minutes" : "seconds"} left`}
+            value={count > 60 ? secondsToMinutes(count) : count}
+          />
         </DanceStatsContainer>
         <ButtonContainer>
           <RoundButton

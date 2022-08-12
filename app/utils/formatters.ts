@@ -1,4 +1,4 @@
-import { millisecondsToMinutes } from "date-fns";
+import { millisecondsToMinutes, millisecondsToSeconds } from "date-fns";
 // export const CALORIE_MULTPLIER = 0.00175;
 export const CALORIE_MULTPLIER = 1.75;
 
@@ -27,6 +27,11 @@ export const formattedStat = (unit: number, int: boolean = false): string => {
 export const calculateDanceTimeFromBodyMovements = (bodyMoves: number) => {
   const danceTime = bodyMoves * DANCE_TIME_MULTIPLIER_MS;
   return millisecondsToMinutes(danceTime);
+};
+
+export const calculateDanceTimeFromBodyMovementsMS = (bodyMoves: number) => {
+  const danceTime = bodyMoves * DANCE_TIME_MULTIPLIER_MS;
+  return millisecondsToSeconds(danceTime);
 };
 
 export const calculateCaloriesFromBodyMovements = (bodyMoves: number) => {
