@@ -25,6 +25,7 @@ import { DanceStatsContainer } from "./components/DanceStatsItem.styled";
 import { VideoViewExtended } from "../../../../../app/src/components/video/VideoViewExtended";
 import { GamePausedModal } from "../../../../../app/src/components/modals/GamePausedModal";
 import { ConfirmModal } from "../../../../../app/src/components/modals/ConfirmModal";
+import useStepCounter from "../../../../../app/src/hooks/useStepCounter";
 
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
@@ -49,6 +50,15 @@ export const DanceScreen = () => {
 
   const timeLeftToDance = 600000;
 
+  /**Step Counter */
+  const {
+    pedometerIsAvailable,
+    startStepCounting,
+    stopStepCounting,
+    setStepCount,
+    stepCount,
+  } = useStepCounter();
+
   /** Timer */
   const [count, { start: startTimer, stop: stopTimer, reset: resetTimer }] =
     useCountdown({
@@ -57,8 +67,19 @@ export const DanceScreen = () => {
       isIncrement: false,
     });
 
+  /** Game Status Setter */
+  React.useEffect(() => {
+    // Check if the user has completed movements and there's still time left
+    // Then set GameStatus as "Successfully completed"
+    // Check if time ran out and the user hasn't completed movements
+    // Then set GameStatus as "Ran out of time"
+    // Just set the GameStatus as "Ongoing"
+  }, []);
+
   const startDance = () => {
     startTimer();
+    startStepCounting();
+    setCurrentUserSteps(stepCount);
   };
 
   const handleDancePlayback = () => {
@@ -117,7 +138,7 @@ export const DanceScreen = () => {
         <DanceStatsContainer>
           <DanceStatsItem
             description={`of ${currentChapter.targetSteps} movements`}
-            value={currentUserSteps}
+            value={stepCount}
           />
           <Spacer h={5} />
           <DanceStatsItem description="dance minutes left" value={count} />
