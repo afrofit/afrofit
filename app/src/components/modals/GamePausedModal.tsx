@@ -7,39 +7,25 @@ import { SmallButton } from "../buttons/SmallButton";
 
 interface Props {
   onDismiss: () => void;
-  onConfirm: () => void;
+  onQuitDance: () => void;
   visible: boolean;
-  body: string;
-  title: string;
-  confirmText?: string;
-  dismissText?: string;
 }
-export const ConfirmModal: React.FC<Props> = ({
+export const GamePausedModal: React.FC<Props> = ({
   onDismiss,
-  onConfirm,
+  onQuitDance,
   visible,
-  body,
-  title,
-  confirmText = "Yes, quit",
-  dismissText = "No, dismiss",
 }) => {
   if (!visible) return null;
   return (
     <BackgroundOverlay>
       <Card centeredContent>
         <Font variant="h4" color="hilite_pink">
-          {title}
+          Game Paused!
         </Font>
-        <Spacer />
-        <Font align="center">{body}</Font>
         <Spacer h={30} />
-        <SmallButton title={confirmText} onPress={onConfirm} />
+        <SmallButton title="Continue" onPress={onDismiss} />
         <Spacer />
-        <SmallButton
-          variant="outlined"
-          title={dismissText}
-          onPress={onDismiss}
-        />
+        <SmallButton variant="outlined" title="Quit" onPress={onQuitDance} />
       </Card>
     </BackgroundOverlay>
   );

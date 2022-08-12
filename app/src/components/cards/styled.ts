@@ -72,7 +72,9 @@ export const CardWrapper = styled.View<Props>`
   flex-direction: ${({ flexDirection }) => flexDirection};
 `;
 
-export const Tappable = styled.Pressable``;
+export const Tappable = styled.Pressable`
+  width: 100%;
+`;
 
 /* VertiCard */
 export const VertiCardWrapper = styled.View`

@@ -30,9 +30,7 @@ export const SmallButton: React.FC<Props> = ({
         </LinearGradient>
       ) : (
         <StyledGenericButton variant={variant}>
-          <Font variant="smb" caps>
-            {title}
-          </Font>
+          <Font variant="smb">{title}</Font>
         </StyledGenericButton>
       )}
     </StyledSmallButton>

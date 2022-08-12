@@ -21,8 +21,9 @@ import {
 import { StoryScreenNavType } from "../../../../../app/src/navigator/types";
 import { DanceStatsItem } from "./components/DanceStatsItem";
 import { DanceStatsContainer } from "./components/DanceStatsItem.styled";
-import { VideoView } from "../../../../../app/src/components/video/VideoView";
 import { VideoViewExtended } from "../../../../../app/src/components/video/VideoViewExtended";
+import { GamePausedModal } from "../../../../../app/src/components/modals/GamePausedModal";
+import { ConfirmModal } from "../../../../../app/src/components/modals/ConfirmModal";
 
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
@@ -33,6 +34,7 @@ export const DanceScreen = () => {
   const [gameEndedType, setGameEndedType] =
     React.useState<GameFinishType>("unfinished");
   const [gamePaused, setGamePaused] = React.useState<boolean>(false);
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
 
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
@@ -58,6 +60,20 @@ export const DanceScreen = () => {
 
   return (
     <>
+      <GamePausedModal
+        visible={gamePaused}
+        onDismiss={handleDancePlayback}
+        onQuitDance={() => setShowConfirmModal(true)}
+      />
+      <ConfirmModal
+        visible={showConfirmModal}
+        title="Are you sure?"
+        body="You will lose some progress made."
+        onDismiss={() => setShowConfirmModal(false)}
+        onConfirm={() =>
+          navigation.navigate("StoryScreen", { storyId: currentStory.id })
+        }
+      />
       <SolidBackground />
       <Screen>
         <Font spacing={1} variant="sm1" caps align="center">

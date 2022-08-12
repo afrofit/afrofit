@@ -18,6 +18,7 @@ interface Props {
   onPress?: () => void;
   first?: boolean;
   last?: boolean;
+  fullWidth?: boolean;
 }
 
 export const Card: React.FC<Props> = ({
@@ -34,6 +35,7 @@ export const Card: React.FC<Props> = ({
   first,
   last,
   onPress,
+  fullWidth,
 }) => {
   return (
     <Tappable onPress={onPress}>
