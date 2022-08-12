@@ -20,6 +20,8 @@ import { LargeButton } from "../../../../../app/src/components/buttons/LargeButt
 import { ContentContainer, ImageContainer } from "./styled";
 import { ImageView } from "../../../../../app/src/components/image/ImageView/ImageView";
 import { MIXCLOUD_URL } from "../../../../../app/constants/device";
+import useAudio from "../../../../../app/src/hooks/useAudio";
+import { CHAPTER_AUDIO_MAP } from "../../../../../app/data/chapter_data";
 
 interface Props {
   route: { params: { chapterId: string } };
@@ -34,6 +36,21 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
   const currentChapter = useSelector(selectCurrentChapter);
+
+  const { handleUnloadSound, handlePlayback } = useAudio(
+    CHAPTER_AUDIO_MAP[chapterId].url
+  );
+
+  React.useEffect(() => {
+    const startAudio = async () => {
+      await handlePlayback();
+    };
+    startAudio();
+
+    return () => {
+      handleUnloadSound();
+    };
+  }, []);
 
   React.useEffect(() => {
     console.log("currentChapter", currentChapter);
@@ -57,7 +74,8 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
     // if (Platform.OS === 'ios') return Linking.openURL('music://');
   };
 
-  const handleGoBack = () => {
+  const handleGoBack = async () => {
+    await handleUnloadSound();
     navigation.goBack();
   };
 
@@ -77,14 +95,17 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
         <Font variant="sm2" align="center">
           Chapter {currentChapter.order}
         </Font>
-        <Spacer h={10} />
+        <Spacer h={30} />
+        <Font variant="pb" align="center" color="hilite_purpink">
+          {currentChapter.targetSteps} Dance Steps Left
+        </Font>
 
         <ContentContainer>
           <Font variant="h3" align="center" color="hilite_orange">
             Select your music
           </Font>
-          <Spacer h={10} />
-          <ImageContainer>
+          <Spacer h={20} />
+          <ImageContainer h={200}>
             <ImageView
               src={require("../../../../assets/images/art/solfa.png")}
             />

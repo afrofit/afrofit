@@ -2,7 +2,6 @@ import * as React from "react";
 import { AVPlaybackStatus, ResizeMode, Video } from "expo-av";
 import { millisecondsToSeconds } from "date-fns";
 import { BackgroundVideoStyles } from "./styled";
-import { Font } from "../font/Font";
 
 interface Props {
   videoUrl: string;
@@ -29,18 +28,16 @@ export const VideoViewExtended = React.forwardRef<Ref, Props>(
 
     React.useImperativeHandle(ref, () => ({
       async pauseVideo() {
-        console.log("pause video function called");
         await videoRef?.current?.pauseAsync();
       },
       async playVideo() {
-        console.log("play video function called");
         await videoRef?.current?.playAsync();
       },
     }));
 
     React.useEffect(() => {
       return () => {
-        unloadVideo().then(() => console.log("Video unloaded!"));
+        unloadVideo().then(() => null);
       };
     }, []);
 
