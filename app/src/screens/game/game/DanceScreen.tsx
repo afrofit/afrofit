@@ -26,6 +26,8 @@ import { VideoViewExtended } from "../../../../../app/src/components/video/Video
 import { GamePausedModal } from "../../../../../app/src/components/modals/GamePausedModal";
 import { ConfirmModal } from "../../../../../app/src/components/modals/ConfirmModal";
 import useStepCounter from "../../../../../app/src/hooks/useStepCounter";
+import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
+import { CHAPTER_DATA } from "../../../../../app/data/chapter_data";
 
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
@@ -37,18 +39,22 @@ export const DanceScreen = () => {
     React.useState<GameFinishType>("unfinished");
   const [gamePaused, setGamePaused] = React.useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  const [showTimeUpModal, setShowTimeUpModal] = React.useState(false);
+  const [showSuccessModal, setShowSuccessModal] = React.useState(false);
 
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
   const currentChapter = useSelector(selectCurrentChapter);
 
+  if (!currentStory || !currentChapter || !currentUser) return null;
+
   const videoControlsRef = React.useRef<any>(null);
 
   const [currentUserSteps, setCurrentUserSteps] = React.useState<number>(
-    currentChapter?.userSteps ?? 0
+    currentChapter.userSteps
   );
 
-  const timeLeftToDance = 600000;
+  const timeLeftToDance = 20000;
 
   /**Step Counter */
   const {
@@ -74,7 +80,15 @@ export const DanceScreen = () => {
     // Check if time ran out and the user hasn't completed movements
     // Then set GameStatus as "Ran out of time"
     // Just set the GameStatus as "Ongoing"
-  }, []);
+    if (count === 10) {
+      videoControlsRef.current.pauseVideo();
+      return setShowSuccessModal(true);
+    }
+    if (count === 0) {
+      videoControlsRef.current.pauseVideo();
+      return setShowTimeUpModal(true);
+    }
+  }, [count]);
 
   const startDance = () => {
     startTimer();
@@ -88,7 +102,6 @@ export const DanceScreen = () => {
     } else {
       videoControlsRef.current.pauseVideo();
     }
-    console.log("Dance paused?", gamePaused);
     setGamePaused(!gamePaused);
   };
 
@@ -96,10 +109,47 @@ export const DanceScreen = () => {
     startDance();
   }, []);
 
-  if (!currentStory || !currentChapter || !currentUser) return null;
+  /** Handle Outcomes */
+  const chaptersLength = CHAPTER_DATA.filter(
+    (chapter) => chapter.storyId === currentStory.id
+  ).length;
+  const lastChapter = currentStory.order === chaptersLength;
 
+  const handlePassChapter = () => {
+    // check if this is last chapter in story
+    if (lastChapter) return navigation.navigate("StoryFinish");
+    return navigation.navigate("ChapterPass");
+  };
+
+  const handleFailChapter = () => {
+    navigation.replace("ChapterFail");
+  };
+
+  if (!pedometerIsAvailable)
+    return (
+      <>
+        <SolidBackground />
+        <Screen>
+          <Font>This device cannot record your body movements.</Font>
+        </Screen>
+      </>
+    );
   return (
     <>
+      <AlertModal
+        visible={showTimeUpModal}
+        body="Ooops!"
+        title="You ran out of time!"
+        dismissText="Continue"
+        onDismiss={handleFailChapter}
+      />
+      <AlertModal
+        visible={showSuccessModal}
+        body="You've done the dance in time!"
+        title="Great work!"
+        dismissText="Continue"
+        onDismiss={handlePassChapter}
+      />
       <GamePausedModal
         visible={gamePaused}
         onDismiss={handleDancePlayback}

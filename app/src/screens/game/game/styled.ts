@@ -45,6 +45,13 @@ export const ButtonContainer = styled.View`
   width: 100%;
 `;
 
+export const BottomContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 50;
+`;
+
 export const ImageContainer = styled.View<{ h: number }>`
   /* margin-top: 30; */
   margin-left: -20;

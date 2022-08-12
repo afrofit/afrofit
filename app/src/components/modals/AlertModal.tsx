@@ -10,12 +10,14 @@ interface Props {
   visible: boolean;
   body: string;
   title: string;
+  dismissText?: string;
 }
 export const AlertModal: React.FC<Props> = ({
   onDismiss,
   visible,
   body,
   title,
+  dismissText = "OK",
 }) => {
   if (!visible) return null;
   return (
@@ -27,7 +29,7 @@ export const AlertModal: React.FC<Props> = ({
         <Spacer />
         <Font align="center">{body}</Font>
         <Spacer h={30} />
-        <SmallButton title="OK" onPress={onDismiss} />
+        <SmallButton title={dismissText} onPress={onDismiss} />
       </Card>
     </BackgroundOverlay>
   );
