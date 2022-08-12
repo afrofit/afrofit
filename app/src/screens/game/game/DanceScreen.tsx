@@ -22,8 +22,8 @@ import { StoryScreenNavType } from "../../../../../app/src/navigator/types";
 import { DanceStatsItem } from "./components/DanceStatsItem";
 import { DanceStatsContainer } from "./components/DanceStatsItem.styled";
 import { VideoView } from "../../../../../app/src/components/video/VideoView";
+import { VideoViewExtended } from "../../../../../app/src/components/video/VideoViewExtended";
 
-type GameStatusType = "paused" | "playing";
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
 export const DanceScreen = () => {
@@ -32,14 +32,26 @@ export const DanceScreen = () => {
 
   const [gameEndedType, setGameEndedType] =
     React.useState<GameFinishType>("unfinished");
-  const [gameStatus, setGameStatus] = React.useState<GameStatusType>("playing");
+  const [gamePaused, setGamePaused] = React.useState<boolean>(false);
 
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
   const currentChapter = useSelector(selectCurrentChapter);
 
+  const videoControlsRef = React.useRef<any>(null);
+
+  const [currentUserSteps, setCurrentUserSteps] = React.useState<number>(
+    currentChapter?.userSteps ?? 0
+  );
+
   const handleDancePlayback = () => {
-    console.log("Dance paused");
+    if (gamePaused) {
+      videoControlsRef.current.playVideo();
+    } else {
+      videoControlsRef.current.pauseVideo();
+    }
+    console.log("Dance paused?", gamePaused);
+    setGamePaused(!gamePaused);
   };
 
   if (!currentStory || !currentChapter || !currentUser) return null;
@@ -58,7 +70,8 @@ export const DanceScreen = () => {
         <Spacer h={10} />
         <ContentContainer mb={30}>
           <DanceVideoContainer size="lg">
-            <VideoView
+            <VideoViewExtended
+              ref={videoControlsRef}
               onVideoFinished={() => null}
               onVideoHalfwayFinished={() => null}
               loop
@@ -67,12 +80,18 @@ export const DanceScreen = () => {
           </DanceVideoContainer>
         </ContentContainer>
         <DanceStatsContainer>
-          <DanceStatsItem description="of 2000 movements" value={17} />
+          <DanceStatsItem
+            description={`of ${currentChapter.targetSteps} movements`}
+            value={currentUserSteps}
+          />
           <Spacer h={5} />
           <DanceStatsItem description="dance minutes left" value={0} />
         </DanceStatsContainer>
         <ButtonContainer>
-          <RoundButton onPress={handleDancePlayback} />
+          <RoundButton
+            onPress={handleDancePlayback}
+            icon={gamePaused ? "play" : "pause"}
+          />
         </ButtonContainer>
       </Screen>
     </>
