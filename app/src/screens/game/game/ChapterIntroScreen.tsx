@@ -65,7 +65,8 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
       );
   }, []);
 
-  const handleStartChapter = () => {
+  const handleStartChapter = async () => {
+    await handleUnloadSound();
     navigation.navigate("DanceScreen");
   };
 

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useCountdown } from "usehooks-ts";
 
 import { Font } from "../../../../src/components/font/Font";
 import { Screen } from "../../../../src/components/screen/Screen";
@@ -46,6 +47,20 @@ export const DanceScreen = () => {
     currentChapter?.userSteps ?? 0
   );
 
+  const timeLeftToDance = 600000;
+
+  /** Timer */
+  const [count, { start: startTimer, stop: stopTimer, reset: resetTimer }] =
+    useCountdown({
+      seconds: timeLeftToDance / 1000,
+      interval: 1000,
+      isIncrement: false,
+    });
+
+  const startDance = () => {
+    startTimer();
+  };
+
   const handleDancePlayback = () => {
     if (gamePaused) {
       videoControlsRef.current.playVideo();
@@ -55,6 +70,10 @@ export const DanceScreen = () => {
     console.log("Dance paused?", gamePaused);
     setGamePaused(!gamePaused);
   };
+
+  React.useEffect(() => {
+    startDance();
+  }, []);
 
   if (!currentStory || !currentChapter || !currentUser) return null;
 
@@ -101,7 +120,7 @@ export const DanceScreen = () => {
             value={currentUserSteps}
           />
           <Spacer h={5} />
-          <DanceStatsItem description="dance minutes left" value={0} />
+          <DanceStatsItem description="dance minutes left" value={count} />
         </DanceStatsContainer>
         <ButtonContainer>
           <RoundButton
