@@ -1,5 +1,6 @@
 import * as React from "react";
 import type {} from "redux-thunk/extend-redux";
+import { LogBox } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 import { GenericError } from "./src/components/errors/GenericError";
@@ -19,6 +20,8 @@ import {
 import { setCurrentUser } from "./store/reducers/auth/auth.slice";
 import { selectUser } from "./store/reducers/auth/auth.slice";
 import { UserModel } from "./types/UserModel";
+
+LogBox.ignoreAllLogs(true);
 
 export const Index = () => {
   const dispatch = useDispatch();

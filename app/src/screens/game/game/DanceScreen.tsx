@@ -12,7 +12,6 @@ import {
   ButtonContainer,
   ContentContainer,
   DanceVideoContainer,
-  VideoContainer,
 } from "./styled";
 import { RoundButton } from "../../../../../app/src/components/buttons/RoundButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,11 +39,11 @@ export const DanceScreen = () => {
 
   const [gameEndedType, setGameEndedType] =
     React.useState<GameFinishType>("unfinished");
+
   const [gamePaused, setGamePaused] = React.useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [showTimeUpModal, setShowTimeUpModal] = React.useState(false);
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
-  const [sessionUserSteps, setSessionUserSteps] = React.useState(0);
   const [timeDancedMS, setTimeDancedMS] = React.useState(0);
 
   const currentUser = useSelector(selectUser);
@@ -55,55 +54,56 @@ export const DanceScreen = () => {
 
   const videoControlsRef = React.useRef<any>(null);
 
-  const [currentUserSteps, setCurrentUserSteps] = React.useState<number>(
+  const [sessionUserSteps, setSessionUserSteps] = React.useState<number>(
     currentChapter.userSteps
   );
 
-  const currentTargetDanceSteps =
-    currentChapter.targetSteps - currentChapter.userSteps - sessionUserSteps;
+  const [currentTargetDanceSteps, setCurrentTargetDanceSteps] =
+    React.useState<number>(
+      currentChapter.targetSteps - currentChapter.userSteps
+    );
 
-  /**Calculators */
+  /** Calculators */
   const timeLeftToDance = React.useMemo(() => {
     return calculateDanceTimeFromBodyMovementsMS(currentTargetDanceSteps);
   }, [currentTargetDanceSteps]);
 
   //Calculate actual time spent by user in each session
 
-  /**Step Counter */
+  /** Step Counter */
   const {
     pedometerIsAvailable,
     startStepCounting,
     stopStepCounting,
+    setStepCount,
     stepCount,
   } = useStepCounter();
 
   /** Timers */
-  const [count, { start: startTimer, stop: stopTimer, reset: resetTimer }] =
-    useCountdown({
-      seconds: timeLeftToDance,
-      interval: 1000,
-      isIncrement: false,
-    });
+
+  const [
+    count,
+    {
+      startCountdown: startTimer,
+      stopCountdown: stopTimer,
+      resetCountdown: resetTimer,
+    },
+  ] = useCountdown({
+    countStart: timeLeftToDance,
+    countStop: 0,
+    intervalMs: 1000,
+  });
 
   useInterval(
     () => {
       setTimeDancedMS(timeDancedMS + 1000);
     },
-
     !gamePaused ? 1000 : null
   );
 
-  React.useEffect(() => {
-    console.log("timeDancedMS", timeDancedMS);
-  }, [timeDancedMS]);
-
   /** Game Status Setter */
+
   React.useEffect(() => {
-    // Check if the user has completed movements and there's still time left
-    // Then set GameStatus as "Successfully completed"
-    // Check if time ran out and the user hasn't completed movements
-    // Then set GameStatus as "Ran out of time"
-    // Just set the GameStatus as "Ongoing"
     if (count === 10) {
       videoControlsRef.current.pauseVideo();
       stopTimer();
@@ -117,42 +117,46 @@ export const DanceScreen = () => {
   }, [count]);
 
   const startDance = () => {
+    console.log("Game Started");
     startTimer();
     startStepCounting();
-    setCurrentUserSteps(stepCount);
-  };
-
-  const handleDancePlayback = () => {
-    if (gamePaused) {
-      startStepCounting();
-      startTimer();
-      videoControlsRef.current.playVideo();
-    } else {
-      stopStepCounting();
-      stopTimer();
-      setSessionUserSteps(currentUserSteps);
-      videoControlsRef.current.pauseVideo();
-    }
-    setGamePaused(!gamePaused);
   };
 
   React.useEffect(() => {
-    startDance();
+    if (videoControlsRef && videoControlsRef.current) {
+      if (gamePaused) {
+        setCurrentTargetDanceSteps(
+          currentChapter.targetSteps -
+            currentChapter.userSteps -
+            sessionUserSteps
+        );
+        setStepCount(0);
+        stopStepCounting();
+        stopTimer();
+        videoControlsRef.current.pauseVideo();
+        console.log("game paused!");
+      } else if (!gamePaused) {
+        startStepCounting();
+        startTimer();
+        videoControlsRef.current.playVideo();
+        console.log("game unpaused!");
+      }
+    }
+  }, [gamePaused, videoControlsRef]);
 
-    return () => {
-      stopStepCounting();
-    };
+  React.useEffect(() => {
+    startDance();
   }, []);
 
   /** Handle Outcomes */
-  const chaptersLength = CHAPTER_DATA.filter(
-    (chapter) => chapter.storyId === currentStory.id
-  ).length;
-
-  const lastChapter = currentStory.order === chaptersLength;
 
   const handlePassChapter = () => {
     // check if this is last chapter in story
+    const chaptersLength = CHAPTER_DATA.filter(
+      (chapter) => chapter.storyId === currentStory.id
+    ).length;
+
+    const lastChapter = currentStory.order === chaptersLength;
 
     if (lastChapter) return navigation.navigate("StoryFinish");
     return navigation.navigate("ChapterPass");
@@ -189,7 +193,7 @@ export const DanceScreen = () => {
       />
       <GamePausedModal
         visible={gamePaused}
-        onDismiss={handleDancePlayback}
+        onDismiss={() => setGamePaused(!gamePaused)}
         onQuitDance={() => setShowConfirmModal(true)}
       />
       <ConfirmModal
@@ -235,7 +239,7 @@ export const DanceScreen = () => {
         </DanceStatsContainer>
         <ButtonContainer>
           <RoundButton
-            onPress={handleDancePlayback}
+            onPress={() => setGamePaused(!gamePaused)}
             icon={gamePaused ? "play" : "pause"}
           />
         </ButtonContainer>

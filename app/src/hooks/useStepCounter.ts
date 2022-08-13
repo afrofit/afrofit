@@ -7,6 +7,10 @@ const useStepCounter = () => {
     React.useState<boolean>(false);
   const [stepCount, setStepCount] = React.useState<number>(0);
 
+  const stepDivisor = React.useMemo(() => {
+    return 0.1;
+  }, []);
+
   React.useEffect(() => {
     Pedometer.isAvailableAsync().then((result) => {
       return setPedometerIsAvailable(result);
@@ -16,17 +20,14 @@ const useStepCounter = () => {
   let bodyMovementSubscription: Subscription | null;
 
   const startStepCounting = () => {
-    bodyMovementSubscription = Pedometer.watchStepCount((result) => {
-      setStepCount(result.steps);
-      //   setAdjustedCount(Math.floor(result.steps / stepDivisor));
-      return;
-    });
+    return (bodyMovementSubscription = Pedometer.watchStepCount((result) => {
+      return setStepCount(Math.floor(result.steps * stepDivisor));
+    }));
   };
 
   const stopStepCounting = () => {
-    bodyMovementSubscription?.remove();
-    bodyMovementSubscription = null;
-    console.log("counting stopped!");
+    return bodyMovementSubscription && bodyMovementSubscription.remove();
+    // bodyMovementSubscription = null;
   };
 
   return {
