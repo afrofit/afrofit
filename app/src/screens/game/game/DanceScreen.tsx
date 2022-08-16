@@ -30,6 +30,9 @@ import useStepCounter from "../../../../../app/src/hooks/useStepCounter";
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 import { CHAPTER_DATA } from "../../../../../app/data/chapter_data";
 import { calculateDanceTimeFromBodyMovementsMS } from "../../../../../app/utils/formatters";
+import { SaveUserDanceData } from "../../../../../app/store/reducers/story/thunks/save-user-dance-data";
+import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
+import useAnnouncer from "../../../../../app/src/hooks/useAnnouncer";
 
 type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
 
@@ -58,10 +61,11 @@ export const DanceScreen = () => {
     currentChapter.userSteps
   );
 
-  const [currentTargetDanceSteps, setCurrentTargetDanceSteps] =
-    React.useState<number>(
-      currentChapter.targetSteps - currentChapter.userSteps
+  const currentTargetDanceSteps = React.useMemo(() => {
+    return (
+      currentChapter.targetSteps - currentChapter.userSteps - sessionUserSteps
     );
+  }, [sessionUserSteps]);
 
   /** Calculators */
   const timeLeftToDance = React.useMemo(() => {
@@ -75,9 +79,13 @@ export const DanceScreen = () => {
     pedometerIsAvailable,
     startStepCounting,
     stopStepCounting,
-    setStepCount,
     stepCount,
   } = useStepCounter();
+
+  const { playAnnouncement } = useAnnouncer(
+    currentChapter.targetSteps,
+    stepCount
+  );
 
   /** Timers */
 
@@ -101,20 +109,27 @@ export const DanceScreen = () => {
     !gamePaused ? 1000 : null
   );
 
+  /** Announcement */
+  React.useEffect(() => {
+    playAnnouncement();
+  }, [stepCount, currentChapter.targetSteps]);
+
   /** Game Status Setter */
 
   React.useEffect(() => {
-    if (count === 10) {
+    if (currentTargetDanceSteps === stepCount) {
       videoControlsRef.current.pauseVideo();
       stopTimer();
+      stopStepCounting();
       return setShowSuccessModal(true);
     }
     if (count === 0) {
       videoControlsRef.current.pauseVideo();
       stopTimer();
+      stopStepCounting();
       return setShowTimeUpModal(true);
     }
-  }, [count]);
+  }, [count, currentTargetDanceSteps, stepCount]);
 
   const startDance = () => {
     console.log("Game Started");
@@ -125,12 +140,8 @@ export const DanceScreen = () => {
   React.useEffect(() => {
     if (videoControlsRef && videoControlsRef.current) {
       if (gamePaused) {
-        setCurrentTargetDanceSteps(
-          currentChapter.targetSteps -
-            currentChapter.userSteps -
-            sessionUserSteps
-        );
-        setStepCount(0);
+        setSessionUserSteps(stepCount);
+
         stopStepCounting();
         stopTimer();
         videoControlsRef.current.pauseVideo();
@@ -164,6 +175,43 @@ export const DanceScreen = () => {
 
   const handleFailChapter = () => {
     navigation.replace("ChapterFail");
+  };
+
+  const handleEndGame = () => {
+    saveGame();
+    // Save the user progress here
+    navigation.navigate("StoryScreen", { storyId: currentStory.id });
+  };
+
+  const saveGame = () => {
+    // Find out game status --
+
+    const saveData = {} as SaveDanceDataType;
+
+    if (
+      currentChapter.userSteps + sessionUserSteps ===
+        currentChapter.targetSteps &&
+      count > 0
+    ) {
+      saveData.timeDancedMS = timeDancedMS;
+      saveData.userSteps = sessionUserSteps;
+      // This means  user completed game in time
+    } else if (count < 1) {
+      // they ran out of time,
+    } else {
+      // or are they quitting in the middle of it
+    }
+    // Save userSteps at 0/25/75 percents of target to playedChapter, playedStory
+    // Save actual userSteps to overallPerformance
+    // Also save timeDanced to overallPerformance, playedStory, playedChapter
+    dispatch(
+      SaveUserDanceData(
+        currentUser.userId,
+        currentChapter.id,
+        currentStory.playedStoryId,
+        saveData
+      )
+    );
   };
 
   if (!pedometerIsAvailable)
@@ -201,9 +249,7 @@ export const DanceScreen = () => {
         title="Are you sure?"
         body="You will lose some progress made."
         onDismiss={() => setShowConfirmModal(false)}
-        onConfirm={() =>
-          navigation.navigate("StoryScreen", { storyId: currentStory.id })
-        }
+        onConfirm={handleEndGame}
       />
       <SolidBackground />
       <Screen>

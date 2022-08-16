@@ -19,6 +19,6 @@ export type ChapterPlayedType = {
   targetSteps: number;
   userSteps: number;
   userTime: number;
-  chapterDbId?: string;
+  playedChapterId?: string;
   videoUrl: string;
 };
