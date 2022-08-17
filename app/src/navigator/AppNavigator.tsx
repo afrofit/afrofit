@@ -21,7 +21,7 @@ export type GameStackParamList = {
   GameRoot: undefined;
   StoryScreen: { storyId: string };
   StoryIntroScreen: { storyId: string };
-  ChapterIntroScreen: { chapterId: string };
+  ChapterIntroScreen: { chapterId: string; userId: string; storyId: string };
   DanceScreen: undefined;
   StoryFinish: undefined;
   ChapterFail: undefined;

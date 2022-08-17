@@ -22,13 +22,18 @@ import { ImageView } from "../../../../../app/src/components/image/ImageView/Ima
 import { MIXCLOUD_URL } from "../../../../../app/constants/device";
 import useAudio from "../../../../../app/src/hooks/useAudio";
 import { CHAPTER_AUDIO_MAP } from "../../../../../app/data/chapter_data";
+import useUnmount from "../../../../../app/src/hooks/useUnmount";
 
 interface Props {
-  route: { params: { chapterId: string } };
+  route: { params: { chapterId: string; userId: string; storyId: string } };
 }
 
 export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
-  const { chapterId } = route.params;
+  const { chapterId, userId, storyId } = route.params;
+
+  const [existingUserSteps, setExistingUserSteps] = React.useState<
+    number | null
+  >(null);
 
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
@@ -37,35 +42,42 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
   const currentStory = useSelector(selectCurrentStory);
   const currentChapter = useSelector(selectCurrentChapter);
 
-  if (!currentUser || !currentStory) return null;
-
   React.useEffect(() => {
-    currentUser &&
-      chapterId &&
-      currentStory &&
-      dispatch(
-        FetchChapterDetail(currentUser.userId, currentStory.id, chapterId)
-      );
+    dispatch(FetchChapterDetail(userId, storyId, chapterId));
   }, []);
 
-  if (!currentChapter) return null;
+  const userHasPlayedChapter = React.useMemo(() => {
+    if (currentChapter) {
+      return currentChapter.userSteps < 1;
+    }
+    return false;
+  }, []);
 
-  const { handleUnloadSound, handlePlayback } = useAudio(
-    currentChapter.userSteps < 1
+  const { handlePlayback, handleUnloadSound } = useAudio(
+    !userHasPlayedChapter
       ? CHAPTER_AUDIO_MAP[chapterId].url
       : CHAPTER_AUDIO_MAP[chapterId].alt_url
   );
 
-  React.useEffect(() => {
-    const startAudio = async () => {
-      await handlePlayback();
-    };
-    startAudio();
-
-    return () => {
-      handleUnloadSound();
-    };
+  const startAudio = React.useCallback(async () => {
+    await handlePlayback();
   }, []);
+
+  React.useEffect(() => {
+    startAudio();
+  }, []);
+
+  useUnmount(() => handleUnloadSound());
+
+  if (
+    !currentUser ||
+    !currentStory ||
+    !chapterId ||
+    !userId ||
+    !storyId ||
+    !currentChapter
+  )
+    return null;
 
   const handleStartChapter = async () => {
     await handleUnloadSound();

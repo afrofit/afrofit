@@ -56,13 +56,15 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
     navigation.goBack();
   };
 
+  if (!currentUser || !currentStory || !currentChapters) return null;
+
   const handleGoToChapter = (chapterId: string) => {
     navigation.navigate("ChapterIntroScreen", {
       chapterId,
+      userId: currentUser.userId,
+      storyId: currentStory.id,
     });
   };
-
-  if (!currentUser || !currentStory || !currentChapters) return null;
 
   return (
     <>

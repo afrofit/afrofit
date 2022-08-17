@@ -53,15 +53,22 @@ export function SaveUserDanceData(
           story: fetchedStory,
         } = response.data;
 
-        // const rawChapter = CHAPTER_DATA.find(chapter => chapter.id === fetchedChapter.id)
+        const rawChapter = CHAPTER_DATA.find(
+          (chapter) => chapter.id === fetchedChapter.id
+        );
+        if (!rawChapter) throw new Error("Cannot find existing chapter.");
+        const currentChapter: ChapterPlayedType = {
+          ...rawChapter,
+          userSteps: fetchedChapter.userSteps,
+          userTime: fetchedChapter.userTime,
+        };
+        console.log("Current Chapter from thunk", currentChapter);
+        dispatch(setCurrentChapter(currentChapter));
         // const rawStory = STORY_DATA.find(story => story.id === fetchedStory.storyId)
 
-        // if (!rawChapter) throw new Error("Cannot find existing chapter.")
         // if (!rawStory) throw new Error("Cannot find existing story.")
 
-        // const currentChapter: ChapterPlayedType = {...rawChapter, userSteps: fetchedChapter.userSteps, userTime: fetchedChapter.userTime}
         // const currentStory: PlayedStoryType = {...rawStory, userSteps: fetchedStory.userSteps, userTime: fetchedStory.userTime, totalTargetSteps: fetchedStory}
-        // dispatch(setCurrentChapter(currentChapter));
         // dispatch(setCurrentStory(currentStory));
       } else {
         dispatch(finishedRequest());

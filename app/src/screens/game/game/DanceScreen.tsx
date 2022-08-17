@@ -33,15 +33,11 @@ import { calculateDanceTimeFromBodyMovementsMS } from "../../../../../app/utils/
 import { SaveUserDanceData } from "../../../../../app/store/reducers/story/thunks/save-user-dance-data";
 import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
 import useAnnouncer from "../../../../../app/src/hooks/useAnnouncer";
-
-type GameFinishType = "unfinished" | "inTime" | "timeElapsed" | "userQuit";
+import useUnmount from "../../../../../app/src/hooks/useUnmount";
 
 export const DanceScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
-
-  const [gameEndedType, setGameEndedType] =
-    React.useState<GameFinishType>("unfinished");
 
   const [gamePaused, setGamePaused] = React.useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
@@ -57,15 +53,9 @@ export const DanceScreen = () => {
 
   const videoControlsRef = React.useRef<any>(null);
 
-  const [sessionUserSteps, setSessionUserSteps] = React.useState<number>(
-    currentChapter.userSteps
-  );
-
   const currentTargetDanceSteps = React.useMemo(() => {
-    return (
-      currentChapter.targetSteps - currentChapter.userSteps - sessionUserSteps
-    );
-  }, [sessionUserSteps]);
+    return currentChapter.targetSteps - currentChapter.userSteps;
+  }, []);
 
   /** Calculators */
   const timeLeftToDance = React.useMemo(() => {
@@ -112,7 +102,7 @@ export const DanceScreen = () => {
   /** Announcement */
   React.useEffect(() => {
     playAnnouncement();
-  }, [stepCount, currentChapter.targetSteps]);
+  }, [stepCount + currentChapter.userSteps, currentChapter.targetSteps]);
 
   /** Game Status Setter */
 
@@ -140,8 +130,6 @@ export const DanceScreen = () => {
   React.useEffect(() => {
     if (videoControlsRef && videoControlsRef.current) {
       if (gamePaused) {
-        setSessionUserSteps(stepCount);
-
         stopStepCounting();
         stopTimer();
         videoControlsRef.current.pauseVideo();
@@ -159,13 +147,22 @@ export const DanceScreen = () => {
     startDance();
   }, []);
 
+  useUnmount(() => {
+    console.log("UNMOUNTED");
+    stopTimer();
+    stopStepCounting();
+    console.log("Stopped step counting");
+    return;
+  });
+
   /** Handle Outcomes */
 
-  const handlePassChapter = () => {
-    // check if this is last chapter in story
+  const handlePassChapter = async () => {
     const chaptersLength = CHAPTER_DATA.filter(
       (chapter) => chapter.storyId === currentStory.id
     ).length;
+
+    await saveGame();
 
     const lastChapter = currentStory.order === chaptersLength;
 
@@ -173,7 +170,8 @@ export const DanceScreen = () => {
     return navigation.navigate("ChapterPass");
   };
 
-  const handleFailChapter = () => {
+  const handleFailChapter = async () => {
+    await saveGame();
     navigation.replace("ChapterFail");
   };
 
