@@ -49,7 +49,7 @@ export function FetchChapterDetail(
           throw new Error("Cannot find chapter information!");
 
         const currentChapter: ChapterPlayedType = {
-          chapterDbId: chapter.id,
+          playedChapterId: chapter.id,
           id: CURRENT_CHAPTER.id,
           order: CURRENT_CHAPTER.order,
           storyId: CURRENT_CHAPTER.storyId,

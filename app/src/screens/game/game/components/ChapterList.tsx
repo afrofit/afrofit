@@ -32,7 +32,7 @@ export const ChapterList: React.FC<Props> = ({
             last={index + 1 === currentChapters.length}
             title={`Chapter ${chapter.order}`}
             value={
-              chapter.userSteps
+              chapter.userSteps > 0
                 ? calculatePercentageCompleted(
                     chapter.userSteps,
                     chapter.targetSteps

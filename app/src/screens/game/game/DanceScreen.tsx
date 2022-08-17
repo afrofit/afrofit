@@ -177,16 +177,19 @@ export const DanceScreen = () => {
     navigation.replace("ChapterFail");
   };
 
-  const handleEndGame = () => {
-    saveGame();
+  const handleEndGame = async () => {
+    await saveGame();
     // Save the user progress here
     navigation.navigate("StoryScreen", { storyId: currentStory.id });
   };
 
-  const saveGame = () => {
-    // Find out game status --
-
+  const saveGame = async () => {
     const saveData = {} as SaveDanceDataType;
+
+    saveData.timeDancedMS = timeDancedMS;
+    saveData.userSteps = stepCount;
+    /*
+    // Find out game status --
 
     if (
       currentChapter.userSteps + sessionUserSteps ===
@@ -204,6 +207,8 @@ export const DanceScreen = () => {
     // Save userSteps at 0/25/75 percents of target to playedChapter, playedStory
     // Save actual userSteps to overallPerformance
     // Also save timeDanced to overallPerformance, playedStory, playedChapter
+    */
+
     dispatch(
       SaveUserDanceData(
         currentUser.userId,
@@ -273,6 +278,14 @@ export const DanceScreen = () => {
           </DanceVideoContainer>
         </ContentContainer>
         <DanceStatsContainer>
+          {currentChapter.userSteps > 0 && (
+            <>
+              <Font align="center" variant="sm2" caps color="hilite_purpink">
+                You did {currentChapter.userSteps} steps previously
+              </Font>
+              <Spacer />
+            </>
+          )}
           <DanceStatsItem
             description={`of ${currentTargetDanceSteps} movements`}
             value={stepCount}

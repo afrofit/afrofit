@@ -3,6 +3,7 @@ export const calculatePercentageCompleted = (
   total: number
 ) => {
   if (partial > total) return null;
-  const result = (100 * partial) / total;
-  return Math.floor(result);
+  // const result = (100 * partial) / total;
+  // return (result);
+  return Math.floor((partial / total) * 100);
 };

@@ -1,36 +1,48 @@
 import { TEMP_VIDEO_LINK } from "../../../app/constants/device";
 import { ChapterType } from "../../types/ChapterModel";
 
-export const CHAPTER1_AUDIO_MAP: { [key: string]: { url: number } } = {
+export const CHAPTER1_AUDIO_MAP: {
+  [key: string]: { url: number; alt_url: number };
+} = {
   story001_chapter1: {
     url: require("../../assets/audio/chapters/1/story001_chapter1.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter2: {
     url: require("../../assets/audio/chapters/1/story001_chapter2.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter3: {
     url: require("../../assets/audio/chapters/1/story001_chapter3.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter4: {
     url: require("../../assets/audio/chapters/1/story001_chapter4.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter5: {
     url: require("../../assets/audio/chapters/1/story001_chapter5.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter6: {
     url: require("../../assets/audio/chapters/1/story001_chapter6.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter7: {
     url: require("../../assets/audio/chapters/1/story001_chapter7.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter8: {
     url: require("../../assets/audio/chapters/1/story001_chapter8.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter9: {
     url: require("../../assets/audio/chapters/1/story001_chapter9.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
   story001_chapter10: {
     url: require("../../assets/audio/chapters/1/story001_chapter10.mp3"),
+    alt_url: require("../../assets/audio/story/1/story001_intro_alt.mp3"),
   },
 };
 

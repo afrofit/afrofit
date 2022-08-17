@@ -1,3 +1,4 @@
+import { STORY_DATA } from "./../../../../data/story_data";
 import { ChapterPlayedType } from "./../../../../types/ChapterModel";
 import { CHAPTER_DATA } from "./../../../../data/chapter_data";
 import { ApiResponse } from "apisauce";
@@ -11,6 +12,8 @@ import {
 } from "../../ui/ui.slice";
 import { AxiosError } from "axios";
 import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
+import { setCurrentChapter, setCurrentStory } from "../story.slice";
+import { PlayedStoryType } from "app/types/StoryModel";
 
 const saveUserDanceDataApi = async (
   userId: string,
@@ -44,9 +47,22 @@ export function SaveUserDanceData(
 
       if (response && response.data) {
         console.log("Response from save dance data", response.data);
-        // const { chapters } = response.data;
+        const {
+          chapter: fetchedChapter,
+          performance,
+          story: fetchedStory,
+        } = response.data;
 
-        // dispatch(setCurrentChapters(currentChapters));
+        // const rawChapter = CHAPTER_DATA.find(chapter => chapter.id === fetchedChapter.id)
+        // const rawStory = STORY_DATA.find(story => story.id === fetchedStory.storyId)
+
+        // if (!rawChapter) throw new Error("Cannot find existing chapter.")
+        // if (!rawStory) throw new Error("Cannot find existing story.")
+
+        // const currentChapter: ChapterPlayedType = {...rawChapter, userSteps: fetchedChapter.userSteps, userTime: fetchedChapter.userTime}
+        // const currentStory: PlayedStoryType = {...rawStory, userSteps: fetchedStory.userSteps, userTime: fetchedStory.userTime, totalTargetSteps: fetchedStory}
+        // dispatch(setCurrentChapter(currentChapter));
+        // dispatch(setCurrentStory(currentStory));
       } else {
         dispatch(finishedRequest());
         return showGenericErrorDialog(

@@ -45,7 +45,7 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
           currentStory.playedStoryId
         )
       );
-  }, []);
+  }, [currentUser, currentStory]);
 
   React.useEffect(() => {
     console.log("currentStory", currentStory);
@@ -57,11 +57,12 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
   };
 
   const handleGoToChapter = (chapterId: string) => {
-    console.log("ChapterID", chapterId);
     navigation.navigate("ChapterIntroScreen", {
       chapterId,
     });
   };
+
+  if (!currentUser || !currentStory || !currentChapters) return null;
 
   return (
     <>

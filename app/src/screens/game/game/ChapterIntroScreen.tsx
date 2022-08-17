@@ -37,8 +37,23 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
   const currentStory = useSelector(selectCurrentStory);
   const currentChapter = useSelector(selectCurrentChapter);
 
+  if (!currentUser || !currentStory) return null;
+
+  React.useEffect(() => {
+    currentUser &&
+      chapterId &&
+      currentStory &&
+      dispatch(
+        FetchChapterDetail(currentUser.userId, currentStory.id, chapterId)
+      );
+  }, []);
+
+  if (!currentChapter) return null;
+
   const { handleUnloadSound, handlePlayback } = useAudio(
-    CHAPTER_AUDIO_MAP[chapterId].url
+    currentChapter.userSteps < 1
+      ? CHAPTER_AUDIO_MAP[chapterId].url
+      : CHAPTER_AUDIO_MAP[chapterId].alt_url
   );
 
   React.useEffect(() => {
@@ -50,19 +65,6 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
     return () => {
       handleUnloadSound();
     };
-  }, []);
-
-  React.useEffect(() => {
-    console.log("currentChapter", currentChapter);
-  }, [currentChapter]);
-
-  React.useEffect(() => {
-    currentUser &&
-      chapterId &&
-      currentStory &&
-      dispatch(
-        FetchChapterDetail(currentUser.userId, currentStory.id, chapterId)
-      );
   }, []);
 
   const handleStartChapter = async () => {
@@ -80,8 +82,6 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
     navigation.goBack();
   };
 
-  if (!currentStory || !currentChapter) return null;
-
   return (
     <>
       <SolidBackground />
@@ -98,7 +98,8 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
         </Font>
         <Spacer h={30} />
         <Font variant="pb" align="center" color="hilite_purpink">
-          {currentChapter.targetSteps} Dance Steps Left
+          {currentChapter.targetSteps - currentChapter.userSteps} Dance Steps
+          Left
         </Font>
 
         <ContentContainer>
