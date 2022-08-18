@@ -3,6 +3,7 @@ import { ChapterPlayedType } from "./../../../../types/ChapterModel";
 import { CHAPTER_DATA } from "./../../../../data/chapter_data";
 import { ApiResponse } from "apisauce";
 import API_CLIENT from "../../../../../app/api/api-client";
+import DEVICE_STORAGE from "../../../../../app/api/device-storage";
 import { AppThunk } from "../../../../store/store";
 import {
   finishedRequest,
@@ -19,6 +20,8 @@ import {
   updateCurrentChapters,
 } from "../story.slice";
 import { PlayedStoryType } from "../../../../../app/types/StoryModel";
+import { setCurrentUser, storeUserToken } from "../../auth/auth.slice";
+import { UserModel } from "../../../../../app/types/UserModel";
 
 const saveUserDanceDataApi = async (
   userId: string,
@@ -57,6 +60,7 @@ export function SaveUserDanceData(
           chapter: fetchedChapter,
           performance,
           story: fetchedStory,
+          token,
         } = response.data;
 
         const rawChapter = CHAPTER_DATA.find((chapter) => {
@@ -88,6 +92,15 @@ export function SaveUserDanceData(
           totalTargetSteps: currentStoredStory.totalTargetSteps,
           playedStoryId: currentStoredStory.playedStoryId,
         };
+
+        if (token) {
+          dispatch(storeUserToken(token as string));
+          DEVICE_STORAGE.STORE_TOKEN(token as string);
+          DEVICE_STORAGE.GET_STORED_USER().then((user: UserModel | null) => {
+            console.log("user from updated lastStoryCompleted?: ", user);
+            if (user) return dispatch(setCurrentUser(user));
+          });
+        }
 
         console.log("Current Chapter from thunk", currentChapter);
         console.log("Current Story from thunk", currentStory);

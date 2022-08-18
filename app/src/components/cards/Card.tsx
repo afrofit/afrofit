@@ -53,7 +53,7 @@ export const Card: React.FC<Props> = ({
         isSquare={isSquare}
         first={first}
         last={last}
-        opacity={disabled ? 0.6 : 1}
+        opacity={disabled ? 0.45 : 1}
       >
         {children}
       </CardWrapper>
