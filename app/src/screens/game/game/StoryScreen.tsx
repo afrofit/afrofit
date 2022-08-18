@@ -1,6 +1,10 @@
 import * as React from "react";
 
-import { useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { StoryScreenNavType } from "../../../../src/navigator/types";
 import { selectUser } from "../../../../store/reducers/auth/auth.slice";
 import {
@@ -28,6 +32,8 @@ interface Props {
 export const StoryScreen: React.FC<Props> = ({ route }) => {
   const { storyId } = route.params;
 
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
 
@@ -38,6 +44,7 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
   React.useEffect(() => {
     currentUser &&
       currentStory &&
+      isFocused &&
       dispatch(
         FetchStoryChapters(
           storyId,
@@ -45,15 +52,25 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
           currentStory.playedStoryId
         )
       );
-  }, [currentUser, currentStory]);
+  }, [currentUser, currentStory, isFocused]);
 
-  React.useEffect(() => {
-    console.log("currentStory", currentStory);
-    console.log("currentChapters", currentChapters);
-  }, [currentStory, currentChapters]);
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     console.log("Focused Now!");
+  //     // currentUser &&
+  //     //   currentStory &&
+  //     dispatch(
+  //       FetchStoryChapters(
+  //         storyId,
+  //         currentUser!.userId,
+  //         currentStory!.playedStoryId
+  //       )
+  //     );
+  //   }, [currentUser, currentStory])
+  // );
 
   const handleGoBack = () => {
-    navigation.goBack();
+    navigation.navigate("Home");
   };
 
   if (!currentUser || !currentStory || !currentChapters) return null;

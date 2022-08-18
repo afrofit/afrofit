@@ -38,10 +38,6 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
       dispatch(FetchUserStoryActivity(storyId, currentUser.userId));
   }, []);
 
-  React.useEffect(() => {
-    console.log("currentStory", currentStory);
-  }, [currentStory]);
-
   const handleGoBack = () => {
     dispatch(unSetCurrentStory());
     navigation.navigate("Home");

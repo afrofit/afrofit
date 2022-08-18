@@ -31,6 +31,8 @@ export function FetchStoryChapters(
     dispatch(newRequest());
     dispatch(hideGenericErrorDialog());
 
+    console.log("Calling for chapters results");
+
     try {
       const response: ApiResponse<any, any> = await fetchUserStoryChaptersApi(
         userId,
@@ -39,7 +41,7 @@ export function FetchStoryChapters(
       );
 
       if (response && response.data) {
-        console.log("Response from get story chapters", response.data);
+        // console.log("Response from get story chapters", response.data);
         const { chapters } = response.data;
 
         const CURRENT_CHAPTERS = CHAPTER_DATA.filter(
@@ -63,10 +65,6 @@ export function FetchStoryChapters(
           }
         );
 
-        console.log(
-          "Current chapters",
-          currentChapters.map((chapter) => chapter.userSteps)
-        );
         dispatch(setCurrentChapters(currentChapters));
       } else {
         dispatch(finishedRequest());

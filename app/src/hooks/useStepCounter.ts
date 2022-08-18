@@ -17,7 +17,7 @@ const useStepCounter = () => {
 
   const startStepCounting = () => {
     return (bodyMovementSubscription = Pedometer.watchStepCount((result) => {
-      return setStepCount(Math.floor(result.steps * 50));
+      return setStepCount(Math.floor(result.steps / 10));
     }));
   };
 

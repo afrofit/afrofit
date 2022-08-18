@@ -167,7 +167,7 @@ export const DanceScreen = () => {
     const lastChapter = currentStory.order === chaptersLength;
 
     if (lastChapter) return navigation.navigate("StoryFinish");
-    return navigation.navigate("ChapterPass");
+    return navigation.replace("ChapterPass");
   };
 
   const handleFailChapter = async () => {
@@ -178,7 +178,7 @@ export const DanceScreen = () => {
   const handleEndGame = async () => {
     await saveGame();
     // Save the user progress here
-    navigation.navigate("StoryScreen", { storyId: currentStory.id });
+    navigation.replace("StoryScreen", { storyId: currentStory.id });
   };
 
   const saveGame = async () => {

@@ -12,8 +12,13 @@ import {
 } from "../../ui/ui.slice";
 import { AxiosError } from "axios";
 import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
-import { setCurrentChapter, setCurrentStory } from "../story.slice";
-import { PlayedStoryType } from "app/types/StoryModel";
+import {
+  setCurrentChapter,
+  setCurrentChapters,
+  setCurrentStory,
+  updateCurrentChapters,
+} from "../story.slice";
+import { PlayedStoryType } from "../../../../../app/types/StoryModel";
 
 const saveUserDanceDataApi = async (
   userId: string,
@@ -46,16 +51,17 @@ export function SaveUserDanceData(
       );
 
       if (response && response.data) {
-        console.log("Response from save dance data", response.data);
+        // console.log("Response from save dance data", response.data);
         const {
           chapter: fetchedChapter,
           performance,
           story: fetchedStory,
         } = response.data;
 
-        const rawChapter = CHAPTER_DATA.find(
-          (chapter) => chapter.id === fetchedChapter.id
-        );
+        const rawChapter = CHAPTER_DATA.find((chapter) => {
+          return chapter.id === fetchedChapter.chapterId;
+        });
+
         if (!rawChapter) throw new Error("Cannot find existing chapter.");
         const currentChapter: ChapterPlayedType = {
           ...rawChapter,
@@ -64,6 +70,8 @@ export function SaveUserDanceData(
         };
         console.log("Current Chapter from thunk", currentChapter);
         dispatch(setCurrentChapter(currentChapter));
+        // dispatch(setCurrentChapters([]));
+        dispatch(updateCurrentChapters(currentChapter));
         // const rawStory = STORY_DATA.find(story => story.id === fetchedStory.storyId)
 
         // if (!rawStory) throw new Error("Cannot find existing story.")

@@ -26,7 +26,22 @@ const storySlice = createSlice({
       state.currentChapter = action.payload;
     },
     setCurrentChapters(state, action: PayloadAction<ChapterPlayedType[]>) {
-      state.currentChapters = action.payload;
+      state.currentChapters = action.payload.sort((a, b) =>
+        a.order > b.order ? 1 : -1
+      );
+    },
+    updateCurrentChapters(state, action: PayloadAction<ChapterPlayedType>) {
+      const newChapter = action.payload;
+      if (state.currentChapters && state.currentChapters.length > 0) {
+        const filteredCurrentChapters = state.currentChapters.filter(
+          (stateChapter) => stateChapter.id !== action.payload.id
+        );
+        state.currentChapters = [...filteredCurrentChapters, newChapter].sort(
+          (a, b) => (a.order > b.order ? 1 : -1)
+        );
+      } else {
+        state.currentChapters = state.currentChapters;
+      }
     },
     unSetCurrentStory(state) {
       state.currentStory = initialState.currentStory;
@@ -46,6 +61,7 @@ export const {
   unSetCurrentStory,
   unSetCurrentChapter,
   setCurrentChapters,
+  updateCurrentChapters,
   unSetCurrentChapters,
 } = storySlice.actions;
 

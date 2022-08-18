@@ -48,7 +48,7 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
 
   const userHasPlayedChapter = React.useMemo(() => {
     if (currentChapter) {
-      return currentChapter.userSteps < 1;
+      return currentChapter.userSteps > 1;
     }
     return false;
   }, []);
