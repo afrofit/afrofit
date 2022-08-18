@@ -5,7 +5,7 @@ import { Screen } from "../../../../src/components/screen/Screen";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { StoryIntroScreenNavType } from "../../../../src/navigator/types";
 import { FontConstrainer, VideoContainer } from "./styled";
 import { LargeButton } from "../../../../src/components/buttons/LargeButton";
@@ -27,6 +27,8 @@ interface Props {
 export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   const { storyId } = route.params;
 
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryIntroScreenNavType>();
 
@@ -34,9 +36,11 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   const currentStory = useSelector(selectCurrentStory);
 
   React.useEffect(() => {
-    currentUser &&
-      dispatch(FetchUserStoryActivity(storyId, currentUser.userId));
-  }, []);
+    if (isFocused) {
+      currentUser &&
+        dispatch(FetchUserStoryActivity(storyId, currentUser.userId));
+    }
+  }, [isFocused]);
 
   const handleGoBack = () => {
     dispatch(unSetCurrentStory());

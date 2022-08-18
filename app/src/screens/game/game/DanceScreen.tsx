@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useInterval, useCountdown } from "usehooks-ts";
 
 import { secondsToMinutes } from "date-fns";
@@ -36,6 +36,8 @@ import useAnnouncer from "../../../../../app/src/hooks/useAnnouncer";
 import useUnmount from "../../../../../app/src/hooks/useUnmount";
 
 export const DanceScreen = () => {
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
 
@@ -133,12 +135,10 @@ export const DanceScreen = () => {
         stopStepCounting();
         stopTimer();
         videoControlsRef.current.pauseVideo();
-        console.log("game paused!");
       } else if (!gamePaused) {
         startStepCounting();
         startTimer();
         videoControlsRef.current.playVideo();
-        console.log("game unpaused!");
       }
     }
   }, [gamePaused, videoControlsRef]);
