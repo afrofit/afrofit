@@ -19,6 +19,7 @@ interface Props {
   first?: boolean;
   last?: boolean;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export const Card: React.FC<Props> = ({
@@ -36,9 +37,10 @@ export const Card: React.FC<Props> = ({
   last,
   onPress,
   fullWidth,
+  disabled = false,
 }) => {
   return (
-    <Tappable onPress={onPress}>
+    <Tappable disabled={disabled} onPress={onPress}>
       <CardWrapper
         padding={padding}
         bgColor={bgColor}
@@ -51,6 +53,7 @@ export const Card: React.FC<Props> = ({
         isSquare={isSquare}
         first={first}
         last={last}
+        opacity={disabled ? 0.6 : 1}
       >
         {children}
       </CardWrapper>

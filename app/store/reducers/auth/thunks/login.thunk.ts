@@ -11,7 +11,8 @@ import {
 import { AppThunk } from "../../../../store/store";
 import API_CLIENT from "../../../../api/api-client";
 import DEVICE_STORAGE from "../../../../api/device-storage";
-import { storeUserToken } from "../auth.slice";
+import { setCurrentUser, storeUserToken } from "../auth.slice";
+import { UserModel } from "../../../../../app/types/UserModel";
 
 const logInApi = async (userCredentials: UserLoginCredentials) => {
   const { email, password } = userCredentials;
@@ -31,6 +32,10 @@ export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
 
         dispatch(storeUserToken(token as string));
         DEVICE_STORAGE.STORE_TOKEN(token as string);
+        DEVICE_STORAGE.GET_STORED_USER().then((result: UserModel | null) => {
+          console.log("user from login?: ", result);
+          if (result) return dispatch(setCurrentUser(result));
+        });
       } else {
         dispatch(finishedRequest());
         return showGenericErrorDialog(`An error occured logging you in.`);

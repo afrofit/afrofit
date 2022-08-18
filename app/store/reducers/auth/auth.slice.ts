@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserModel } from "app/types/UserModel";
+import { UserModel } from "../../../../app/types/UserModel";
 import { RootState } from "../../store";
 
 export interface AuthState {

@@ -1,4 +1,4 @@
-import { UserModel } from "app/types/UserModel";
+import { UserModel } from "../../app/types/UserModel";
 import * as SecureStore from "expo-secure-store";
 import jwtDecode from "jwt-decode";
 

@@ -3,9 +3,15 @@ import { Screen } from "../../../../src/components/screen/Screen";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
 import * as React from "react";
 import { LargeButton } from "../../../../src/components/buttons/LargeButton";
+import { useDispatch } from "react-redux";
+import { LogOut } from "../../../../../app/store/reducers/auth/thunks/logout.thunk";
 
 export const ProfileScreen = () => {
-  const handleSignUserOut = () => {};
+  const dispatch = useDispatch();
+
+  const handleSignUserOut = () => {
+    dispatch(LogOut());
+  };
 
   return (
     <>

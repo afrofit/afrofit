@@ -6,4 +6,5 @@ export type UserModel = {
   lastName: string;
   displayPicId: number;
   joinDate: string;
+  lastStoryCompleted: number;
 };

@@ -13,6 +13,7 @@ interface Props {
   isSquare?: boolean;
   first?: boolean;
   last?: boolean;
+  opacity?: number;
 }
 
 export const CardWrapper = styled.View<Props>`
@@ -70,6 +71,7 @@ export const CardWrapper = styled.View<Props>`
   align-items: ${({ centeredContent }) =>
     centeredContent ? "center" : "flex-start"};
   flex-direction: ${({ flexDirection }) => flexDirection};
+  opacity: ${({ opacity }) => opacity ?? 1};
 `;
 
 export const Tappable = styled.Pressable`

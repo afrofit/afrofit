@@ -1,5 +1,5 @@
 import { AppThunk } from "../../../../store/store";
-import DEVICE_STORAGE from "app/api/device-storage";
+import DEVICE_STORAGE from "../../../../../app/api/device-storage";
 import {
   hideGenericErrorDialog,
   showGenericErrorDialog,

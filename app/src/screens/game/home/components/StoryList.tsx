@@ -16,12 +16,17 @@ import {
   STORY_DATA_EXTRAS_MAP,
   STORY_DATA,
 } from "../../../../../data/story_data";
+import { selectUser } from "../../../../../../app/store/reducers/auth/auth.slice";
+import { useSelector } from "react-redux";
 
 interface Props {
   handleNavigateToStory: (storyId: string) => void;
 }
 
 export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
+  const currentUser = useSelector(selectUser);
+
+  if (!currentUser) return null;
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
       {STORY_DATA.sort((a, b) => (a.order > b.order ? 1 : -1)).map((story) => {
@@ -34,6 +39,7 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
             outlined={false}
             bgColor={story.color as ColorType}
             onPress={() => handleNavigateToStory(story.id)}
+            disabled={currentUser.lastStoryCompleted !== story.order}
           >
             <CardContentWrapper>
               <Placer left={-5}>

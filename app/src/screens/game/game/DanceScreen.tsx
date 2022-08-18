@@ -162,10 +162,10 @@ export const DanceScreen = () => {
       (chapter) => chapter.storyId === currentStory.id
     ).length;
 
-    setGameStarted(false);
-    await saveGame();
-
     const lastChapter = currentStory.order === chaptersLength;
+
+    setGameStarted(false);
+    await saveGame(lastChapter);
 
     if (lastChapter) return navigation.navigate("StoryFinish");
     return navigation.replace("ChapterPass");
@@ -183,7 +183,7 @@ export const DanceScreen = () => {
     navigation.replace("StoryScreen", { storyId: currentStory.id });
   };
 
-  const saveGame = async () => {
+  const saveGame = async (storyCompleted = false) => {
     const saveData = {} as SaveDanceDataType;
     const clampedStepcount =
       stepCount >= currentTargetDanceSteps
@@ -195,6 +195,7 @@ export const DanceScreen = () => {
     saveData.clampedUserSteps = clampedStepcount;
     saveData.chapterCompleted =
       currentChapter.userSteps + clampedStepcount >= currentChapter.targetSteps;
+    saveData.storyCompleted = storyCompleted;
 
     const userId = currentUser.userId;
     const chapterId = currentChapter.id;

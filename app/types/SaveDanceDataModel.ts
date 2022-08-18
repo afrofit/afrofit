@@ -3,4 +3,5 @@ export type SaveDanceDataType = {
   userSteps: number;
   clampedUserSteps: number;
   chapterCompleted: boolean;
+  storyCompleted: boolean;
 };
