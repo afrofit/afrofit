@@ -20,6 +20,7 @@ interface ItemProps {
   value?: number | null;
   disabled?: boolean;
   onPress: () => void;
+  completed?: boolean;
 }
 
 export const ChapterItem: React.FC<ItemProps> = ({
@@ -30,6 +31,7 @@ export const ChapterItem: React.FC<ItemProps> = ({
   title,
   value = 0,
   disabled = true,
+  completed = false,
   onPress,
 }) => {
   return (
@@ -59,7 +61,15 @@ export const ChapterItem: React.FC<ItemProps> = ({
             </Font>
           ) : (
             <IconWrapper>
-              <Feather name={"lock"} size={25} color={COLORS.hilite_purpink} />
+              {!completed ? (
+                <Feather
+                  name={"lock"}
+                  size={25}
+                  color={COLORS.hilite_purpink}
+                />
+              ) : (
+                <Feather name={"check"} size={25} color={COLORS.lightblue} />
+              )}
             </IconWrapper>
           )}
         </NumWrapper>

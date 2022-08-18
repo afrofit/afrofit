@@ -36,7 +36,8 @@ export function SaveUserDanceData(
   userId: string,
   chapterId: string,
   playedStoryId: string,
-  saveData: SaveDanceDataType
+  saveData: SaveDanceDataType,
+  currentStoredStory: PlayedStoryType
 ): AppThunk {
   return async (dispatch) => {
     dispatch(newRequest());
@@ -63,21 +64,36 @@ export function SaveUserDanceData(
         });
 
         if (!rawChapter) throw new Error("Cannot find existing chapter.");
+
+        const rawStory = STORY_DATA.find(
+          (story) => story.id === fetchedStory.storyId
+        );
+
+        if (!rawStory) throw new Error("Cannot find existing story.");
+
         const currentChapter: ChapterPlayedType = {
           ...rawChapter,
           userSteps: fetchedChapter.userSteps,
           userTime: fetchedChapter.userTime,
         };
+
+        if (!currentStoredStory)
+          throw new Error("Cannot find current stored story.");
+
+        const currentStory: PlayedStoryType = {
+          ...rawStory,
+          userSteps: fetchedStory.userSteps,
+          userTime: fetchedStory.userTime,
+          lastChapterCompleted: fetchedStory.lastChapterCompleted,
+          totalTargetSteps: currentStoredStory.totalTargetSteps,
+          playedStoryId: currentStoredStory.playedStoryId,
+        };
+
         console.log("Current Chapter from thunk", currentChapter);
+        console.log("Current Story from thunk", currentStory);
         dispatch(setCurrentChapter(currentChapter));
-        // dispatch(setCurrentChapters([]));
+        dispatch(setCurrentStory(currentStory));
         dispatch(updateCurrentChapters(currentChapter));
-        // const rawStory = STORY_DATA.find(story => story.id === fetchedStory.storyId)
-
-        // if (!rawStory) throw new Error("Cannot find existing story.")
-
-        // const currentStory: PlayedStoryType = {...rawStory, userSteps: fetchedStory.userSteps, userTime: fetchedStory.userTime, totalTargetSteps: fetchedStory}
-        // dispatch(setCurrentStory(currentStory));
       } else {
         dispatch(finishedRequest());
         return showGenericErrorDialog(

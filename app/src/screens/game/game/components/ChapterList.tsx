@@ -41,6 +41,7 @@ export const ChapterList: React.FC<Props> = ({
             }
             disabled={lastCompletedChapter !== chapter.order}
             onPress={() => onTapCell(chapter.id)}
+            completed={chapter.userSteps >= chapter.targetSteps}
           />
         );
       })}

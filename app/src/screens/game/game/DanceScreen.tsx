@@ -41,6 +41,7 @@ export const DanceScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StoryScreenNavType>();
 
+  const [gameStarted, setGameStarted] = React.useState<boolean>(false);
   const [gamePaused, setGamePaused] = React.useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [showTimeUpModal, setShowTimeUpModal] = React.useState(false);
@@ -109,7 +110,7 @@ export const DanceScreen = () => {
   /** Game Status Setter */
 
   React.useEffect(() => {
-    if (currentTargetDanceSteps === stepCount) {
+    if (stepCount >= currentTargetDanceSteps) {
       videoControlsRef.current.pauseVideo();
       stopTimer();
       stopStepCounting();
@@ -125,17 +126,18 @@ export const DanceScreen = () => {
 
   const startDance = () => {
     console.log("Game Started");
+    setGameStarted(true);
     startTimer();
     startStepCounting();
   };
 
   React.useEffect(() => {
     if (videoControlsRef && videoControlsRef.current) {
-      if (gamePaused) {
+      if (gamePaused && gameStarted) {
         stopStepCounting();
         stopTimer();
         videoControlsRef.current.pauseVideo();
-      } else if (!gamePaused) {
+      } else if (!gamePaused && gameStarted) {
         startStepCounting();
         startTimer();
         videoControlsRef.current.playVideo();
@@ -148,11 +150,9 @@ export const DanceScreen = () => {
   }, []);
 
   useUnmount(() => {
-    console.log("UNMOUNTED");
+    setGameStarted(false);
     stopTimer();
-    stopStepCounting();
-    console.log("Stopped step counting");
-    return;
+    return stopStepCounting();
   });
 
   /** Handle Outcomes */
@@ -162,6 +162,7 @@ export const DanceScreen = () => {
       (chapter) => chapter.storyId === currentStory.id
     ).length;
 
+    setGameStarted(false);
     await saveGame();
 
     const lastChapter = currentStory.order === chaptersLength;
@@ -171,48 +172,41 @@ export const DanceScreen = () => {
   };
 
   const handleFailChapter = async () => {
+    setGameStarted(false);
     await saveGame();
     navigation.replace("ChapterFail");
   };
 
   const handleEndGame = async () => {
+    setGameStarted(false);
     await saveGame();
-    // Save the user progress here
     navigation.replace("StoryScreen", { storyId: currentStory.id });
   };
 
   const saveGame = async () => {
     const saveData = {} as SaveDanceDataType;
+    const clampedStepcount =
+      stepCount >= currentTargetDanceSteps
+        ? currentTargetDanceSteps
+        : stepCount;
 
     saveData.timeDancedMS = timeDancedMS;
     saveData.userSteps = stepCount;
-    /*
-    // Find out game status --
+    saveData.clampedUserSteps = clampedStepcount;
+    saveData.chapterCompleted =
+      currentChapter.userSteps + clampedStepcount >= currentChapter.targetSteps;
 
-    if (
-      currentChapter.userSteps + sessionUserSteps ===
-        currentChapter.targetSteps &&
-      count > 0
-    ) {
-      saveData.timeDancedMS = timeDancedMS;
-      saveData.userSteps = sessionUserSteps;
-      // This means  user completed game in time
-    } else if (count < 1) {
-      // they ran out of time,
-    } else {
-      // or are they quitting in the middle of it
-    }
-    // Save userSteps at 0/25/75 percents of target to playedChapter, playedStory
-    // Save actual userSteps to overallPerformance
-    // Also save timeDanced to overallPerformance, playedStory, playedChapter
-    */
+    const userId = currentUser.userId;
+    const chapterId = currentChapter.id;
+    const playedStoryId = currentStory.playedStoryId;
 
     dispatch(
       SaveUserDanceData(
-        currentUser.userId,
-        currentChapter.id,
-        currentStory.playedStoryId,
-        saveData
+        userId,
+        chapterId,
+        playedStoryId,
+        saveData,
+        currentStory
       )
     );
   };
