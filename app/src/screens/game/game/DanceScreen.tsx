@@ -65,8 +65,6 @@ export const DanceScreen = () => {
     return calculateDanceTimeFromBodyMovementsMS(currentTargetDanceSteps);
   }, [currentTargetDanceSteps]);
 
-  //Calculate actual time spent by user in each session
-
   /** Step Counter */
   const {
     pedometerIsAvailable,
@@ -77,7 +75,7 @@ export const DanceScreen = () => {
 
   const { playAnnouncement } = useAnnouncer(
     currentChapter.targetSteps,
-    stepCount
+    stepCount + currentChapter.userSteps
   );
 
   /** Timers */

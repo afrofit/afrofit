@@ -48,15 +48,15 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
 
   const userHasPlayedChapter = React.useMemo(() => {
     if (currentChapter) {
-      return currentChapter.userSteps > 1;
+      return currentChapter.userSteps > 0;
     }
     return false;
-  }, []);
+  }, [currentChapter]);
 
   const { handlePlayback, handleUnloadSound } = useAudio(
-    !userHasPlayedChapter
-      ? CHAPTER_AUDIO_MAP[chapterId].url
-      : CHAPTER_AUDIO_MAP[chapterId].alt_url
+    userHasPlayedChapter
+      ? CHAPTER_AUDIO_MAP[chapterId].alt_url
+      : CHAPTER_AUDIO_MAP[chapterId].url
   );
 
   const startAudio = React.useCallback(async () => {
@@ -137,7 +137,7 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
         />
         <Spacer h={20} />
         <LargeButton
-          title={currentStory.userSteps ? "Resume Dancing" : "Start Dancing"}
+          title={userHasPlayedChapter ? "Resume Dancing" : "Start Dancing"}
           onPress={handleStartChapter}
         />
       </Screen>
