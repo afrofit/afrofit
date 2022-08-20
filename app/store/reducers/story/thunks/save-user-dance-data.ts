@@ -22,6 +22,8 @@ import {
 import { PlayedStoryType } from "../../../../../app/types/StoryModel";
 import { setCurrentUser, storeUserToken } from "../../auth/auth.slice";
 import { UserModel } from "../../../../../app/types/UserModel";
+import { TodaysActivityType } from "../../activity/types";
+import { setTodaysActivity } from "../../activity/activity.slice";
 
 const saveUserDanceDataApi = async (
   userId: string,
@@ -59,9 +61,15 @@ export function SaveUserDanceData(
         const {
           chapter: fetchedChapter,
           performance,
+          today,
           story: fetchedStory,
           token,
         } = response.data;
+
+        const todaysActivity: TodaysActivityType = {
+          caloriesBurned: today.caloriesBurned,
+          bodyMovements: today.bodyMovements,
+        };
 
         const rawChapter = CHAPTER_DATA.find((chapter) => {
           return chapter.id === fetchedChapter.chapterId;
@@ -104,6 +112,9 @@ export function SaveUserDanceData(
 
         console.log("Current Chapter from thunk", currentChapter);
         console.log("Current Story from thunk", currentStory);
+        console.log("todaysActivity from thunk", todaysActivity);
+        dispatch(setTodaysActivity(todaysActivity));
+
         dispatch(setCurrentChapter(currentChapter));
         dispatch(setCurrentStory(currentStory));
         dispatch(updateCurrentChapters(currentChapter));

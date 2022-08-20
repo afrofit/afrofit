@@ -18,9 +18,13 @@ import {
 } from "../../../../store/reducers/activity/activity.slice";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavType } from "../../../../src/navigator/types";
-import { selectUser } from "../../../../store/reducers/auth/auth.slice";
+import {
+  selectUser,
+  selectUserIsSubscribed,
+} from "../../../../store/reducers/auth/auth.slice";
 import { GetUserTodaysActivityData } from "../../../../store/reducers/activity/thunks/fetch-todays-activity.thunk";
 import { GetUserPerformanceData } from "../../../../store/reducers/activity/thunks/fetch-user-performance.thunk";
+import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
@@ -29,6 +33,9 @@ export const HomeScreen = () => {
   const currentUser = useSelector(selectUser);
   const todaysActivity = useSelector(selectTodaysActivity);
   const userPerformanceData = useSelector(selectUserPerformance);
+  const userIsSubscribed = useSelector(selectUserIsSubscribed);
+
+  const [showSubscribeModal, setShowSubscribeModal] = React.useState(false);
 
   React.useEffect(() => {
     if (currentUser) {
@@ -36,6 +43,14 @@ export const HomeScreen = () => {
       dispatch(GetUserPerformanceData(currentUser.userId));
     }
   }, []);
+
+  React.useEffect(() => {
+    if (!userIsSubscribed) {
+      setShowSubscribeModal(true);
+    } else if (userIsSubscribed) {
+      setShowSubscribeModal(false);
+    }
+  }, [userIsSubscribed]);
 
   const handleNavigateToStoryIntro = (storyId: string) => {
     navigation.navigate("StoryIntroScreen", { storyId });
@@ -45,6 +60,13 @@ export const HomeScreen = () => {
 
   return (
     <>
+      <AlertModal
+        visible={showSubscribeModal}
+        body="You need an active subscription to the Afrofit club to use this app!"
+        title="Oops!"
+        dismissText="Continue"
+        onDismiss={() => setShowSubscribeModal(false)}
+      />
       <SolidBackground />
       <Screen>
         <Header

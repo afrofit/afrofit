@@ -8,10 +8,11 @@ import { SectionWrapper } from "./styled";
 interface Props {
   title: string;
   children: any;
+  mb?: number;
 }
-export const Section: React.FC<Props> = ({ title, children }) => {
+export const Section: React.FC<Props> = ({ title, children, mb }) => {
   return (
-    <SectionWrapper>
+    <SectionWrapper mb={mb}>
       <Font variant="smb" spacing={1} caps color="lightblue">
         {title}
       </Font>

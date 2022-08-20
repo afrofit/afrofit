@@ -16,7 +16,10 @@ import {
   STORY_DATA_EXTRAS_MAP,
   STORY_DATA,
 } from "../../../../../data/story_data";
-import { selectUser } from "../../../../../../app/store/reducers/auth/auth.slice";
+import {
+  selectUser,
+  selectUserIsSubscribed,
+} from "../../../../../../app/store/reducers/auth/auth.slice";
 import { useSelector } from "react-redux";
 
 interface Props {
@@ -25,6 +28,7 @@ interface Props {
 
 export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const currentUser = useSelector(selectUser);
+  const userIsSubscribed = useSelector(selectUserIsSubscribed);
 
   if (!currentUser) return null;
   return (
@@ -39,7 +43,10 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
             outlined={false}
             bgColor={story.color as ColorType}
             onPress={() => handleNavigateToStory(story.id)}
-            disabled={currentUser.lastStoryCompleted !== story.order}
+            disabled={
+              currentUser.lastStoryCompleted !== story.order ||
+              !userIsSubscribed
+            }
           >
             <CardContentWrapper>
               <Placer left={-5}>

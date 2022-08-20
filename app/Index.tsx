@@ -20,6 +20,7 @@ import {
 import { setCurrentUser } from "./store/reducers/auth/auth.slice";
 import { selectUser } from "./store/reducers/auth/auth.slice";
 import { UserModel } from "./types/UserModel";
+import { CheckSubscriptionStatus } from "./store/reducers/auth/thunks/check-subscription.thunk";
 
 LogBox.ignoreAllLogs(true);
 
@@ -42,6 +43,18 @@ export const Index = () => {
   React.useEffect(() => {
     checkAuth();
   }, []);
+
+  React.useEffect(() => {
+    if (currentUser) {
+      checkSubscriptionStatus();
+    }
+  }, [currentUser]);
+
+  const checkSubscriptionStatus = React.useCallback(() => {
+    if (currentUser) {
+      dispatch(CheckSubscriptionStatus(currentUser.userId));
+    }
+  }, [currentUser]);
 
   const handleHideError = () => {
     return dispatch(hideGenericErrorDialog());

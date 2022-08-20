@@ -1,5 +1,5 @@
-import { CHAMFER, COLORS, ColorType } from "../../../theme/globals";
 import styled from "styled-components/native";
+import { CHAMFER, COLORS, ColorType } from "../../../theme/globals";
 
 interface Props {
   bdColor?: ColorType;
