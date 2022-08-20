@@ -1,26 +1,27 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import { RootState } from '../../store';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
+type MarathonType = { name: string; score: number };
 export interface MarathonState {
-    dummy: string
+  marathon: MarathonType[] | null;
 }
 
 const initialState: MarathonState = {
-    dummy: "Nothing yet!"
-}
+  marathon: null,
+};
 
 const marathonSlice = createSlice({
-    name: "marathon",
-    initialState,
-    reducers: {
-        someFunctionName(state, action: PayloadAction<string>) {
-            state.dummy = action.payload;
-        }
-    }
-})
+  name: "marathon",
+  initialState,
+  reducers: {
+    setMarathonData(state, action: PayloadAction<MarathonType[]>) {
+      state.marathon = action.payload;
+    },
+  },
+});
 
-export const {someFunctionName} = marathonSlice.actions
+export const { setMarathonData } = marathonSlice.actions;
 
-export const selectPerformanceDummy = (state: RootState) => state.marathon.dummy
+export const selectMarathonData = (state: RootState) => state.marathon.marathon;
 
-export default marathonSlice.reducer
+export default marathonSlice.reducer;

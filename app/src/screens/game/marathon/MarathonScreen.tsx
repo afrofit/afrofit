@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Font } from "../../../../src/components/font/Font";
 import { Screen } from "../../../../src/components/screen/Screen";
@@ -10,14 +11,36 @@ import { Card } from "../../../../../app/src/components/cards/Card";
 import { RankCard } from "../../../../../app/src/components/cards/RankCard";
 import { RankingsListWrapper, RanksListContainer } from "./styled";
 import { RankingItem } from "./components/RankingItem";
-import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
+import { selectUser } from "../../../../../app/store/reducers/auth/auth.slice";
+import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
+
+const userData = [
+  { name: "GurgyWurgy", score: 10000 },
+  { name: "ChinEye007", score: 9990 },
+  { name: "RubeyRubey", score: 9980 },
+  { name: "ScoobyDoo", score: 9970 },
+  { name: "ScrappyDoo", score: 9960 },
+  { name: "Paschalle", score: 9920 },
+  { name: "Giannah_009", score: 9910 },
+  { name: "Petreschu", score: 9900 },
+  { name: "Pandlish", score: 9800 },
+  { name: "Scarmonger_065", score: 8009 },
+];
 
 export const MarathonScreen = () => {
-  const userPerformance = useSelector(selectUserPerformance);
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(selectUser);
+
+  const fetchMarathonData = React.useCallback(() => {
+    if (currentUser) {
+      dispatch(FetchMarathonData(currentUser.userId));
+    }
+  }, [currentUser]);
 
   React.useEffect(() => {
-    console.log("userPerformance", userPerformance);
-  }, [userPerformance]);
+    fetchMarathonData();
+  }, []);
 
   return (
     <>
@@ -42,106 +65,18 @@ export const MarathonScreen = () => {
         </Section>
         <Section title="Rankings">
           <RankingsListWrapper>
-            <RankingItem
-              key={"chapter.id1"}
-              // first={index === 0}
-              first={true}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="GurgyWurgy"
-              order={1}
-              score={10000}
-            />
-            <RankingItem
-              key={"chapter.id2"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="ChineyeGigi"
-              order={2}
-              score={9999}
-            />
-            <RankingItem
-              key={"chapter.id3"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={3}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id4"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={4}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id5"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={5}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id6"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={6}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id7"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={7}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id8"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={8}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id9"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={false}
-              username="RubeyRubey"
-              order={9}
-              score={9998}
-            />
-            <RankingItem
-              key={"chapter.id10"}
-              // first={index === 0}
-              first={false}
-              // last={index + 1 === currentChapters.length}
-              last={true}
-              username="RubeyRubey"
-              order={10}
-              score={9998}
-            />
+            {userData.map((user, index: number) => {
+              return (
+                <RankingItem
+                  key={user.name}
+                  first={index === 0}
+                  last={index + 1 === userData.length}
+                  username={user.name}
+                  order={index + 1}
+                  score={user.score}
+                />
+              );
+            })}
           </RankingsListWrapper>
         </Section>
       </Screen>
