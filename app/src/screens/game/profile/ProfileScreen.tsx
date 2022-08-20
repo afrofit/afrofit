@@ -17,17 +17,23 @@ import { Positioner } from "./styled";
 import { Card } from "../../../../../app/src/components/cards/Card";
 import { RankCard } from "../../../../../app/src/components/cards/RankCard";
 import { RankPositioner } from "../../../../../app/src/components/cards/RankCard.styled";
+import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
 
 export const ProfileScreen = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(selectUser);
+  const userPerformance = useSelector(selectUserPerformance);
+
+  React.useEffect(() => {
+    console.log("userPerformance", userPerformance);
+  }, [userPerformance]);
 
   const handleSignUserOut = () => {
     dispatch(LogOut());
   };
 
-  if (!currentUser) return null;
+  if (!currentUser || !userPerformance) return null;
 
   return (
     <>
@@ -60,11 +66,20 @@ export const ProfileScreen = () => {
 
         <Spacer h={15} />
         <ProfileStatsContainer>
-          <ProfileStatsItem description="Calories burned" value={100} />
+          <ProfileStatsItem
+            description="Calories burned"
+            value={userPerformance.caloriesBurned}
+          />
           <Spacer h={5} />
-          <ProfileStatsItem description="Body movements" value={100} />
+          <ProfileStatsItem
+            description="Body movements"
+            value={userPerformance.danceMoves}
+          />
           <Spacer h={5} />
-          <ProfileStatsItem description="Dance time" value={100} />
+          <ProfileStatsItem
+            description="Minutes danced"
+            value={userPerformance.minutesDanced / 1000 / 60}
+          />
         </ProfileStatsContainer>
         <LargeButton title="Log me out" onPress={handleSignUserOut} />
         <Spacer h={10} />

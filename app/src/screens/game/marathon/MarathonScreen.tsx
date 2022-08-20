@@ -1,15 +1,24 @@
+import * as React from "react";
+import { useSelector } from "react-redux";
+
 import { Font } from "../../../../src/components/font/Font";
 import { Screen } from "../../../../src/components/screen/Screen";
 import { SolidBackground } from "../../../../src/components/screen/SolidBackground";
-import * as React from "react";
 import { Section } from "../../../../../app/src/components/section/Section";
 import Spacer from "../../../../../app/src/components/elements/Spacer";
 import { Card } from "../../../../../app/src/components/cards/Card";
 import { RankCard } from "../../../../../app/src/components/cards/RankCard";
 import { RankingsListWrapper, RanksListContainer } from "./styled";
 import { RankingItem } from "./components/RankingItem";
+import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
 
 export const MarathonScreen = () => {
+  const userPerformance = useSelector(selectUserPerformance);
+
+  React.useEffect(() => {
+    console.log("userPerformance", userPerformance);
+  }, [userPerformance]);
+
   return (
     <>
       <SolidBackground />

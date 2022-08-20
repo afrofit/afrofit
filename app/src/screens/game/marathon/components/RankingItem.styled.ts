@@ -12,7 +12,7 @@ export const RankingItemWrapper = styled.View<Props>`
   padding: 10px;
   padding-left: 20px;
   border-bottom-width: ${({ last }) => (last ? 0 : "1px")};
-  border-bottom-color: ${COLORS.hilite_purpink};
+  border-bottom-color: ${COLORS.lightblue};
   border-top-left-radius: ${CHAMFER};
   border-top-right-radius: ${CHAMFER};
 `;
@@ -25,7 +25,7 @@ export const ScoreWrapper = styled.View`
 `;
 
 export const OrderNumberWrapper = styled.View`
-  width: 25px;
+  width: 30px;
   padding: 5px;
   margin-right: 10px;
 `;

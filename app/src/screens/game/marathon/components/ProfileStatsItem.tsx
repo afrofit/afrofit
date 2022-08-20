@@ -9,6 +9,7 @@ import {
   StatsStack,
   ValueContainer,
 } from "./ProfileStatsItem.styled";
+import { formattedStat } from "../../../../../../app/utils/formatters";
 
 interface ItemProps {
   description: string;
@@ -24,7 +25,7 @@ export const ProfileStatsItem: React.FC<ItemProps> = ({
       <StatsStack padding={10}>
         <ValueContainer>
           <Font color="hilite_orange" variant="h3">
-            {value}
+            {formattedStat(value)}
           </Font>
         </ValueContainer>
         <KeyContainer>

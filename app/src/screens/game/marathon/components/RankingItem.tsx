@@ -33,6 +33,7 @@ export const RankingItem: React.FC<ItemProps> = ({
 
   return (
     <Card
+      bdColor="lightblue"
       marginBottom={0.1}
       disablePadding
       outlined={false}
@@ -41,30 +42,30 @@ export const RankingItem: React.FC<ItemProps> = ({
       last={last}
       bgColor={
         isNumeroUno
-          ? "fuschia"
+          ? "hilite_orange"
           : isRunnerUp
-          ? "gold"
+          ? "purple_100"
           : isNextRunnerUp
-          ? "lightblue"
-          : isGoodPerformers
           ? "hilite_purpink"
-          : "lightblue"
+          : isGoodPerformers
+          ? "gray_100"
+          : "gray_300"
       }
     >
       <RankingItemWrapper first={true} last={false}>
         <ContentWrapper>
           <OrderNumberWrapper>
-            <Font variant="smc" color="lightblue">
+            <Font variant="smc" color="light">
               {order}
             </Font>
           </OrderNumberWrapper>
           <UserNameWrapper>
-            <Font variant="p" color="lightblue">
+            <Font variant="p" color="light">
               {username}
             </Font>
           </UserNameWrapper>
           <ScoreWrapper>
-            <Font variant="sm2" color="lightblue">
+            <Font variant="sm2" color="light">
               {score}
             </Font>
           </ScoreWrapper>

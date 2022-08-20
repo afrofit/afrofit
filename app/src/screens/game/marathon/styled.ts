@@ -13,7 +13,7 @@ export const RankingsListWrapper = styled.ScrollView`
   border-radius: ${CHAMFER};
   overflow: hidden;
   border-width: 1px;
-  border-color: ${COLORS.hilite_purpink};
+  border-color: ${COLORS.lightblue};
   max-height: 70%;
   /* z-index: 20; */
 `;
