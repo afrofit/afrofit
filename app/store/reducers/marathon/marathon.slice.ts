@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-type MarathonType = { name: string; score: number };
+type MarathonType = { name: string; score: number; userId: string };
 export interface MarathonState {
   marathon: MarathonType[] | null;
   userScoreIndex: number;

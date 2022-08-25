@@ -17,6 +17,7 @@ interface ItemProps {
   username: string;
   order: number;
   score: number;
+  currentUser: boolean;
 }
 
 export const RankingItem: React.FC<ItemProps> = ({
@@ -25,6 +26,7 @@ export const RankingItem: React.FC<ItemProps> = ({
   username,
   order,
   score,
+  currentUser,
 }) => {
   const isNumeroUno = order === 1; // pos 1
   const isRunnerUp = order < 4 && order > 1; // pos 2, 3
@@ -33,7 +35,7 @@ export const RankingItem: React.FC<ItemProps> = ({
 
   return (
     <Card
-      bdColor="lightblue"
+      bdColor={currentUser ? "gold" : "lightblue"}
       marginBottom={0.1}
       disablePadding
       outlined={false}
@@ -55,17 +57,17 @@ export const RankingItem: React.FC<ItemProps> = ({
       <RankingItemWrapper first={true} last={false}>
         <ContentWrapper>
           <OrderNumberWrapper>
-            <Font variant="smc" color="light">
+            <Font variant="smc" color={currentUser ? "gold" : "light"}>
               {order}
             </Font>
           </OrderNumberWrapper>
           <UserNameWrapper>
-            <Font variant="p" color="light">
+            <Font variant="p" color={currentUser ? "gold" : "light"}>
               {username}
             </Font>
           </UserNameWrapper>
           <ScoreWrapper>
-            <Font variant="sm2" color="light">
+            <Font variant="sm2" color={currentUser ? "gold" : "light"}>
               {score}
             </Font>
           </ScoreWrapper>

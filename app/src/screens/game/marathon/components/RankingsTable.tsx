@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+
+import { selectUser } from "../../../../../../app/store/reducers/auth/auth.slice";
 
 import { Font } from "../../../../../../app/src/components/font/Font";
 import { Section } from "../../../../../../app/src/components/section/Section";
@@ -6,7 +9,7 @@ import { RankingsListWrapper } from "../styled";
 import { RankingItem } from "./RankingItem";
 
 interface Props {
-  rankings: { name: string; score: number }[] | null;
+  rankings: { name: string; score: number; userId: string }[] | null;
   currentUserRank: number;
 }
 
@@ -14,6 +17,10 @@ export const RankingsTable: React.FC<Props> = ({
   rankings,
   currentUserRank,
 }) => {
+  const currentUser = useSelector(selectUser);
+
+  if (!currentUser) return null;
+
   if (!rankings || rankings.length < 1)
     return <Font>Cannot find marathon data.</Font>;
 
@@ -42,12 +49,13 @@ export const RankingsTable: React.FC<Props> = ({
         {filteredRankings.map((user, index: number) => {
           return (
             <RankingItem
-              key={user.name + index}
+              key={user.userId}
               first={index === 0}
               last={index + 1 === rankings.length}
               username={user.name}
               order={index + 1}
               score={user.score}
+              currentUser={currentUser.userId === user.userId}
             />
           );
         })}

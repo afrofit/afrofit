@@ -36,11 +36,11 @@ export const MarathonScreen = () => {
   }, []);
 
   const currentUserRank = React.useMemo(() => {
-    if (userScoreIndex === -1 || userScoreIndex < 75) return 5;
-    if (userScoreIndex > 75 && userScoreIndex < 125) return 4;
-    if (userScoreIndex > 125 && userScoreIndex < 165) return 3;
-    if (userScoreIndex > 165 && userScoreIndex < 185) return 2;
-    if (userScoreIndex > 185 && userScoreIndex < 195) return 1;
+    if (userScoreIndex < 10) return 1;
+    if (userScoreIndex > 10 && userScoreIndex < 35) return 2;
+    if (userScoreIndex > 35 && userScoreIndex < 70) return 3;
+    if (userScoreIndex > 70 && userScoreIndex < 120) return 4;
+    if (userScoreIndex > 120) return 5;
     return 5;
   }, [userScoreIndex]);
 

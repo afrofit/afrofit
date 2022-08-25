@@ -31,8 +31,6 @@ export function FetchMarathonData(userId: string): AppThunk {
       if (response && response.data) {
         const { marathon, userScoreIndex } = response.data;
 
-        console.log("userScoreIndex", userScoreIndex);
-
         dispatch(setMarathonData(marathon));
         dispatch(setUserMarathonScoreIndex(userScoreIndex));
       } else {
