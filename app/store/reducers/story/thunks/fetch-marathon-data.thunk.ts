@@ -9,7 +9,10 @@ import {
   newRequest,
   showGenericErrorDialog,
 } from "../../ui/ui.slice";
-import { setMarathonData } from "../../marathon/marathon.slice";
+import {
+  setMarathonData,
+  setUserMarathonScoreIndex,
+} from "../../marathon/marathon.slice";
 
 const fetchMarathonDataApi = async (userId: string) => {
   return await API_CLIENT.get(`marathon/${userId}/`);
@@ -26,11 +29,12 @@ export function FetchMarathonData(userId: string): AppThunk {
       );
 
       if (response && response.data) {
-        console.log("Response from get marathon data", response.data);
+        const { marathon, userScoreIndex } = response.data;
 
-        const { marathon } = response.data;
+        console.log("userScoreIndex", userScoreIndex);
 
         dispatch(setMarathonData(marathon));
+        dispatch(setUserMarathonScoreIndex(userScoreIndex));
       } else {
         dispatch(finishedRequest());
         return showGenericErrorDialog(

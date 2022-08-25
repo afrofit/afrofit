@@ -25,7 +25,7 @@ export const ScoreWrapper = styled.View`
 `;
 
 export const OrderNumberWrapper = styled.View`
-  width: 30px;
+  width: 45px;
   padding: 5px;
   margin-right: 10px;
 `;

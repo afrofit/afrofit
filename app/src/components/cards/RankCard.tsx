@@ -10,22 +10,19 @@ import {
 
 interface Props {
   rankId: number;
-  size?: number;
-  showName?: boolean;
+  active?: boolean;
 }
 
-export const RankCard: React.FC<Props> = ({
-  rankId,
-  size,
-  showName = false,
-}) => {
+export const RankCard: React.FC<Props> = ({ rankId, active = false }) => {
+  const size = active ? 40 : 30;
+
   return (
     <RankContainer>
       <RankImageContainer size={size}>
         <RankImage source={RANKS_DATA[rankId].url} />
       </RankImageContainer>
       <Spacer h={5} />
-      {showName && <Font variant="sm2">General</Font>}
+      {active && <Font variant="sm2">{RANKS_DATA[rankId].name}</Font>}
     </RankContainer>
   );
 };
