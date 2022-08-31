@@ -53,13 +53,9 @@ export default {
       favicon: "./app/assets/favicon.png",
     },
     extra: {
-      firebaseApiKey: process.env.API_KEY,
-      firebaseAuthDomain: process.env.AUTH_DOMAIN,
-      firebaseProjectId: process.env.PROJECT_ID,
-      firebaseStorageBucket: process.env.STORAGE_BUCKET,
-      firebaseMessagingSenderId: process.env.MESSAGING_SENDER_ID,
-      firebaseAppId: process.env.APP_ID,
-      firebaseMeasurementId: process.env.MEASUREMENT_ID,
+      eas: {
+        projectId: "7eb3d0cb-e880-41d5-a70a-7a9ee1a8e91f",
+      },
     },
   },
 };

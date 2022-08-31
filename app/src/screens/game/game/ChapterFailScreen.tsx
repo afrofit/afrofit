@@ -52,7 +52,7 @@ export const ChapterFailScreen = () => {
               onVideoFinished={() => null}
               onVideoHalfwayFinished={() => null}
               loop
-              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt}
+              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].failVideo}
             />
           </DanceVideoContainer>
           <Spacer h={20} />

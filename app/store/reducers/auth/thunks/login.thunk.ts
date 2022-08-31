@@ -6,7 +6,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import { AppThunk } from "../../../../store/store";
 import API_CLIENT from "../../../../api/api-client";
@@ -26,25 +26,32 @@ export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
       dispatch(hideGenericErrorDialog());
 
       const response: ApiResponse<any, any> = await logInApi(userCredentials);
-      console.log("response from login", response.data);
-      if (response && response.data) {
+      if (response && response.data && response.ok === true) {
         const { token } = response.data;
 
         dispatch(storeUserToken(token as string));
         DEVICE_STORAGE.STORE_TOKEN(token as string);
         DEVICE_STORAGE.GET_STORED_USER().then((result: UserModel | null) => {
           console.log("user from login?: ", result);
-          if (result) return dispatch(setCurrentUser(result));
+          if (result) {
+            dispatch(setCurrentUser(result));
+            dispatch(finishedRequest());
+
+            return;
+          }
         });
-      } else {
-        dispatch(finishedRequest());
-        return showGenericErrorDialog(`An error occured logging you in.`);
+      } else if (response && !response.ok && response.data) {
+        console.log("This should be triggered", response.data);
+        dispatch(setGenericErrorMessage("There was an error logging in"));
+        return dispatch(finishedRequest());
       }
-      dispatch(finishedRequest());
     } catch (error: any) {
       console.log("Error!", error.response.data);
       const err = error as AxiosError;
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      const errorMessage =
+        (err.response?.data as string) ??
+        "An error occured trying to log you in.";
+      dispatch(setGenericErrorMessage(errorMessage));
       dispatch(finishedRequest());
     }
   };

@@ -6,7 +6,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import API_CLIENT from "../../../../api/api-client";
 import { setTodaysActivity } from "../activity.slice";
@@ -32,15 +32,17 @@ export function GetUserTodaysActivityData(userId: string): AppThunk {
         dispatch(setTodaysActivity(todaysActivity));
       } else {
         dispatch(finishedRequest());
-        return showGenericErrorDialog(
-          `An error occured fetching your daily activity data.`
+        return dispatch(
+          setGenericErrorMessage(
+            `An error occured fetching your daily activity data.`
+          )
         );
       }
       dispatch(finishedRequest());
     } catch (error: any) {
       console.log("Error!", error.response.data);
       const err = error as AxiosError;
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }
   };

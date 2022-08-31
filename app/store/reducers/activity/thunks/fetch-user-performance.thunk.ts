@@ -6,7 +6,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import API_CLIENT from "../../../../api/api-client";
 import { PerformanceType } from "../types";
@@ -38,15 +38,17 @@ export function GetUserPerformanceData(userId: string): AppThunk {
         dispatch(setUserPerformance(transformedData));
       } else {
         dispatch(finishedRequest());
-        return showGenericErrorDialog(
-          `An error occured fetching your performance data.`
+        return dispatch(
+          setGenericErrorMessage(
+            `An error occured fetching your performance data.`
+          )
         );
       }
       dispatch(finishedRequest());
     } catch (error: any) {
       console.log("Error!", error.response.data);
       const err = error as AxiosError;
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }
   };

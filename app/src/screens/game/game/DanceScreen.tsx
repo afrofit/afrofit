@@ -34,6 +34,7 @@ import { SaveUserDanceData } from "../../../../../app/store/reducers/story/thunk
 import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
 import useAnnouncer from "../../../../../app/src/hooks/useAnnouncer";
 import useUnmount from "../../../../../app/src/hooks/useUnmount";
+import { STORY_DATA_EXTRAS_MAP } from "../../../../../app/data/story_data";
 
 export const DanceScreen = () => {
   const isFocused = useIsFocused();
@@ -79,7 +80,6 @@ export const DanceScreen = () => {
   );
 
   /** Timers */
-
   const [
     count,
     {
@@ -264,7 +264,8 @@ export const DanceScreen = () => {
               onVideoFinished={() => null}
               onVideoHalfwayFinished={() => null}
               loop
-              videoUrl={currentChapter.videoUrl}
+              // videoUrl={currentChapter.videoUrl}
+              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].danceVideo}
             />
           </DanceVideoContainer>
         </ContentContainer>

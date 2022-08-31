@@ -9,7 +9,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import { AxiosError } from "axios";
 import { SaveDanceDataType } from "../../../../../app/types/SaveDanceDataModel";
@@ -120,15 +120,17 @@ export function SaveUserDanceData(
         dispatch(updateCurrentChapters(currentChapter));
       } else {
         dispatch(finishedRequest());
-        return showGenericErrorDialog(
-          `An error occured fetching your activity data for this story's chapters.`
+        return dispatch(
+          setGenericErrorMessage(
+            `An error occured fetching your activity data for this story's chapters.`
+          )
         );
       }
       dispatch(finishedRequest());
     } catch (error: unknown) {
       const err = error as AxiosError;
       console.log("Error!", err);
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }
   };

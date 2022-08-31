@@ -48,7 +48,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
   };
 
   const handleStartStory = () => {
-    navigation.navigate("StoryScreen", { storyId });
+    navigation.replace("StoryScreen", { storyId });
   };
 
   return (
@@ -70,11 +70,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
                 loop
-                videoUrl={
-                  currentStory.userSteps
-                    ? STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt
-                    : STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo
-                }
+                videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo}
               />
             </VideoContainer>
             <Font align="center" variant="p" color="lightblue">

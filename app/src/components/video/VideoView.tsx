@@ -55,9 +55,7 @@ export const VideoView: React.FC<Props> = ({
   return (
     <Video
       ref={videoRef}
-      // source={{ uri: videoUrl }}
-
-      source={require("../../../assets/video/sample_dance.mp4")}
+      source={{ uri: videoUrl }}
       style={BackgroundVideoStyles.video}
       resizeMode={ResizeMode.COVER}
       onPlaybackStatusUpdate={onPlaybackStatusUpdate}

@@ -13,7 +13,6 @@ import {
   hideGenericErrorDialog,
   selectGenericErrorMessage,
   selectLoaderMessage,
-  selectShowGenericErrorDialog,
   selectUiIsLoading,
 } from "./store/reducers/ui/ui.slice";
 
@@ -27,8 +26,7 @@ LogBox.ignoreAllLogs(true);
 export const Index = () => {
   const dispatch = useDispatch();
 
-  const errorMessage = useSelector(selectGenericErrorMessage);
-  const showError = useSelector(selectShowGenericErrorDialog);
+  const error = useSelector(selectGenericErrorMessage);
   const loaderMessage = useSelector(selectLoaderMessage);
   const showLoader = useSelector(selectUiIsLoading);
   const currentUser = useSelector(selectUser);
@@ -63,8 +61,8 @@ export const Index = () => {
   return (
     <>
       <GenericError
-        visible={!!showError}
-        message={errorMessage}
+        visible={Boolean(error)}
+        message={error}
         onDismissWarning={handleHideError}
       />
       <LoaderAbsolute message={loaderMessage} visible={showLoader} />

@@ -6,7 +6,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import { ChapterPlayedType } from "../../../../../app/types/ChapterModel";
 import { setCurrentChapter } from "../story.slice";
@@ -61,15 +61,17 @@ export function FetchChapterDetail(
         dispatch(setCurrentChapter(currentChapter));
       } else {
         dispatch(finishedRequest());
-        return showGenericErrorDialog(
-          `An error occured fetching your activity data for this story.`
+        return dispatch(
+          setGenericErrorMessage(
+            `An error occured fetching your activity data for this story.`
+          )
         );
       }
       dispatch(finishedRequest());
     } catch (error: unknown) {
       const err = error as AxiosError;
       console.log("Error!", err);
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }
   };

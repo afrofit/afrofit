@@ -49,7 +49,7 @@ export const ChapterPassScreen = () => {
               onVideoFinished={() => null}
               onVideoHalfwayFinished={() => null}
               loop
-              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt}
+              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].passVideo}
             />
           </DanceVideoContainer>
           <Spacer h={20} />

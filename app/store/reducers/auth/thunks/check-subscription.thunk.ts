@@ -5,7 +5,7 @@ import {
   finishedRequest,
   hideGenericErrorDialog,
   newRequest,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import { AppThunk } from "../../../../store/store";
 import API_CLIENT from "../../../../api/api-client";
@@ -30,13 +30,15 @@ export function CheckSubscriptionStatus(userId: string): AppThunk {
         dispatch(setIsSubscribed(activeSubscription));
       } else {
         dispatch(finishedRequest());
-        return showGenericErrorDialog(`An error occured logging you in.`);
+        return dispatch(
+          setGenericErrorMessage(`An error occured logging you in.`)
+        );
       }
       dispatch(finishedRequest());
     } catch (error: any) {
       console.log("Error!", error.response.data);
       const err = error as AxiosError;
-      dispatch(showGenericErrorDialog(` ${err.response?.data as string}`));
+      dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }
   };

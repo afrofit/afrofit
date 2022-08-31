@@ -49,7 +49,7 @@ export const StoryFinishScreen = () => {
               onVideoFinished={() => null}
               onVideoHalfwayFinished={() => null}
               loop
-              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideoAlt}
+              videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].successVideo}
             />
           </DanceVideoContainer>
           <Spacer h={20} />

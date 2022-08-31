@@ -2,7 +2,7 @@ import { AppThunk } from "../../../../store/store";
 import DEVICE_STORAGE from "../../../../../app/api/device-storage";
 import {
   hideGenericErrorDialog,
-  showGenericErrorDialog,
+  setGenericErrorMessage,
 } from "../../ui/ui.slice";
 import { logout } from "../auth.slice";
 
@@ -12,7 +12,7 @@ export function LogOut(): AppThunk {
 
     DEVICE_STORAGE.REMOVE_TOKEN()
       .catch((error) => {
-        dispatch(showGenericErrorDialog(error.message));
+        dispatch(setGenericErrorMessage(error.message));
         console.error(error);
       })
       .then(() => {
