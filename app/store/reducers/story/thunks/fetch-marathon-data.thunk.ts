@@ -33,15 +33,15 @@ export function FetchMarathonData(userId: string): AppThunk {
 
         dispatch(setMarathonData(marathon));
         dispatch(setUserMarathonScoreIndex(userScoreIndex));
-      } else {
+      } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(
           setGenericErrorMessage(
-            `An error occured fetching your activity data for this story's chapters.`
+            response.data ??
+              `An error occured fetching your activity data for this story's chapters.`
           )
         );
       }
-      dispatch(finishedRequest());
     } catch (error: unknown) {
       const err = error as AxiosError;
       console.log("Error!", err);

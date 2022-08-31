@@ -41,8 +41,11 @@ export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
           }
         });
       } else if (response && !response.ok && response.data) {
-        console.log("This should be triggered", response.data);
-        dispatch(setGenericErrorMessage("There was an error logging in"));
+        dispatch(
+          setGenericErrorMessage(
+            response.data ?? "There was an error logging in"
+          )
+        );
         return dispatch(finishedRequest());
       }
     } catch (error: any) {

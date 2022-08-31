@@ -63,11 +63,12 @@ export function FetchUserStoryActivity(
           lastChapterCompleted,
         };
         dispatch(setCurrentStory(currentStory));
-      } else {
+      } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(
           setGenericErrorMessage(
-            `An error occured fetching your activity data for this story.`
+            response.data ??
+              `An error occured fetching your activity data for this story.`
           )
         );
       }

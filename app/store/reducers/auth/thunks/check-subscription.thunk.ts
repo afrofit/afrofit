@@ -28,10 +28,12 @@ export function CheckSubscriptionStatus(userId: string): AppThunk {
         const { activeSubscription } = response.data;
 
         dispatch(setIsSubscribed(activeSubscription));
-      } else {
+      } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(
-          setGenericErrorMessage(`An error occured logging you in.`)
+          setGenericErrorMessage(
+            response.data ?? `An error occured logging you in.`
+          )
         );
       }
       dispatch(finishedRequest());

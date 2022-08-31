@@ -59,11 +59,12 @@ export function FetchChapterDetail(
           videoUrl: CURRENT_CHAPTER.videoUrl,
         };
         dispatch(setCurrentChapter(currentChapter));
-      } else {
+      } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(
           setGenericErrorMessage(
-            `An error occured fetching your activity data for this story.`
+            response.data ??
+              `An error occured fetching your activity data for this story.`
           )
         );
       }
