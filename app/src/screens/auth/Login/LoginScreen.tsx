@@ -23,6 +23,10 @@ export const LoginScreen = () => {
   const navigation = useNavigation<LoginScreenNavType>();
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    return () => reset();
+  }, []);
+
   const {
     control,
     handleSubmit,
@@ -35,7 +39,6 @@ export const LoginScreen = () => {
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log("Data", data);
     dispatch(LogUserIn(data));
-    reset();
   };
 
   const clearField = (name: string) => {

@@ -1,6 +1,6 @@
 const settings = {
   dev: {
-    // apiUrl: "http://192.168.1.169:9099",
+    // apiUrl: "http://192.168.1.169:9099/api",
     apiUrl: "https://shark-app-y5ox6.ondigitalocean.app/api/",
   },
   prod: {

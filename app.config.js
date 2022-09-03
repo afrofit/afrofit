@@ -33,9 +33,6 @@ export default {
       softwareKeyboardLayoutMode: "pan",
       permissions: [
         "MANAGE_DOCUMENTS",
-        "READ_CONTACTS",
-        "READ_CALENDAR",
-        "WRITE_CALENDAR",
         "READ_EXTERNAL_STORAGE",
         "READ_PHONE_STATE",
         "RECORD_AUDIO",
