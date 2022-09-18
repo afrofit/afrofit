@@ -30,7 +30,23 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const currentUser = useSelector(selectUser);
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
 
+  React.useEffect(() => {
+    console.log(
+      "currentUser",
+      currentUser,
+      "userIsSubscribed",
+      userIsSubscribed
+    );
+  }, []);
+
   if (!currentUser) return null;
+
+  const storyDisabled = React.useCallback((storyOrder: number) => {
+    return (
+      currentUser.lastStoryCompleted !== storyOrder - 1 || !userIsSubscribed
+    );
+  }, []);
+
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
       {STORY_DATA.sort((a, b) => (a.order > b.order ? 1 : -1)).map((story) => {
@@ -43,10 +59,7 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
             outlined={false}
             bgColor={story.color as ColorType}
             onPress={() => handleNavigateToStory(story.id)}
-            disabled={
-              currentUser.lastStoryCompleted !== story.order ||
-              !userIsSubscribed
-            }
+            disabled={storyDisabled(story.order)}
           >
             <CardContentWrapper>
               <Placer left={-5}>

@@ -21,11 +21,11 @@ export default {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: false,
-      bundleIdentifier: "com.afrofit.afrofit",
+      bundleIdentifier: "com.djminddgap.afrofit",
     },
     android: {
-      package: "com.afrofit.afrofit",
-      versionCode: 1,
+      package: "com.djminddgap.afrofit",
+      versionCode: 2,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",
@@ -44,6 +44,7 @@ export default {
         "ACTIVITY_RECOGNITION",
         "android.permission.ACTIVITY_RECOGNITION",
         "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.gms.permission.AD_ID",
       ],
     },
     web: {
