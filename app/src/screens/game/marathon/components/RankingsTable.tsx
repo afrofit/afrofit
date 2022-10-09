@@ -22,7 +22,7 @@ export const RankingsTable: React.FC<Props> = ({
   if (!currentUser) return null;
 
   if (!rankings || rankings.length < 1)
-    return <Font>Cannot find marathon data.</Font>;
+    return <Font>No marathon data available.</Font>;
 
   const filteredRankings = React.useMemo(() => {
     if (currentUserRank === 5) {

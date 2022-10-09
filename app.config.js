@@ -2,9 +2,10 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "afrofit-app",
+    name: "Afrofit",
     slug: "afrofit-app",
     version: "1.0.0",
+    sdkVersion: "45.0.0",
     description:
       "Getting Afrofit club members to lose weight and stay in shape by dancing.",
     orientation: "portrait",
@@ -17,9 +18,11 @@ export default {
     },
     updates: {
       fallbackToCacheTimeout: 0,
+      checkAutomatically: "ON_ERROR_RECOVERY",
     },
     assetBundlePatterns: ["**/*"],
     ios: {
+      buildNumber: "1.0.1",
       supportsTablet: false,
       bundleIdentifier: "com.djminddgap.afrofit",
     },
@@ -54,6 +57,12 @@ export default {
       eas: {
         projectId: "7eb3d0cb-e880-41d5-a70a-7a9ee1a8e91f",
       },
+    },
+    runtimeVersion: {
+      policy: "sdkVersion",
+    },
+    updates: {
+      url: "https://u.expo.dev/7eb3d0cb-e880-41d5-a70a-7a9ee1a8e91f",
     },
   },
 };

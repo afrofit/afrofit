@@ -31,21 +31,19 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
 
   React.useEffect(() => {
-    console.log(
-      "currentUser",
-      currentUser,
-      "userIsSubscribed",
-      userIsSubscribed
-    );
-  }, []);
+    console.log("userIsSubscribed", userIsSubscribed);
+  }, [userIsSubscribed]);
 
   if (!currentUser) return null;
 
-  const storyDisabled = React.useCallback((storyOrder: number) => {
-    return (
-      currentUser.lastStoryCompleted !== storyOrder - 1 || !userIsSubscribed
-    );
-  }, []);
+  const storyDisabled = React.useCallback(
+    (storyOrder: number) => {
+      return (
+        currentUser.lastStoryCompleted !== storyOrder - 1 || !userIsSubscribed
+      );
+    },
+    [userIsSubscribed]
+  );
 
   return (
     <StoryListWrapper showsVerticalScrollIndicator={false}>
