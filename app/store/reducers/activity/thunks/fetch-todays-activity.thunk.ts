@@ -28,7 +28,7 @@ export function GetUserTodaysActivityData(userId: string): AppThunk {
       if (response && response.data) {
         const { todaysActivity }: { todaysActivity: TodaysActivityType } =
           response.data;
-
+        console.log("todaysActivity", todaysActivity);
         dispatch(setTodaysActivity(todaysActivity));
       } else {
         dispatch(finishedRequest());

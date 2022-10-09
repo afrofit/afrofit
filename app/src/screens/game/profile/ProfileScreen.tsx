@@ -48,7 +48,7 @@ export const ProfileScreen = () => {
         <Positioner>
           <Avatar size="sm" imageId={currentUser.displayPicId} />
           <RankPositioner>
-            <RankCard rankId={1} size={40} />
+            <RankCard rankId={1} />
           </RankPositioner>
         </Positioner>
         <Spacer h={20} />

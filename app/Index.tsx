@@ -20,6 +20,7 @@ import { setCurrentUser } from "./store/reducers/auth/auth.slice";
 import { selectUser } from "./store/reducers/auth/auth.slice";
 import { UserModel } from "./types/UserModel";
 import { CheckSubscriptionStatus } from "./store/reducers/auth/thunks/check-subscription.thunk";
+import { LogOut } from "./store/reducers/auth/thunks/logout.thunk";
 
 LogBox.ignoreAllLogs(true);
 

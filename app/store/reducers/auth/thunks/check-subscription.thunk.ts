@@ -27,7 +27,10 @@ export function CheckSubscriptionStatus(userId: string): AppThunk {
       if (response && response.data) {
         const { activeSubscription } = response.data;
 
+        console.log("activeSubscription", activeSubscription);
+
         dispatch(setIsSubscribed(activeSubscription));
+        return dispatch(finishedRequest());
       } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(

@@ -28,11 +28,14 @@ export function FetchMarathonData(userId: string): AppThunk {
         userId
       );
 
+      console.log("response", response);
+
       if (response && response.data) {
         const { marathon, userScoreIndex } = response.data;
 
         dispatch(setMarathonData(marathon));
         dispatch(setUserMarathonScoreIndex(userScoreIndex));
+        return dispatch(finishedRequest());
       } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
         return dispatch(
