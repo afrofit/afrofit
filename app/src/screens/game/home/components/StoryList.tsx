@@ -30,10 +30,6 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const currentUser = useSelector(selectUser);
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
 
-  React.useEffect(() => {
-    console.log("userIsSubscribed", userIsSubscribed);
-  }, [userIsSubscribed]);
-
   if (!currentUser) return null;
 
   const storyDisabled = React.useCallback(

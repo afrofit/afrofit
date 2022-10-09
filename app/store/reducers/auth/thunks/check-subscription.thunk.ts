@@ -23,11 +23,8 @@ export function CheckSubscriptionStatus(userId: string): AppThunk {
 
       const response: ApiResponse<any, any> =
         await checkCurrentUserSubscriptionApi(userId);
-      console.log("response from check subscription", response.data);
       if (response && response.data) {
         const { activeSubscription } = response.data;
-
-        console.log("activeSubscription", activeSubscription);
 
         dispatch(setIsSubscribed(activeSubscription));
         return dispatch(finishedRequest());
