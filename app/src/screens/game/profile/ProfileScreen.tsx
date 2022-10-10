@@ -25,10 +25,6 @@ export const ProfileScreen = () => {
   const currentUser = useSelector(selectUser);
   const userPerformance = useSelector(selectUserPerformance);
 
-  React.useEffect(() => {
-    console.log("userPerformance", userPerformance);
-  }, [userPerformance]);
-
   const handleSignUserOut = () => {
     dispatch(LogOut());
   };

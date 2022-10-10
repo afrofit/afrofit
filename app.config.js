@@ -22,7 +22,7 @@ export default {
     },
     assetBundlePatterns: ["**/*"],
     ios: {
-      buildNumber: "1.0.1",
+      buildNumber: "1.0.2",
       supportsTablet: false,
       bundleIdentifier: "com.djminddgap.afrofit",
     },

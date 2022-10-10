@@ -7,18 +7,19 @@ import { Font } from "../../../../../../app/src/components/font/Font";
 import { Section } from "../../../../../../app/src/components/section/Section";
 import { RankingsListWrapper } from "../styled";
 import { RankingItem } from "./RankingItem";
+import { UserModel } from "../../../../../types/UserModel";
 
 interface Props {
   rankings: { name: string; score: number; userId: string }[] | null;
   currentUserRank: number;
+  currentUser?: UserModel | null | undefined;
 }
 
 export const RankingsTable: React.FC<Props> = ({
   rankings,
   currentUserRank,
+  currentUser,
 }) => {
-  const currentUser = useSelector(selectUser);
-
   if (!currentUser) return null;
 
   if (!rankings || rankings.length < 1)

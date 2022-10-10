@@ -59,6 +59,7 @@ export const MarathonScreen = () => {
         <RankingsTable
           rankings={marathonData}
           currentUserRank={currentUserRank}
+          currentUser={currentUser}
         />
       </Screen>
     </>

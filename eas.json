@@ -3,6 +3,9 @@
     "version": ">= 0.54.1"
   },
   "build": {
+    "configuration_only": {
+      "node": "16.15.0"
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal"
