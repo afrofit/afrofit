@@ -22,13 +22,13 @@ export default {
     },
     assetBundlePatterns: ["**/*"],
     ios: {
-      buildNumber: "1.0.2",
+      buildNumber: "1.0.3",
       supportsTablet: false,
       bundleIdentifier: "com.djminddgap.afrofit",
     },
     android: {
       package: "com.djminddgap.afrofit",
-      versionCode: 2,
+      versionCode: 3,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",
