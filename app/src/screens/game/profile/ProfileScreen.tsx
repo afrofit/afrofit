@@ -26,7 +26,6 @@ import {
   selectCurrentUserRank,
   selectUserScoreIndex,
 } from "../../../../../app/store/reducers/marathon/marathon.slice";
-import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
 
 export const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -42,16 +41,6 @@ export const ProfileScreen = () => {
 
   if (!currentUser || !userPerformance || currentUserRank < 0) return null;
 
-  // const currentUserRank = React.useMemo(() => {
-  //   if (userScoreIndex === -1) return 1;
-  //   if (userScoreIndex >= 0 && userScoreIndex < 10) return 5;
-  //   if (userScoreIndex > 10 && userScoreIndex < 35) return 4;
-  //   if (userScoreIndex > 35 && userScoreIndex < 70) return 3;
-  //   if (userScoreIndex > 70 && userScoreIndex < 120) return 2;
-  //   if (userScoreIndex > 120) return 1;
-  //   return 5;
-  // }, [userScoreIndex]);
-
   console.log("Stats", currentUserRank, userScoreIndex);
 
   return (
@@ -63,7 +52,6 @@ export const ProfileScreen = () => {
             Your profile
           </Font>
         </Card>
-        {/* <Spacer h={30} /> */}
         <Positioner>
           <Avatar size="sm" imageId={currentUser.displayPicId} />
           <RankPositioner>

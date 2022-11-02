@@ -26,6 +26,7 @@ import { GetUserTodaysActivityData } from "../../../../store/reducers/activity/t
 import { GetUserPerformanceData } from "../../../../store/reducers/activity/thunks/fetch-user-performance.thunk";
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
+import { selectCurrentUserRank } from "../../../../../app/store/reducers/marathon/marathon.slice";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
@@ -35,6 +36,7 @@ export const HomeScreen = () => {
   const todaysActivity = useSelector(selectTodaysActivity);
   const userPerformanceData = useSelector(selectUserPerformance);
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
+  const currentUserRank = useSelector(selectCurrentUserRank);
 
   const [showSubscribeModal, setShowSubscribeModal] = React.useState(false);
 
@@ -74,6 +76,7 @@ export const HomeScreen = () => {
         <Header
           username={currentUser.username || "Fetching username..."}
           dpId={currentUser.displayPicId}
+          currentUserRank={currentUserRank}
         />
         <Spacer h={10} />
         <Section title="Your activity today">
