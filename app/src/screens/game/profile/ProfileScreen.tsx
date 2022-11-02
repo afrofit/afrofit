@@ -55,7 +55,7 @@ export const ProfileScreen = () => {
         <Positioner>
           <Avatar size="sm" imageId={currentUser.displayPicId} />
           <RankPositioner>
-            <RankCard rankId={1} />
+            <RankCard rankId={currentUserRank} />
           </RankPositioner>
         </Positioner>
         <Spacer h={20} />
@@ -66,10 +66,10 @@ export const ProfileScreen = () => {
         <Font variant="pb" align="center" color="hilite_purpink">
           {currentUser.username}
         </Font>
-        <Spacer h={8} />
-        <Font variant="sm2" align="center" color="lightblue">
+        {/* <Spacer h={8} /> */}
+        {/* <Font variant="sm2" align="center" color="lightblue">
           CURRENT RANK: {RANKS_DATA[currentUserRank].name}
-        </Font>
+        </Font> */}
 
         <Spacer h={15} />
         <ProfileStatsListWrapper showsVerticalScrollIndicator={false}>

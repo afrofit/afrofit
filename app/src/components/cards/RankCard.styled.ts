@@ -19,6 +19,6 @@ export const RankImage = styled.Image`
 
 export const RankPositioner = styled.View`
   position: absolute;
-  right: 95;
-  top: 50;
+  right: 55;
+  top: 35;
 `;
