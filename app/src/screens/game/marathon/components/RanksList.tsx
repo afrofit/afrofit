@@ -9,7 +9,7 @@ interface Props {
   currentUserRank: number;
 }
 
-const ranks = [5, 4, 3, 2, 1];
+const ranks = [5, 4, 3, 2, 1].reverse();
 
 export const RanksList: React.FC<Props> = ({ currentUserRank }) => {
   return (

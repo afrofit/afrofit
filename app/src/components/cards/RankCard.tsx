@@ -1,4 +1,3 @@
-import { RANKS_DATA } from "../../../../app/data/ranks-data";
 import * as React from "react";
 import Spacer from "../elements/Spacer";
 import { Font } from "../font/Font";
@@ -7,6 +6,7 @@ import {
   RankImage,
   RankImageContainer,
 } from "./RankCard.styled";
+import { RANKS_DATA } from "../../../../app/data/ranks-data";
 
 interface Props {
   rankId: number;
@@ -22,7 +22,14 @@ export const RankCard: React.FC<Props> = ({ rankId, active = false }) => {
         <RankImage source={RANKS_DATA[rankId].url} />
       </RankImageContainer>
       <Spacer h={5} />
-      {active && <Font variant="sm2">{RANKS_DATA[rankId].name}</Font>}
+      {
+        <Font
+          variant={active ? "sm2" : "sm"}
+          color={active ? "light" : "lightblue"}
+        >
+          {RANKS_DATA[rankId].name}
+        </Font>
+      }
     </RankContainer>
   );
 };

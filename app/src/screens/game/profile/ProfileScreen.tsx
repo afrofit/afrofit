@@ -9,7 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../../../../../app/store/reducers/auth/thunks/logout.thunk";
 import { Avatar } from "../../../../../app/src/components/image/Avatar";
 import { selectUser } from "../../../../../app/store/reducers/auth/auth.slice";
-import { ProfileStatsContainer } from "../marathon/components/ProfileStatsItem.styled";
+import {
+  ProfileStatsContainer,
+  ProfileStatsListWrapper,
+} from "../marathon/components/ProfileStatsItem.styled";
 import { ProfileStatsItem } from "../marathon/components/ProfileStatsItem";
 import Spacer from "../../../../../app/src/components/elements/Spacer";
 
@@ -18,18 +21,38 @@ import { Card } from "../../../../../app/src/components/cards/Card";
 import { RankCard } from "../../../../../app/src/components/cards/RankCard";
 import { RankPositioner } from "../../../../../app/src/components/cards/RankCard.styled";
 import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
+import { RANKS_DATA } from "../../../../../app/data/ranks-data";
+import {
+  selectCurrentUserRank,
+  selectUserScoreIndex,
+} from "../../../../../app/store/reducers/marathon/marathon.slice";
+import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
 
 export const ProfileScreen = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(selectUser);
   const userPerformance = useSelector(selectUserPerformance);
+  const userScoreIndex = useSelector(selectUserScoreIndex);
+  const currentUserRank = useSelector(selectCurrentUserRank);
 
   const handleSignUserOut = () => {
     dispatch(LogOut());
   };
 
-  if (!currentUser || !userPerformance) return null;
+  if (!currentUser || !userPerformance || currentUserRank < 0) return null;
+
+  // const currentUserRank = React.useMemo(() => {
+  //   if (userScoreIndex === -1) return 1;
+  //   if (userScoreIndex >= 0 && userScoreIndex < 10) return 5;
+  //   if (userScoreIndex > 10 && userScoreIndex < 35) return 4;
+  //   if (userScoreIndex > 35 && userScoreIndex < 70) return 3;
+  //   if (userScoreIndex > 70 && userScoreIndex < 120) return 2;
+  //   if (userScoreIndex > 120) return 1;
+  //   return 5;
+  // }, [userScoreIndex]);
+
+  console.log("Stats", currentUserRank, userScoreIndex);
 
   return (
     <>
@@ -57,11 +80,11 @@ export const ProfileScreen = () => {
         </Font>
         <Spacer h={8} />
         <Font variant="sm2" align="center" color="lightblue">
-          CURRENT RANK: GENERAL
+          CURRENT RANK: {RANKS_DATA[currentUserRank].name}
         </Font>
 
         <Spacer h={15} />
-        <ProfileStatsContainer>
+        <ProfileStatsListWrapper showsVerticalScrollIndicator={false}>
           <ProfileStatsItem
             description="Calories burned"
             value={userPerformance.caloriesBurned}
@@ -76,17 +99,19 @@ export const ProfileScreen = () => {
             description="Minutes danced"
             value={userPerformance.minutesDanced / 1000 / 60}
           />
-        </ProfileStatsContainer>
-        <LargeButton title="Log me out" onPress={handleSignUserOut} />
-        <Spacer h={10} />
-        <Font variant="sm2" caps align="center" color="lightblue">
-          UserId: {currentUser.userId}
-        </Font>
-        <Spacer h={5} />
-        <Font variant="sm2" align="center" color="lightblue">
-          Joined on{" "}
-          {format(new Date(currentUser.joinDate), "'the' io 'of' MMMM, yyyy")}
-        </Font>
+
+          <Spacer h={10} />
+          <LargeButton title="Log me out" onPress={handleSignUserOut} />
+          <Spacer h={10} />
+          <Font variant="sm2" caps align="center" color="lightblue">
+            UserId: {currentUser.userId}
+          </Font>
+          <Spacer h={5} />
+          <Font variant="sm2" align="center" color="lightblue">
+            Joined on{" "}
+            {format(new Date(currentUser.joinDate), "'the' io 'of' MMMM, yyyy")}
+          </Font>
+        </ProfileStatsListWrapper>
       </Screen>
     </>
   );

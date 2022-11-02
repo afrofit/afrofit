@@ -26,19 +26,19 @@ export const RankingsTable: React.FC<Props> = ({
     return <Font>No marathon data available.</Font>;
 
   const filteredRankings = React.useMemo(() => {
-    if (currentUserRank === 5) {
+    if (currentUserRank === 1) {
       return rankings.slice(120);
     }
-    if (currentUserRank === 4) {
+    if (currentUserRank === 2) {
       return rankings.slice(70, 120);
     }
     if (currentUserRank === 3) {
       return rankings.slice(35, 70);
     }
-    if (currentUserRank === 2) {
+    if (currentUserRank === 4) {
       return rankings.slice(10, 35);
     }
-    if (currentUserRank === 1) {
+    if (currentUserRank === 5) {
       return rankings.slice(0, 10);
     }
     return rankings;

@@ -30,3 +30,9 @@ export const KeyContainer = styled.View`
 export const ProfileStatsContainer = styled.View`
   margin-bottom: auto;
 `;
+
+export const ProfileStatsListWrapper = styled.ScrollView`
+  border-radius: ${CHAMFER};
+  overflow: hidden;
+  height: 55%;
+`;

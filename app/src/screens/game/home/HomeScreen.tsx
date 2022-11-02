@@ -25,6 +25,7 @@ import {
 import { GetUserTodaysActivityData } from "../../../../store/reducers/activity/thunks/fetch-todays-activity.thunk";
 import { GetUserPerformanceData } from "../../../../store/reducers/activity/thunks/fetch-user-performance.thunk";
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
+import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
@@ -41,6 +42,7 @@ export const HomeScreen = () => {
     if (currentUser) {
       dispatch(GetUserTodaysActivityData(currentUser.userId));
       dispatch(GetUserPerformanceData(currentUser.userId));
+      dispatch(FetchMarathonData(currentUser.userId));
     }
   }, []);
 

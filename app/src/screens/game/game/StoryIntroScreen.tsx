@@ -69,7 +69,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
               <VideoView
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
-                loop
+                loop={false}
                 videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo}
               />
             </VideoContainer>

@@ -32,6 +32,7 @@ export const FONT_VARIANTS = {
   p: { size: "20px", weight: regular },
   pb: { size: "20px", weight: bold },
   smb: { size: "15px", weight: bold },
+  sm: { size: "12px", weight: regular },
   sm1: { size: "20px", weight: regular },
   sm2: { size: "14px", weight: bold },
   smc: { size: "15px", weight: heavy },
