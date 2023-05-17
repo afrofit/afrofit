@@ -7,6 +7,10 @@ export const StoryListWrapper = styled.ScrollView`
   height: 55%;
 `;
 
+export const StoryIntroWrapper=styled.ScrollView`
+overflow: hidden;
+`;
+
 export const CardContentWrapper = styled.View`
   justify-content: flex-start;
   align-items: flex-end;

@@ -56,8 +56,12 @@ export const HomeScreen = () => {
     }
   }, [userIsSubscribed]);
 
-  const handleNavigateToStoryIntro = (storyId: string) => {
-    navigation.navigate("StoryIntroScreen", { storyId });
+  const handleNavigateToStoryIntro = (storyId: any) => {
+    if (storyId && storyId != null) {
+      navigation.navigate("StoryIntroScreen", { storyId });
+    } else {
+      setShowSubscribeModal(true);
+    }
   };
 
   if (!currentUser) return null;
@@ -76,6 +80,7 @@ export const HomeScreen = () => {
         <Header
           username={currentUser.username || "Fetching username..."}
           dpId={currentUser.displayPicId}
+          dpUrl={currentUser?.imageUrl}
           currentUserRank={currentUserRank}
         />
         <Spacer h={10} />

@@ -4,8 +4,8 @@ export default {
   expo: {
     name: "Afrofit",
     slug: "afrofit-app",
-    version: "1.0.0",
-    sdkVersion: "45.0.0",
+    version: "1.0.1",
+    sdkVersion: "48.0.0",
     description:
       "Getting Afrofit club members to lose weight and stay in shape by dancing.",
     orientation: "portrait",
@@ -22,13 +22,13 @@ export default {
     },
     assetBundlePatterns: ["**/*"],
     ios: {
-      buildNumber: "1.0.3",
+      buildNumber: "1.0.0",
       supportsTablet: false,
       bundleIdentifier: "com.djminddgap.afrofit",
     },
     android: {
       package: "com.djminddgap.afrofit",
-      versionCode: 3,
+      versionCode: 4,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",

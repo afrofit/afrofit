@@ -7,12 +7,14 @@ import { COLORS, ColorType } from "../../../theme/globals";
 import { ImageContainer, Inset, RoundBorder, StyledImage } from "./styled";
 import { useFocusEffect } from "@react-navigation/native";
 import { AVATAR_MAP } from "./data";
+import  APP_SETTINGS from '../../../config/settings'
 
 interface Props {
   color?: ColorType;
   align?: "left" | "right" | "center";
   size?: "lg" | "md" | "sm" | "xs";
   imageId: number;
+  imageUrl:string
 }
 
 export const Avatar: React.FC<Props> = ({
@@ -20,6 +22,7 @@ export const Avatar: React.FC<Props> = ({
   align = "center",
   size = "lg",
   imageId = 12,
+  imageUrl=''
 }) => {
   const fadeDuration = 500;
   const rotateDuration = 1000;
@@ -44,7 +47,7 @@ export const Avatar: React.FC<Props> = ({
   const imageRotation = React.useRef(new Animated.Value(0)).current;
 
   return (
-    <>
+        <>
       <RoundBorder color={color} align={align} size={size}>
         <LinearGradient
           colors={[COLORS.purple_100, COLORS.hilite_pink, COLORS.hilite_orange]}
@@ -55,7 +58,7 @@ export const Avatar: React.FC<Props> = ({
           <Inset>
             <ImageContainer>
               <StyledImage
-                source={AVATAR_MAP[imageId].url}
+                source={ imageUrl !== "" ?  {uri:`${APP_SETTINGS.apiUrl.replace('api/','')}${imageUrl}`} : AVATAR_MAP[imageId]?.url}
                 style={{
                   opacity: imageOpacity,
                   transform: [
@@ -72,6 +75,7 @@ export const Avatar: React.FC<Props> = ({
           </Inset>
         </LinearGradient>
       </RoundBorder>
+  
     </>
   );
 };

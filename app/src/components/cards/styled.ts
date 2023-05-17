@@ -82,7 +82,7 @@ export const Tappable = styled.Pressable`
 export const VertiCardWrapper = styled.View`
   width: 100%;
   background-color: ${COLORS.gray_300};
-  height: 110px;
+  height: 14%;
   border-radius: ${CHAMFER};
   border-width: 1px;
   border-color: ${COLORS.lightblue};

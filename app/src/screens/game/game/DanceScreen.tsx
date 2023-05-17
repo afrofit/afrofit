@@ -194,6 +194,7 @@ export const DanceScreen = () => {
     saveData.chapterCompleted =
       currentChapter.userSteps + clampedStepcount >= currentChapter.targetSteps;
     saveData.storyCompleted = storyCompleted;
+    saveData.isDevice=true
 
     const userId = currentUser.userId;
     const chapterId = currentChapter.id;

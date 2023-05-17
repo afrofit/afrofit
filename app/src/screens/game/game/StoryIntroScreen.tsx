@@ -19,6 +19,7 @@ import {
 import { selectUser } from "../../../../store/reducers/auth/auth.slice";
 import { FetchUserStoryActivity } from "../../../../store/reducers/story/thunks/fetch-user-story-activity.thunk";
 import { STORY_DATA_EXTRAS_MAP } from "../../../../data/story_data";
+import { StoryIntroWrapper } from "../home/components/StoryList.styled";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -65,24 +66,26 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
                 {currentStory.title}
               </Font>
             </FontConstrainer>
+            <StoryIntroWrapper contentContainerStyle={{paddingBottom:30}}>
             <VideoContainer size="sm">
               <VideoView
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
                 loop={false}
                 videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo}
-              />
+                />
             </VideoContainer>
             <Font align="center" variant="p" color="lightblue">
               {currentStory.description}
             </Font>
             <VertiCard
               bodyMoves={currentStory.totalTargetSteps - currentStory.userSteps}
-            />
+              />
             <LargeButton
               title={currentStory.userSteps ? "Continue Story" : "Start story"}
               onPress={handleStartStory}
-            />
+              />  
+              </StoryIntroWrapper>
           </>
         )}
       </Screen>

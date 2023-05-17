@@ -11,6 +11,7 @@ const API_CLIENT = create({
 
 API_CLIENT.addAsyncRequestTransform(async (request: any) => {
   const authToken = await DEVICE_STORAGE.GET_TOKEN();
+  console.log(authToken)
   if (!authToken) return;
   request.headers["x-auth-token"] = authToken;
 });

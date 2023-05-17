@@ -7,4 +7,5 @@ export type UserModel = {
   displayPicId: number;
   joinDate: string;
   lastStoryCompleted: number;
+  imageUrl:string
 };

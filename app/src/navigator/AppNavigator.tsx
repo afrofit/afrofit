@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 
 import { HomeScreen } from "../screens/game/home/HomeScreen";
 import { MarathonScreen } from "../screens/game/marathon/MarathonScreen";
@@ -14,6 +14,10 @@ import { DanceScreen } from "../screens/game/game/DanceScreen";
 import { StoryFinishScreen } from "../screens/game/game/StoryFinishScreen";
 import { ChapterPassScreen } from "../screens/game/game/ChapterPassScreen";
 import { ChapterFailScreen } from "../screens/game/game/ChapterFailScreen";
+import { EventDetails } from "../screens/game/event/components/EventDetails";
+import { ClassDetails } from "../screens/game/class/components/ClassDetails";
+import { EventScreen } from "../screens/game/event/EventScreen";
+import { ClassEventScreen } from "../screens/game/ClassEventScreen";
 
 const ICON_SIZE = 30;
 
@@ -27,12 +31,16 @@ export type GameStackParamList = {
   ChapterFail: undefined;
   ChapterPass: undefined;
   Home: undefined;
+  EventDetails:undefined;
+  ClassDetails:undefined;
 };
 
 export type GameScreensStackParamList = {
   Home: undefined;
   Marathon: undefined;
   Profile: undefined;
+  ClassEvent:undefined;
+
 };
 
 const { Screen: TabScreen, Navigator: TabNavigator } =
@@ -70,6 +78,15 @@ const GameNavigatorTabs = () => (
         ),
       }}
     />
+    <TabScreen 
+    name={"ClassEvent"} 
+    component={ClassEventScreen}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialIcons name="event" color={color} size={ICON_SIZE} />
+      ),
+    }}
+    />
     <TabScreen
       name={"Profile"}
       component={ProfileScreen}
@@ -79,6 +96,7 @@ const GameNavigatorTabs = () => (
         ),
       }}
     />
+  
   </TabNavigator>
 );
 
@@ -92,6 +110,9 @@ const GameNavigator = () => (
     <Screen name={"StoryFinish"} component={StoryFinishScreen} />
     <Screen name={"ChapterPass"} component={ChapterPassScreen} />
     <Screen name={"ChapterFail"} component={ChapterFailScreen} />
+    <Screen name={'ClassDetails'} component={ClassDetails}/>
+    <Screen name={'EventDetails'} component={EventDetails}/>
+
   </Navigator>
 );
 

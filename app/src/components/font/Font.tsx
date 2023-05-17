@@ -8,6 +8,8 @@ interface Props {
   color?: ColorType;
   spacing?: number;
   align?: "left" | "right" | "center";
+  numberOfLines?:number
+
 }
 
 export const Font: React.FC<Props> = ({
@@ -17,6 +19,7 @@ export const Font: React.FC<Props> = ({
   color,
   spacing,
   align,
+  numberOfLines
 }) => {
   return (
     <StyledFont
@@ -25,7 +28,8 @@ export const Font: React.FC<Props> = ({
       color={color}
       spacing={spacing}
       align={align}
-    >
+      numberOfLines={numberOfLines}
+>
       {children}
     </StyledFont>
   );

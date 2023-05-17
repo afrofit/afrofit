@@ -8,7 +8,7 @@ import { LargeButton } from "../../../../src/components/buttons/LargeButton";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../../../../../app/store/reducers/auth/thunks/logout.thunk";
 import { Avatar } from "../../../../../app/src/components/image/Avatar";
-import { selectUser } from "../../../../../app/store/reducers/auth/auth.slice";
+import { selectUser, selectUserIsSubscribed } from "../../../../../app/store/reducers/auth/auth.slice";
 import {
   ProfileStatsContainer,
   ProfileStatsListWrapper,
@@ -16,7 +16,7 @@ import {
 import { ProfileStatsItem } from "../marathon/components/ProfileStatsItem";
 import Spacer from "../../../../../app/src/components/elements/Spacer";
 
-import { Positioner } from "./styled";
+import { Positioner, ProfileAvatarOpacity } from "./styled";
 import { Card } from "../../../../../app/src/components/cards/Card";
 import { RankCard } from "../../../../../app/src/components/cards/RankCard";
 import { RankPositioner } from "../../../../../app/src/components/cards/RankCard.styled";
@@ -26,6 +26,11 @@ import {
   selectCurrentUserRank,
   selectUserScoreIndex,
 } from "../../../../../app/store/reducers/marathon/marathon.slice";
+import { AVATAR_DATA } from "../../../../../app/src/components/image/AvatarData"
+import { AvatarModal } from "../../../../../app/src/components/modals/AvatarModal"
+import { SubscriptionStatus } from "../marathon/components/SubscriptionStatus";
+import DEVICE_STORAGE from "../../../../../app/api/device-storage"
+
 
 export const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -34,9 +39,16 @@ export const ProfileScreen = () => {
   const userPerformance = useSelector(selectUserPerformance);
   const userScoreIndex = useSelector(selectUserScoreIndex);
   const currentUserRank = useSelector(selectCurrentUserRank);
+  const userIsSubscribed=useSelector(selectUserIsSubscribed)
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  const handleSignUserOut = () => {
-    dispatch(LogOut());
+
+
+  const handleSignUserOut = ():any => {
+    DEVICE_STORAGE.GET_FCMTOKEN().then((FCMToken:any)=>{
+      var userId : any  = currentUser?.userId
+      dispatch(LogOut(FCMToken,userId));
+    })
   };
 
   if (!currentUser || !userPerformance || currentUserRank < 0) return null;
@@ -52,8 +64,12 @@ export const ProfileScreen = () => {
             Your profile
           </Font>
         </Card>
+        <ProfileStatsListWrapper showsVerticalScrollIndicator={false}>
+
         <Positioner>
-          <Avatar size="sm" imageId={currentUser.displayPicId} />
+          <ProfileAvatarOpacity onPress={()=>setOpenModal(true)}>
+          <Avatar size="sm" imageId={currentUser.displayPicId} imageUrl={currentUser?.imageUrl} />
+          </ProfileAvatarOpacity>
           <RankPositioner>
             <RankCard rankId={currentUserRank} />
           </RankPositioner>
@@ -72,8 +88,7 @@ export const ProfileScreen = () => {
         </Font> */}
 
         <Spacer h={15} />
-        <ProfileStatsListWrapper showsVerticalScrollIndicator={false}>
-          <ProfileStatsItem
+         <ProfileStatsItem
             description="Calories burned"
             value={userPerformance.caloriesBurned}
           />
@@ -87,8 +102,9 @@ export const ProfileScreen = () => {
             description="Minutes danced"
             value={userPerformance.minutesDanced / 1000 / 60}
           />
-
-          <Spacer h={10} />
+           <Spacer h={5} />
+           <SubscriptionStatus description="Subscription status" status={userIsSubscribed} />
+           <Spacer h={10} />
           <LargeButton title="Log me out" onPress={handleSignUserOut} />
           <Spacer h={10} />
           <Font variant="sm2" caps align="center" color="lightblue">
@@ -101,6 +117,16 @@ export const ProfileScreen = () => {
           </Font>
         </ProfileStatsListWrapper>
       </Screen>
+    {openModal ? 
+     <AvatarModal
+      visible={openModal}
+      title="Select your favorite avatar!"
+      dismissText="DISMISS"
+      onDismiss={() => setOpenModal(false)}
+      AVATAR_DATA={AVATAR_DATA}
+      subtitle="UPLOADE YOUR PICTURE"
+      />:null
+   }
     </>
   );
 };

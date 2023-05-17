@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1066691596301",
+    "project_id": "afrofit-app",
+    "storage_bucket": "afrofit-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066691596301:android:268f0c4c570fe7bf2b8544",
+        "android_client_info": {
+          "package_name": "com.djminddgap.afrofit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066691596301-cbd7ln880d66th6pte075g2a0kvlqplu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqqM4CAzxVOzfo7CL2_bpEip6_68-gjz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066691596301-cbd7ln880d66th6pte075g2a0kvlqplu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

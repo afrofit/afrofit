@@ -31,6 +31,8 @@ export const StyledSmallButton = styled.Pressable<Props>`
   border-width: ${({ variant }) =>
     variant && variant === "outlined" ? "1px" : 0};
   border-color: ${COLORS.lightblue};
+  marginLeft:10
+  alignSelf:center
 `;
 
 export const StyledRoundButton = styled.Pressable<Props>`
@@ -55,3 +57,9 @@ export const StyledGenericButton = styled.View<Props>`
   width: 100%;
   height: 100%;
 `;
+
+
+export const SelectAvtarImg = styled.Pressable<Props>`
+height: 100;
+width:100;`;
+

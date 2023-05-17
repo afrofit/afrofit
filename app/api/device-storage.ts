@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const KEY = "AUTH_KEY";
 const RESET_KEY = "AUTH_RESET_KEY";
+const FCM_TOKEN="FCM_TOKEN"
 
 const STORE_TOKEN = async (token: string) => {
   try {
@@ -64,6 +65,23 @@ const REMOVE_RESET_TOKEN = async () => {
   }
 };
 
+const STORE_FCMTOKEN = async (token: any) => {
+  try {
+    await SecureStore.setItemAsync(FCM_TOKEN, token);
+  } catch (error) {
+    console.error("Error storing FCM_TOKEN!", error);
+  }
+};
+
+const GET_FCMTOKEN = async () => {
+  try {
+    return await SecureStore.getItemAsync(FCM_TOKEN)
+  } catch (error) {
+    console.error("Error fetching FCM_TOKEN!", error);
+  }
+};
+
+
 export default {
   STORE_TOKEN,
   GET_TOKEN,
@@ -72,4 +90,6 @@ export default {
   GET_RESET_TOKEN,
   STORE_RESET_TOKEN,
   REMOVE_RESET_TOKEN,
+  STORE_FCMTOKEN,
+  GET_FCMTOKEN,
 };

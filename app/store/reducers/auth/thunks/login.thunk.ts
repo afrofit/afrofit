@@ -15,12 +15,14 @@ import { setCurrentUser, storeUserToken } from "../auth.slice";
 import { UserModel } from "../../../../../app/types/UserModel";
 
 const logInApi = async (userCredentials: UserLoginCredentials) => {
-  const { email, password } = userCredentials;
-  return await API_CLIENT.post("users/login", { email, password });
+  const { email, password ,FCMToken,isDevice} = userCredentials;
+ console.log(userCredentials,'userCredentials')
+  return await API_CLIENT.post("users/login", { email, password,FCMToken,isDevice });
 };
 
 export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
   return async (dispatch) => {
+    if(userCredentials.isDevice==true){
     try {
       dispatch(newRequest());
       dispatch(hideGenericErrorDialog());
@@ -40,7 +42,8 @@ export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
             return;
           }
         });
-      } else if (response && !response.ok && response.data) {
+      } 
+      else if (response && !response.ok && response.data) {
         dispatch(
           setGenericErrorMessage(
             response.data ?? "There was an error logging in"
@@ -57,5 +60,10 @@ export function LogUserIn(userCredentials: UserLoginCredentials): AppThunk {
       dispatch(setGenericErrorMessage(errorMessage));
       dispatch(finishedRequest());
     }
-  };
+
+  }else{
+    dispatch(setGenericErrorMessage('something went wrong!'));
+    dispatch(finishedRequest()); 
+  }
+};
 }

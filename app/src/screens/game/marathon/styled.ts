@@ -14,6 +14,6 @@ export const RankingsListWrapper = styled.ScrollView`
   overflow: hidden;
   border-width: 1px;
   border-color: ${COLORS.lightblue};
-  max-height: 70%;
+  max-height: 90%;
   /* z-index: 20; */
 `;

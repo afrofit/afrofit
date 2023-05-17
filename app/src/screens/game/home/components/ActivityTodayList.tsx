@@ -21,7 +21,7 @@ export const ActivityTodayList: React.FC<Props> = ({ todaysActivity }) => {
         <ItemWrapper first={true} last={false}>
           <NumWrapper>
             <Font variant="h3" color="hilite_purpink" caps>
-              {formattedStat(todaysActivity.caloriesBurned)}
+              {formattedStat(todaysActivity?.caloriesBurned)}
             </Font>
           </NumWrapper>
           <LabelWrapper>
@@ -35,7 +35,7 @@ export const ActivityTodayList: React.FC<Props> = ({ todaysActivity }) => {
         <ItemWrapper last={true}>
           <NumWrapper>
             <Font variant="h3" color="hilite_purpink" caps>
-              {formattedStat(todaysActivity.bodyMovements)}
+              {formattedStat(todaysActivity?.bodyMovements)}
             </Font>
           </NumWrapper>
           <LabelWrapper>

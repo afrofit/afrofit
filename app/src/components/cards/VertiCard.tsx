@@ -19,7 +19,7 @@ export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
           Burn Calories
         </Font>
         <Spacer h={5} />
-        <Font variant="num2" color="hilite_orange" align="center">
+        <Font variant="num3" color="hilite_orange" align="center">
           {calculateCaloriesFromBodyMovements(bodyMoves)}
         </Font>
       </VertiCardChild>
@@ -28,7 +28,7 @@ export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
           Body Moves
         </Font>
         <Spacer h={5} />
-        <Font variant="num2" color="hilite_orange" align="center">
+        <Font variant="num3" color="hilite_orange" align="center">
           {formattedStat(bodyMoves, true)}
         </Font>
       </VertiCardChild>
@@ -37,7 +37,7 @@ export const VertiCard: React.FC<Props> = ({ bodyMoves }) => {
           Time (Mins)
         </Font>
         <Spacer h={5} />
-        <Font variant="num2" color="hilite_orange" align="center">
+        <Font variant="num3" color="hilite_orange" align="center">
           {calculateDanceTimeFromBodyMovements(bodyMoves)}
         </Font>
       </VertiCardChild>

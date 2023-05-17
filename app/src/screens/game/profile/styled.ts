@@ -7,3 +7,8 @@ export const Positioner = styled.View`
 export const AvatarTextPositioner = styled.View`
   flex: 1;
 `;
+
+export const ProfileAvatarOpacity=styled.TouchableOpacity`
+ width: 30%;
+ alignSelf:center
+`

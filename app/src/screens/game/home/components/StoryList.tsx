@@ -23,15 +23,21 @@ import {
 import { useSelector } from "react-redux";
 
 interface Props {
-  handleNavigateToStory: (storyId: string) => void;
+  handleNavigateToStory: (storyId: any) => void;
 }
 
 export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const currentUser = useSelector(selectUser);
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
+  const [showSubscribeModal, setShowSubscribeModal] = React.useState(false);
+
 
   React.useEffect(() => {
-    console.log("userIsSubscribed", userIsSubscribed);
+    if (!userIsSubscribed) {
+      setShowSubscribeModal(true);
+    } else if (userIsSubscribed) {
+      setShowSubscribeModal(false);
+    }
   }, [userIsSubscribed]);
 
   if (!currentUser) return null;
@@ -39,14 +45,14 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   const storyDisabled = React.useCallback(
     (storyOrder: number) => {
       return (
-        currentUser.lastStoryCompleted !== storyOrder - 1 || !userIsSubscribed
+        currentUser.lastStoryCompleted !== storyOrder - 1 
       );
     },
     [userIsSubscribed]
   );
 
   return (
-    <StoryListWrapper showsVerticalScrollIndicator={false}>
+    <StoryListWrapper showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:35}}>
       {STORY_DATA.sort((a, b) => (a.order > b.order ? 1 : -1)).map((story) => {
         const imageSource = STORY_DATA_EXTRAS_MAP[story.id].thumbUrl;
         return (
@@ -56,7 +62,7 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
             key={story.id}
             outlined={false}
             bgColor={story.color as ColorType}
-            onPress={() => handleNavigateToStory(story.id)}
+            onPress={() => handleNavigateToStory(userIsSubscribed === true? story.id :null)}
             disabled={storyDisabled(story.order)}
           >
             <CardContentWrapper>

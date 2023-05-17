@@ -11,18 +11,20 @@ interface Props {
   username: string;
   dpId: number;
   currentUserRank?: number;
+  dpUrl:string
 }
 
 export const Header: React.FC<Props> = ({
   username,
   dpId,
   currentUserRank,
+  dpUrl
 }) => {
   const imageUrl = `../../../../../assets/images/dp/${dpId}.png`;
   return (
     <Card centeredContent={true} flexDirection="row" marginBottom={20}>
       <ImagePositioner>
-        <Avatar size="xs" imageId={dpId} />
+        <Avatar size="xs" imageId={dpId} imageUrl={dpUrl} />
       </ImagePositioner>
       <TextPositioner>
         <Font variant="sm2" color="lightblue">

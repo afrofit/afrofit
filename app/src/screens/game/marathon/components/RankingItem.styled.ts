@@ -15,6 +15,7 @@ export const RankingItemWrapper = styled.View<Props>`
   border-bottom-color: ${COLORS.lightblue};
   border-top-left-radius: ${CHAMFER};
   border-top-right-radius: ${CHAMFER};
+
 `;
 
 export const ScoreWrapper = styled.View`

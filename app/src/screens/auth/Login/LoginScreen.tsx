@@ -18,6 +18,7 @@ import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { useDispatch } from "react-redux";
 import { GenericError } from "../../../../src/components/errors/GenericError";
 import { LogUserIn } from "../../../../store/reducers/auth/thunks/login.thunk";
+import DEVICE_STORAGE from "../../../../../app/api/device-storage"
 
 export const LoginScreen = () => {
   const navigation = useNavigation<LoginScreenNavType>();
@@ -35,10 +36,18 @@ export const LoginScreen = () => {
     reset,
     formState: { errors },
   } = useForm();
-
+  
   const onSubmit: SubmitHandler<any> = (data) => {
-    console.log("Data", data);
-    dispatch(LogUserIn(data));
+    DEVICE_STORAGE.GET_FCMTOKEN().then((FCMToken)=>{
+        if(FCMToken && FCMToken!=''){
+        var isDevice=true
+          dispatch(LogUserIn({...data,FCMToken,isDevice}));
+        }
+        else{
+          var isDevice=true
+          dispatch(LogUserIn({...data,isDevice}));
+        }
+    })
   };
 
   const clearField = (name: string) => {
@@ -70,6 +79,7 @@ export const LoginScreen = () => {
             rules={{ required: true, pattern: EMAIL_REGEX }}
             clearError={clearError}
             type="regular"
+            placeholder={"Your email.."}
           />
           <StyledInput
             clearField={clearField}
@@ -79,6 +89,7 @@ export const LoginScreen = () => {
             rules={{ required: true }}
             clearError={clearError}
             type="password"
+            placeholder={"Your password.."}
           />
           <ClearButton
             onPress={() => navigation.navigate("ResetPassword")}

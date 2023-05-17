@@ -15,6 +15,8 @@ interface Props {
   rules?: any;
   maxLength?: number;
   clearError: (name: string) => void;
+  placeholder?:string,
+  secureTextEntry?:boolean
 }
 
 export const StyledInput: React.FC<Props> = ({
@@ -26,14 +28,15 @@ export const StyledInput: React.FC<Props> = ({
   rules,
   maxLength = 50,
   clearError,
-}) => {
+  placeholder="",
+  }) => {
   const {
     clearErrors,
     resetField,
     formState: { errors },
   } = useForm();
   const [currentIcon, setCurrentIcon] = React.useState<"eye" | "eye-off">(
-    "eye"
+    "eye-off"
   );
 
   const [focused, setFocused] = React.useState(false);
@@ -100,8 +103,8 @@ export const StyledInput: React.FC<Props> = ({
             </IconWrapper>
             <InputField
               autoCapitalize="none"
-              secureTextEntry={type === "password" && currentIcon === "eye"}
-              keyboardType={"email-address"}
+              secureTextEntry={type === "password" && currentIcon === "eye-off"}
+              keyboardType={"default"}
               onChangeText={onChange}
               onBlur={() => {
                 setFocused(false);
@@ -111,6 +114,8 @@ export const StyledInput: React.FC<Props> = ({
               maxLength={maxLength}
               onFocus={() => onFocus(name)}
               selectionColor={COLORS.hilite_purpink}
+              placeholder={placeholder}  
+              placeholderTextColor={COLORS.lightblue}   
             />
             {type === "password" ? (
               <ShowPasswordButton

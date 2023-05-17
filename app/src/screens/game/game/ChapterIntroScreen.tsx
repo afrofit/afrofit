@@ -114,7 +114,7 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
           Left
         </Font>
 
-        <ContentContainer>
+        {/* <ContentContainer> */}
           <Font variant="h3" align="center" color="hilite_orange">
             Select your music
           </Font>
@@ -128,7 +128,8 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
             You can minimize this app to select your favorite music from your
             app or the web and come back to dance or exercise to it
           </Font>
-        </ContentContainer>
+        {/* </ContentContainer> */}
+        <Spacer h={15} />
 
         <LargeButton
           variant="outlined"

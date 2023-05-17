@@ -4,4 +4,5 @@ export type SaveDanceDataType = {
   clampedUserSteps: number;
   chapterCompleted: boolean;
   storyCompleted: boolean;
+  isDevice:boolean
 };

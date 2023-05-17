@@ -1,6 +1,7 @@
 import { CHAMFER } from "./../../../../theme/globals";
 import { COLORS, CHAMFER_BIG } from "../../../../theme/globals";
 import styled from "styled-components/native";
+import { DEVICE_HEIGHT } from "../../../../../app/constants/device";
 
 export const FontConstrainer = styled.View`
   width: 65%;
@@ -11,7 +12,7 @@ interface VideoContainerProps {
   size: "lg" | "sm";
 }
 export const VideoContainer = styled.View<VideoContainerProps>`
-  height: 40%;
+  height: ${DEVICE_HEIGHT/3.5};
   width: 80%;
   background-color: ${COLORS.lightblue};
   border-radius: ${CHAMFER_BIG};

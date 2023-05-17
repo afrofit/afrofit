@@ -23,13 +23,13 @@ export const WelcomeScreen = () => {
       <SolidBackground />
       <Screen>
         <ScreenMarker percentage={75}>
-          <Spacer />
+          {/* <Spacer /> */}
           <BorderedImage size="md" />
           <Spacer h={50} />
-          <Font variant="h1" color="lightblue" align="center">
+          <Font variant="h2" color="lightblue" align="center">
             Find your rhythm.
           </Font>
-          <Font variant="h1" color="purple_100" align="center">
+          <Font variant="h2" color="purple_100" align="center">
             Fuel your fitness.
           </Font>
         </ScreenMarker>
