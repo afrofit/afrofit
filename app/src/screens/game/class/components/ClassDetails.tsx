@@ -19,6 +19,8 @@ import LottieView from "lottie-react-native";
 import { Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import YoutubePlayer from "react-native-youtube-iframe";
+import { windowHeight, windowWidth } from "../../../../../../app/utils/constant";
+import { ClassDetailsCard } from "../../../../../../app/src/components/cards/ClassDetailsCard";
 interface Props {
   route: { params: { item: any } };
 }
@@ -36,7 +38,7 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
 
   return (
     <>
-      <SolidBackground />
+      <SolidBackground/>
       <Spacer h={20} />
       <EventStyledScreen>
         <Screen>
@@ -48,7 +50,7 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
           </Font>
           <Spacer h={10} />
           <EventListWrapper contentContainerStyle={{ paddingBottom: 30 }}>
-            <Card>
+            <ClassDetailsCard>
               <Font variant={"h2"} align="center">
                 {item?.title}
               </Font>
@@ -66,12 +68,11 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
               <Font variant={"h4"}>{item?.description}</Font>
               <Spacer h={25} />
               <YoutubePlayer
-              height={200}
-              width={310}
+              height={windowHeight/4}
+              width={windowWidth-80}
               videoId={item?.videoUrl}
                />
-             
-            </Card>
+             </ClassDetailsCard>
           </EventListWrapper>
         </Screen>
       </EventStyledScreen>
