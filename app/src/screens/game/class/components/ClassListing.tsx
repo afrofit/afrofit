@@ -10,11 +10,13 @@ import {
   EventClassSecondView,
   EventClassVideoPreview,
   EventClassView,
+  EventDetailsImage,
   EventListWrapper,
   EventPressable,
 } from "../../event/styled";
 import { ResizeMode, Video } from "expo-av";
 import { AntDesign } from "@expo/vector-icons";
+import { Image, View } from "react-native";
 
 interface Props {
   allClass?: any;
@@ -27,6 +29,7 @@ export const ClassList: React.FC<Props> = ({ allClass }) => {
     <EventListWrapper>
       {allClass && allClass.length > 0 ? (
         allClass.map((item: any) => {
+          console.log(item?.imageUrl);
           return (
             <>
               <Card disablePadding>
@@ -35,20 +38,19 @@ export const ClassList: React.FC<Props> = ({ allClass }) => {
                 >
                   <EventClassView>
                     <EventClassFirstView>
-                      <Video
-                        style={
-                          EventClassVideoPreview.video
-                        }
-                        source={{uri:item?.videoUrl}}
-                        resizeMode={ResizeMode.STRETCH}
-                        shouldPlay={false}
-                      />
-                      <AntDesign
-                        name="caretright"
-                        size={30}
-                        color="white"
-                        style={EventClassAntDesignIcon.icon}
-                      />
+                        <Image
+                          source={{
+                            uri: `${APP_SETTINGS.apiUrl.replace("api/", "")}${
+                              item?.imageUrl
+                            }`,
+                          }}
+                          resizeMode={"center"}
+                          style={{
+                            alignSelf: "center",
+                            height: 130,
+                            width: 130,
+                          }}
+                        />
                     </EventClassFirstView>
                     <EventClassSecondView>
                       <Font variant={"h2"} numberOfLines={1}>

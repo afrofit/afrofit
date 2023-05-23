@@ -16,20 +16,15 @@ import { Placer } from "../../../../../../app/src/components/elements/Placer";
 import { IconButton } from "../../../../../../app/src/components/buttons/IconButton";
 import * as React from "react";
 import LottieView from "lottie-react-native";
-import { ActivityIndicator } from "react-native";
-import { COLORS } from "../../../../../../app/theme/globals";
-import convertToProxyURL from 'react-native-video-cache';
-
-
+import { Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import YoutubePlayer from "react-native-youtube-iframe";
 interface Props {
   route: { params: { item: any } };
 }
 
 export const ClassDetails: React.FC<Props> = ({ route }) => {
-  const navigation = useNavigation();
-  const [isPreloading, setIsPreloading] = React.useState(false);
-  const [status, setStatus]: any = React.useState({});
-  const [error, setError]: any = React.useState({});
+  const navigation = useNavigation<any>();
   const { item } = route.params;
   const video = React.useRef(null);
 
@@ -38,7 +33,6 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
   React.useEffect(() => {
     animationRef && animationRef.play();
   }, []);
-
 
   return (
     <>
@@ -69,46 +63,14 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
                 style={{ alignSelf: "center" }}
               />
               <Spacer h={7} />
-              <Font variant={"sm1"}>{item?.description}</Font>
+              <Font variant={"h4"}>{item?.description}</Font>
               <Spacer h={25} />
-
-              {item?.videoUrl != null ? (
-                <>
-                  {isPreloading && (
-                    <LottieView
-                      autoPlay
-                      loop={true}
-                      source={require("../../../../../assets/animations/loading.json")}
-                      style={{
-                        ...BackgroundEventVideoStyles.video,
-                        position: "absolute",
-                        bottom: 10,
-                      }}
-                    />
-                  )}
-                  {status?.isBuffering  && !status?.isPlaying  && !status?.didJustFinish && (
-                     <ActivityIndicator
-                     size={"large"}
-                     color={COLORS.hilite_orange}
-                      style={{...BackgroundEventVideoStyles.video,position: "absolute",bottom:10,zIndex:2222}}  
-                      />
-                    )}
-                  <Video
-                    ref={video}
-                      style={{...BackgroundEventVideoStyles.video,zIndex:1111}}
-                      source={{uri: convertToProxyURL(item?.videoUrl)}}                      
-                      shouldPlay={true}
-                      useNativeControls={isPreloading ? false : true}
-                      resizeMode={ResizeMode.CONTAIN}
-                      onLoadStart={() => setIsPreloading(true)}
-                      onReadyForDisplay={() => setIsPreloading(false)}
-                      onPlaybackStatusUpdate={status=>setStatus(()=>status)}
-                      onError={(status=>setError(()=>status))}
-                       />
-                 
-
-                     </>
-              ) : null}
+              <YoutubePlayer
+              height={200}
+              width={310}
+              videoId={item?.videoUrl}
+               />
+             
             </Card>
           </EventListWrapper>
         </Screen>
