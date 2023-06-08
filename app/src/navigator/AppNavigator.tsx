@@ -69,6 +69,15 @@ const GameNavigatorTabs = () => (
         ),
       }}
     />
+      <TabScreen 
+      name={"ClassEvent"} 
+      component={ClassEventScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <MaterialIcons name="event" color={color} size={ICON_SIZE} />
+        ),
+      }}
+      />
     <TabScreen
       name={"Marathon"}
       component={MarathonScreen}
@@ -77,15 +86,6 @@ const GameNavigatorTabs = () => (
           <Feather name="award" color={color} size={ICON_SIZE} />
         ),
       }}
-    />
-    <TabScreen 
-    name={"ClassEvent"} 
-    component={ClassEventScreen}
-    options={{
-      tabBarIcon: ({ color, size }) => (
-        <MaterialIcons name="event" color={color} size={ICON_SIZE} />
-      ),
-    }}
     />
     <TabScreen
       name={"Profile"}

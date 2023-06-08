@@ -92,17 +92,17 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
         </Placer>
         <BorderedImage
           size="sm"
-          imageUrl={STORY_DATA_EXTRAS_MAP[currentStory!.id].thumbUrl}
+          imageUrl={STORY_DATA_EXTRAS_MAP[currentStory!.id]?.thumbUrl}
         />
         <Spacer />
         <Font variant="h4" align="center">
-          {currentStory ? currentStory.title : "Loading title..."}
+          {currentStory ? currentStory?.title : "Loading title..."}
         </Font>
         <Spacer />
         <VertiCard
           bodyMoves={
             currentStory
-              ? currentStory.totalTargetSteps - currentStory.userSteps
+              ? currentStory?.totalTargetSteps - currentStory?.userSteps
               : 0
           }
         />

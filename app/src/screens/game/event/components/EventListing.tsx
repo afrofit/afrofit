@@ -53,14 +53,14 @@ export const EventList: React.FC<Props> = ({ allevent }) => {
                     ) : null} 
                     
                     <EventClassSecondView
-                      style={{ width: item.videoUrl != null ? "60%" : "90%" }}
+                      style={{ width: item?.videoUrl != null ? "60%" : "90%" }}
                     >
                       <Font variant={"h2"} numberOfLines={1}>
-                        {item.title}
+                        {item?.title}
                       </Font>
                       <Spacer h={7} />
                       <Font variant={"sm1"} numberOfLines={3}>
-                        {item.description}
+                        {item?.description}
                       </Font>
                     </EventClassSecondView>
                   </EventClassView>

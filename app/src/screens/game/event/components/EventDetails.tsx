@@ -46,14 +46,14 @@ export const EventDetails: React.FC<Props> = ({ route }) => {
           <EventListWrapper contentContainerStyle={{ paddingBottom: 30 }}>
             <Card>
               <Font variant={"h2"} align="right">
-                {item.title}
+                {item?.title}
               </Font>
               <Spacer h={15} />
-              {item.imageUrl != null ? (
+              {item?.imageUrl != null ? (
                 <EventDetailsImage
                   source={{
                     uri: `${APP_SETTINGS.apiUrl.replace("api/", "")}${
-                      item.imageUrl
+                      item?.imageUrl
                     }`,
                   }}
                   resizeMode={"contain"}
@@ -62,7 +62,7 @@ export const EventDetails: React.FC<Props> = ({ route }) => {
               ) : null}
 
               <Spacer h={7} />
-              <Font variant={"sm1"}>{item.description}</Font>
+              <Font variant={"sm1"}>{item?.description}</Font>
               <Spacer h={25} />
 
               {item?.videoUrl != null ? (

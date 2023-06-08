@@ -52,13 +52,13 @@ export const ClassList: React.FC<Props> = ({ allClass }) => {
                           }}
                         />
                     </EventClassFirstView>
-                    <EventClassSecondView>
-                      <Font variant={"h2"} numberOfLines={1}>
-                        {item.title}
+                    <EventClassSecondView  style={{paddingHorizontal:10}} > 
+                      <Font variant={"h2"} numberOfLines={1} > 
+                        {item?.title}
                       </Font>
                       <Spacer h={7} />
                       <Font variant={"sm1"} numberOfLines={3}>
-                        {item.description}
+                        {item?.description}
                       </Font>
                     </EventClassSecondView>
                   </EventClassView>

@@ -53,7 +53,7 @@ export const EventListWrapper = styled.ScrollView`
   `
 
   export const EventClassSecondView=styled.View`
-  width: 80%;
+  width: 60%;
   marginHorizontal: 15;
   marginVertical: 10;
   `
