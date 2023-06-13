@@ -1,7 +1,10 @@
 {
   "expo": {
-      "android": {
+    "android": {
       "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "plugins": [
       "@react-native-firebase/app",

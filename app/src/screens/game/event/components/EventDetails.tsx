@@ -5,6 +5,8 @@ import {
   BackgroundEventVideoStyles,
   EventDetailsImage,
   EventDetailsView,
+  EventLink,
+  EventLinkView,
   EventListWrapper,
   EventStyledScreen,
 } from "../styled";
@@ -17,8 +19,8 @@ import { ResizeMode, Video } from "expo-av";
 import { Placer } from "../../../../../../app/src/components/elements/Placer";
 import { IconButton } from "../../../../../../app/src/components/buttons/IconButton";
 import { useNavigation } from "@react-navigation/native";
-import { ActivityIndicator } from "react-native";
 import LottieView from "lottie-react-native";
+import * as Linking from 'expo-linking';
 
 interface Props {
   route: { params: { item: any } };
@@ -28,6 +30,12 @@ export const EventDetails: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
   const [isPreloading, setIsPreloading] = React.useState(false);
   const { item } = route.params;
+
+  const openURL=(link:any)=>{
+    Linking.openURL(link)
+  }
+
+
   return (
     <>
       <SolidBackground />
@@ -63,8 +71,18 @@ export const EventDetails: React.FC<Props> = ({ route }) => {
 
               <Spacer h={7} />
               <Font variant={"sm1"}>{item?.description}</Font>
-              <Spacer h={25} />
-
+              <Spacer h={15} />
+              {item?.paymentLinks ?  <EventLink onPress={()=>openURL(item?.paymentLinks)}>
+              <Font variant={"smb"} >
+               Payment link:
+              </Font>
+              <EventLinkView>
+              <Font variant={"smb"} color="fuschia" underline={"underline"} numberOfLines={3}>
+               {item?.paymentLinks}
+              </Font>
+              </EventLinkView>
+              </EventLink> : null}
+            
               {item?.videoUrl != null ? (
                 <>
                   {isPreloading && (

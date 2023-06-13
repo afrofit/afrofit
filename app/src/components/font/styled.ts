@@ -13,6 +13,7 @@ interface StyledFontProps {
   align?: "left" | "right" | "center";
   weight?: "bold" | "regular" | "heavy";
   spacing?: number;
+  underline?:any
 }
 export const StyledFont = styled.Text<StyledFontProps>`
   font-size: ${({ variant }) =>
@@ -25,4 +26,6 @@ export const StyledFont = styled.Text<StyledFontProps>`
   letter-spacing: ${({ spacing }) => (spacing ? `${spacing}px` : 0)};
   padding: 0;
   margin: 0;
+  textDecorationLine:${({ underline }) =>
+  underline ? "underline" : null};
 `;

@@ -57,6 +57,17 @@ export const EventListWrapper = styled.ScrollView`
   marginHorizontal: 15;
   marginVertical: 10;
   `
+
+  export const EventLink=styled.Pressable`
+  flexDirection: row;
+  marginVertical:15;
+  width:100%
+  `
+
+  export const EventLinkView=styled.View`
+  marginLeft:7;
+  width:60%
+  `
   
   export const EventClassAntDesignIcon=StyleSheet.create({
     icon:{
