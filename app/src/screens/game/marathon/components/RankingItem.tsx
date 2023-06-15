@@ -62,7 +62,7 @@ export const RankingItem: React.FC<ItemProps> = ({
             </Font>
           </OrderNumberWrapper>
           <UserNameWrapper>
-            <Font variant="p" color={currentUser ? "gold" : "light"}>
+            <Font variant="p" color={currentUser ? "gold" : "light"} numberOfLines={2}>
               {username}
             </Font>
           </UserNameWrapper>
