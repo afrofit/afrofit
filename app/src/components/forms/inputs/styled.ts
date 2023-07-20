@@ -5,6 +5,9 @@ import styled from "styled-components/native";
 interface Props {
   error?: any;
   focused?: boolean;
+  height?: number;
+  alignItems?:string;
+  justifyContent?:string
 }
 
 export const FieldWrapper = styled.View`
@@ -12,7 +15,7 @@ export const FieldWrapper = styled.View`
 `;
 
 export const InputWrapper = styled.View<Props>`
-  height: 65px;
+  height:  ${({ height }) => (height ? `${height}px` : `65px`)};
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -41,7 +44,7 @@ export const InputField = styled.TextInput`
   letter-spacing: 0.2px;
 `;
 
-export const IconWrapper = styled.View`
+export const IconWrapper = styled.View<Props>`
   height: 40px;
   width: 40px;
   justify-content: center;
@@ -49,7 +52,7 @@ export const IconWrapper = styled.View`
   margin-left: 10px;
 `;
 
-export const PressableIconWrapper = styled.Pressable`
+export const PressableIconWrapper = styled.Pressable<Props>`
   height: 40px;
   width: 40px;
   justify-content: center;

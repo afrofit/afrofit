@@ -30,11 +30,12 @@ import { AVATAR_DATA } from "../../../../../app/src/components/image/AvatarData"
 import { AvatarModal } from "../../../../../app/src/components/modals/AvatarModal"
 import { SubscriptionStatus } from "../marathon/components/SubscriptionStatus";
 import DEVICE_STORAGE from "../../../../../app/api/device-storage"
+import { useNavigation } from "@react-navigation/native";
 
 
 export const ProfileScreen = () => {
   const dispatch = useDispatch();
-
+  const navigation = useNavigation<any>();
   const currentUser = useSelector(selectUser);
   const userPerformance = useSelector(selectUserPerformance);
   const userScoreIndex = useSelector(selectUserScoreIndex);
@@ -114,6 +115,9 @@ export const ProfileScreen = () => {
           <Font variant="sm2" align="center" color="lightblue">
             Joined on{" "}
             {format(new Date(currentUser.joinDate), "'the' io 'of' MMMM, yyyy")}
+          </Font>
+          <Font variant="sm3" color="hilite_purpink" align="center" paddingleft={5} underline={"underline"} onPress={()=>navigation.navigate("ContactUsScreen")}>
+           Contact us
           </Font>
         </ProfileStatsListWrapper>
       </Screen>

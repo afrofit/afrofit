@@ -35,6 +35,7 @@ export const FONT_VARIANTS = {
   sm: { size: "12px", weight: regular },
   sm1: { size: "20px", weight: regular },
   sm2: { size: "14px", weight: bold },
+  sm3: { size: "18px", weight: regular },
   smc: { size: "15px", weight: heavy },
   num1: { size: "40px", weight: regular },
   num2: { size: "35px", weight: regular },
@@ -55,3 +56,6 @@ export const CHAMFER_BIG = "50px";
 
 export const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_'{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  export const PHONE_REGX=
+/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;

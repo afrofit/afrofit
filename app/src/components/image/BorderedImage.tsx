@@ -11,7 +11,7 @@ interface Props {
   color?: ColorType;
   align?: "left" | "right" | "center";
   size?: "lg" | "md" | "sm" | "xs";
-  imageUrl: string | number;
+  imageUrl?: string | number;
 }
 
 export const BorderedImage: React.FC<Props> = ({

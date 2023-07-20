@@ -53,7 +53,7 @@ export const EventDetails: React.FC<Props> = ({ route }) => {
           <Spacer h={10} />
           <EventListWrapper contentContainerStyle={{ paddingBottom: 30 }}>
             <Card>
-              <Font variant={"h2"} align="right">
+              <Font variant={"h2"}>
                 {item?.title}
               </Font>
               <Spacer h={15} />

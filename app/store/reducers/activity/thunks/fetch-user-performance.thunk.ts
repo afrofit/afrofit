@@ -25,7 +25,7 @@ export function GetUserPerformanceData(userId: string): AppThunk {
       const response: ApiResponse<any, any> = await fetchUserPerformanceApi(
         userId
       );
-      if (response && response.data) {
+      if (response && response?.data && response.ok ==true) {
         const { totalUserSteps, totalUserTime, caloriesBurned } =
           response.data.performance;
 

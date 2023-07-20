@@ -18,6 +18,7 @@ import { EventDetails } from "../screens/game/event/components/EventDetails";
 import { ClassDetails } from "../screens/game/class/components/ClassDetails";
 import { EventScreen } from "../screens/game/event/EventScreen";
 import { ClassEventScreen } from "../screens/game/ClassEventScreen";
+import { ContactUsScreen } from "../screens/game/ContactUs/ContactUs";
 
 const ICON_SIZE = 30;
 
@@ -33,6 +34,7 @@ export type GameStackParamList = {
   Home: undefined;
   EventDetails:undefined;
   ClassDetails:undefined;
+  ContactUsScreen:undefined;
 };
 
 export type GameScreensStackParamList = {
@@ -40,7 +42,6 @@ export type GameScreensStackParamList = {
   Marathon: undefined;
   Profile: undefined;
   ClassEvent:undefined;
-
 };
 
 const { Screen: TabScreen, Navigator: TabNavigator } =
@@ -112,6 +113,7 @@ const GameNavigator = () => (
     <Screen name={"ChapterFail"} component={ChapterFailScreen} />
     <Screen name={'ClassDetails'} component={ClassDetails}/>
     <Screen name={'EventDetails'} component={EventDetails}/>
+    <Screen name={'ContactUsScreen'} component={ContactUsScreen}/>
 
   </Navigator>
 );

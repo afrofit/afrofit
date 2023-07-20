@@ -8,6 +8,7 @@ import storyReducer from "./reducers/story/story.slice";
 import userReducer from "./reducers/user/user.slice";
 import eventReducer from "./reducers/events/events.slice"
 import classReducer from "./reducers/class/class.slice"
+import contactusReducer from './reducers/contactus/contactus.slice'
 
 export const rootReducer = combineReducers({
   ui: uiReducer,
@@ -18,5 +19,6 @@ export const rootReducer = combineReducers({
   story: storyReducer,
   user:userReducer,
   event:eventReducer,
-  class:classReducer
+  class:classReducer,
+  contactus:contactusReducer,
 });

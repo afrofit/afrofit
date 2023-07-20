@@ -10,7 +10,8 @@ interface Props {
   align?: "left" | "right" | "center";
   numberOfLines?:number;
   underline?:any
-  onPress?:any
+  onPress?:any;
+  paddingleft?:number
 
 }
 
@@ -23,7 +24,8 @@ export const Font: React.FC<Props> = ({
   align,
   numberOfLines,
   underline=null,
-  onPress=null
+  onPress=null,
+  paddingleft,
 }) => {
   return (
     <StyledFont
@@ -35,6 +37,7 @@ export const Font: React.FC<Props> = ({
       numberOfLines={numberOfLines}
       underline={underline}
       onPress={onPress}
+    paddingleft={paddingleft}
 >
       {children}
     </StyledFont>

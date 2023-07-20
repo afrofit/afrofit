@@ -35,6 +35,17 @@ export const StyledSmallButton = styled.Pressable<Props>`
   alignSelf:center
 `;
 
+export const StyledMediumButton = styled.Pressable<Props>`
+  width: 140px;
+  height: 35px;
+  border-radius: ${CHAMFER_BIG};
+  overflow: hidden;
+  border-width: ${({ variant }) =>
+    variant && variant === "outlined" ? "1px" : 0};
+  border-color: ${COLORS.lightblue};
+  marginLeft:10
+`;
+
 export const StyledRoundButton = styled.Pressable<Props>`
   width: 100px;
   height: 100px;

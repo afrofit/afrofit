@@ -7,16 +7,18 @@ import { ClearFieldButton, ShowPasswordButton } from "./InputButtons";
 import { useForm, Controller, FieldError } from "react-hook-form";
 
 interface Props {
-  clearField: any;
-  type: "regular" | "password";
-  control: any;
-  label: string;
+  clearField?: any;
+  type?: "regular" | "password";
+  control?: any;
+  label?: any;
   name: string;
   rules?: any;
   maxLength?: number;
   clearError: (name: string) => void;
   placeholder?:string,
   secureTextEntry?:boolean
+  multiline?:boolean,
+  keyboardType?: any
 }
 
 export const StyledInput: React.FC<Props> = ({
@@ -29,6 +31,8 @@ export const StyledInput: React.FC<Props> = ({
   maxLength = 50,
   clearError,
   placeholder="",
+  multiline,
+  keyboardType
   }) => {
   const {
     clearErrors,
@@ -60,7 +64,19 @@ export const StyledInput: React.FC<Props> = ({
   };
 
   const getIconName = () => {
-    return name === "password" ? "lock" : "mail";
+switch(name){
+  case "email" :
+    return "mail";
+  case "password" :
+    return "lock";
+  case "name" :
+     return "user";
+  case "number":
+    return "phone"; 
+    case "reason":
+      return "edit-3";    
+}
+
   };
 
   const renderErrorMessage = (error: FieldError, label: string) => {
@@ -92,8 +108,8 @@ export const StyledInput: React.FC<Props> = ({
           >
             {!!error ? renderErrorMessage(error, label) : label}
           </Font>
-          <InputWrapper focused={focused} error={!!error}>
-            <IconWrapper>
+          <InputWrapper focused={focused} error={!!error} height={multiline ? 65 : 65}>
+            <IconWrapper justifyContent={!multiline ? "center":""}>
               <Feather
                 name={getIconName()}
                 size={focused ? 22 : 18}
@@ -104,19 +120,20 @@ export const StyledInput: React.FC<Props> = ({
             <InputField
               autoCapitalize="none"
               secureTextEntry={type === "password" && currentIcon === "eye-off"}
-              keyboardType={"default"}
+              keyboardType={keyboardType ? keyboardType : "default"}
               onChangeText={onChange}
               onBlur={() => {
                 setFocused(false);
                 return onBlur();
               }}
               value={value}
-              maxLength={maxLength}
+              // maxLength={multiline ? 200 :maxLength}
               onFocus={() => onFocus(name)}
               selectionColor={COLORS.hilite_purpink}
               placeholder={placeholder}  
-              placeholderTextColor={COLORS.lightblue}   
-            />
+              placeholderTextColor={COLORS.lightblue}  
+              multiline={multiline}
+              />
             {type === "password" ? (
               <ShowPasswordButton
                 currentIcon={currentIcon}

@@ -69,6 +69,11 @@ export const EventListWrapper = styled.ScrollView`
   width:60%
   `
   
+  export const Button=styled.TouchableOpacity`
+  marginLeft:7;
+  width:60%
+  `
+
   export const EventClassAntDesignIcon=StyleSheet.create({
     icon:{
       position: "absolute",
