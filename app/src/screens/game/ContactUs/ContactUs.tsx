@@ -192,6 +192,7 @@ export const ContactUsScreen = () => {
             clearError={clearError}
             type="regular"
             placeholder={"Your name.."}
+            rules={{required:true}}
           />
           <StyledInput
             clearField={clearField}
@@ -202,7 +203,7 @@ export const ContactUsScreen = () => {
             type="regular"
             placeholder={"Your contact.."}
             keyboardType={'phone-pad'}
-            rules={{require:true,pattern:PHONE_REGX}}
+            rules={{required:true,pattern:PHONE_REGX}}
           />
           <Spacer h={5}/>
           <View>
@@ -230,7 +231,7 @@ export const ContactUsScreen = () => {
           <RadioBox iconName={"radio-button-on"} color={generalBox===true ? "blue" : "white" } title="For general enquiries"  onPress={()=>onEmailEnquiriesClick("general")}/>
           <RadioBox iconName={"radio-button-on"}  color={boothcampBox===true ? "blue" : "white" } title="For 30 days challenge"  onPress={()=>onEmailEnquiriesClick("For 30 days challenge")}/>
           <RadioBox iconName={"radio-button-on"}  color={appSupport===true ? "blue" : "white" } title="For app support"  onPress={()=>onEmailEnquiriesClick("appsupport")}/>
-          
+          <Spacer h={10} />
           <StyledInput
             placeholder={"Enter your query.."}
             type="regular"
@@ -239,6 +240,8 @@ export const ContactUsScreen = () => {
             control={control}
             clearError={clearError}
             multiline={true}
+            label='Your Query'
+            rules={{required:"mes"}}
           />
        </Card>
       </KeyboardAvoidingView>

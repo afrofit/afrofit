@@ -22,7 +22,7 @@ export const SubscriptionStatus: React.FC<ItemProps> = ({
     <Card marginBottom={0.1} disablePadding outlined={true} isSquare={false}>
       <StatsStack padding={10}>
         <ValueContainer>
-          <Font color="hilite_orange" variant="h4">
+          <Font color="hilite_orange" variant="pb">
            {
             status===false ? "Inactive" : "Active" 
            }    

@@ -59,7 +59,7 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
   };
 
   const onClick=()=>{
-    Linking.openURL('http://161.97.170.81:9091/challenge');
+    Linking.openURL('https://afrofitapp.com/challenge');
   }
 
 
