@@ -61,3 +61,7 @@ export const ImageContainer = styled.View<{ h: number }>`
   width: 100%;
   align-items: center;
 `;
+
+export const ChapterIntroWrapper= styled.ScrollView`
+flex:1
+`

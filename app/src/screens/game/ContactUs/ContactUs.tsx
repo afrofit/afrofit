@@ -70,7 +70,6 @@ export const ContactUsScreen = () => {
     }
 
     if(payload!=null){
-        console.log(payload,"#@#@#@#@#")
         dispatch(contactusCreate(payload)).then((res:any)=>{
           console.log(res,"res $#$#$#$")
           if(res && res.data && res.ok===true){
@@ -166,7 +165,7 @@ export const ContactUsScreen = () => {
     <>
     <AlertModal
         visible={visible}
-        body="You response has been submitted!"
+        body="Your response has been submitted!"
         title="Thank you"
         dismissText="Continue"
         onDismiss={() => navigation.navigate('Profile')}
@@ -211,7 +210,7 @@ export const ContactUsScreen = () => {
            Please tick the relevant box :
           </Font>
           <Spacer h={5} />
-          <CheckBox  onPress={()=>onPressFirstCheckBox()} iconName={checkboxFirst===true ? "check-square" : "square"} title="I already registered"/>
+          <CheckBox  onPress={()=>onPressFirstCheckBox()} iconName={checkboxFirst===true ? "check-square" : "square"} title="I am already registered"/>
           <Spacer h={5} />
           <CheckBox  onPress={()=>onPressSecondCheckBox()} iconName={checkboxSecond===true ? "check-square" : "square"} title="I need more information" />
           </View>
@@ -228,9 +227,9 @@ export const ContactUsScreen = () => {
           <Font variant="pb" align="center" color="hilite_purpink" onPress={()=>navigation.navigate("ContactUsScreen")}>
            The Enquiring For:
           </Font>
-          <RadioBox iconName={"radio-button-on"} color={generalBox===true ? "blue" : "white" } title="For general enquiries"  onPress={()=>onEmailEnquiriesClick("general")}/>
-          <RadioBox iconName={"radio-button-on"}  color={boothcampBox===true ? "blue" : "white" } title="For 30 days challenge"  onPress={()=>onEmailEnquiriesClick("For 30 days challenge")}/>
-          <RadioBox iconName={"radio-button-on"}  color={appSupport===true ? "blue" : "white" } title="For app support"  onPress={()=>onEmailEnquiriesClick("appsupport")}/>
+          <RadioBox iconName={"radio-button-on"}  color={appSupport===true ? "blue" : "white" } title="For Afrofit App"  onPress={()=>onEmailEnquiriesClick("appsupport")}/>
+          <RadioBox iconName={"radio-button-on"}  color={boothcampBox===true ? "blue" : "white" } title="For 30 days Challenge"  onPress={()=>onEmailEnquiriesClick("For 30 days challenge")}/>
+          <RadioBox iconName={"radio-button-on"} color={generalBox===true ? "blue" : "white" } title="For general Enquiries"  onPress={()=>onEmailEnquiriesClick("general")}/>
           <Spacer h={10} />
           <StyledInput
             placeholder={"Enter your query.."}

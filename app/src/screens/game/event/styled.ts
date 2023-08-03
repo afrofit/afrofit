@@ -96,8 +96,8 @@ export const EventListWrapper = styled.ScrollView`
   export const BackgroundEventVideoStyles = StyleSheet.create({
     video: {
      alignSelf: "center", 
-     width: 330,
-     height: 200,
+     width: windowWidth-70,
+     height: 250,
      borderRadius:15
     },
   });

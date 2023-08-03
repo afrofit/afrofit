@@ -24,6 +24,7 @@ export const ChapterList: React.FC<Props> = ({
     <ListWrapper>
       {currentChapters.map((chapter: ChapterPlayedType, index: number) => {
         return (
+          <>
           <ChapterItem
             key={chapter.id}
             outlined={false}
@@ -33,16 +34,17 @@ export const ChapterList: React.FC<Props> = ({
             title={`Chapter ${chapter.order}`}
             value={
               chapter.userSteps > 0
-                ? calculatePercentageCompleted(
-                    chapter.userSteps,
-                    chapter.targetSteps
+              ? calculatePercentageCompleted(
+                chapter.userSteps,
+                chapter.targetSteps
                   )
                 : 0
-            }
-            disabled={lastCompletedChapter !== chapter.order}
-            onPress={() => onTapCell(chapter.id)}
-            completed={chapter.userSteps >= chapter.targetSteps}
-          />
+              }
+              disabled={lastCompletedChapter !== chapter.order}
+              onPress={() => onTapCell(chapter.id)}
+              completed={chapter.userSteps >= chapter.targetSteps}
+              />
+              </>
         );
       })}
     </ListWrapper>

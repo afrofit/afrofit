@@ -1,10 +1,13 @@
 import { CHAMFER, COLORS } from "./../../../../../theme/globals";
 import styled from "styled-components/native";
 
-export const StoryListWrapper = styled.ScrollView`
+interface Props {
+  height?: number;
+}
+
+export const StoryListWrapper = styled.ScrollView<Props>`
   border-radius: ${CHAMFER};
-  overflow: hidden;
-  height: 55%;
+  // height: ${({ height }) => (height ? height : `65px`)}; 
 `;
 
 export const StoryIntroWrapper=styled.ScrollView`

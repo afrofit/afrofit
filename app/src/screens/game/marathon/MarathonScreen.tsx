@@ -16,6 +16,8 @@ import {
 } from "../../../../../app/store/reducers/marathon/marathon.slice";
 import { RankingsTable } from "./components/RankingsTable";
 import { RanksList } from "./components/RanksList";
+import { ScrollView } from "react-native";
+import { RankingsWrapper } from "./styled";
 
 export const MarathonScreen = () => {
   const currentUser = useSelector(selectUser);
@@ -33,13 +35,15 @@ export const MarathonScreen = () => {
           </Font>
         </Card>
         <Spacer />
+        <RankingsWrapper>
         <RanksList currentUserRank={currentUserRank} />
 
         <RankingsTable
           rankings={marathonData}
           currentUserRank={currentUserRank}
           currentUser={currentUser}
-        />
+          />
+          </RankingsWrapper>
       </Screen>
     </>
   );

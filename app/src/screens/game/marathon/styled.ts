@@ -17,3 +17,7 @@ export const RankingsListWrapper = styled.ScrollView`
   max-height: 90%;
   /* z-index: 20; */
 `;
+
+export const RankingsWrapper = styled.ScrollView`
+
+`

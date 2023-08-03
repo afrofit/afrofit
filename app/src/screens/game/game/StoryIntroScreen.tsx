@@ -20,6 +20,9 @@ import { selectUser } from "../../../../store/reducers/auth/auth.slice";
 import { FetchUserStoryActivity } from "../../../../store/reducers/story/thunks/fetch-user-story-activity.thunk";
 import { STORY_DATA_EXTRAS_MAP } from "../../../../data/story_data";
 import { StoryIntroWrapper } from "../home/components/StoryList.styled";
+import { VertiCardStory } from "../../../../../app/src/components/cards/VertiCardStory";
+import { formattedStat } from "../../../../../app/utils/formatters";
+import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -35,13 +38,21 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
 
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
+  const userPerformance = useSelector(selectUserPerformance);
 
   React.useEffect(() => {
     if (isFocused) {
       currentUser &&
-        dispatch(FetchUserStoryActivity(storyId, currentUser.userId));
+        dispatch(FetchUserStoryActivity(storyId, currentUser?.userId,onHandleStorySuccess,onHandleStoryFailure));
     }
   }, [isFocused]);
+
+  const onHandleStorySuccess=(currentStory:any)=>{
+}
+
+const onHandleStoryFailure=()=>{
+
+}
 
   const handleGoBack = () => {
     dispatch(unSetCurrentStory());
@@ -63,7 +74,7 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
           <>
             <FontConstrainer>
               <Font align="center" variant="h2" color="light">
-                {currentStory.title}
+                {currentStory?.title}
               </Font>
             </FontConstrainer>
             <StoryIntroWrapper contentContainerStyle={{paddingBottom:30}}>
@@ -72,14 +83,16 @@ export const StoryIntroScreen: React.FC<Props> = ({ route }) => {
                 onVideoFinished={() => null}
                 onVideoHalfwayFinished={() => null}
                 loop={false}
-                videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id].introVideo}
+                videoUrl={STORY_DATA_EXTRAS_MAP[currentStory.id]?.introVideo}
                 />
             </VideoContainer>
             <Font align="center" variant="p" color="lightblue">
-              {currentStory.description}
+              {currentStory?.description}
             </Font>
-            <VertiCard
-              bodyMoves={currentStory.totalTargetSteps - currentStory.userSteps}
+            <VertiCardStory
+              burnCalories={formattedStat(userPerformance.caloriesBurned)}
+              bodyMoves={formattedStat(userPerformance.danceMoves)}
+              time={formattedStat(userPerformance.minutesDanced / 1000 / 60)}
               />
             <LargeButton
               title={currentStory.userSteps ? "Continue Story" : "Start story"}

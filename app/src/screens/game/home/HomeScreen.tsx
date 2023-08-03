@@ -16,7 +16,7 @@ import {
   selectTodaysActivity,
   selectUserPerformance,
 } from "../../../../store/reducers/activity/activity.slice";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { HomeScreenNavType } from "../../../../src/navigator/types";
 import {
   selectUser,
@@ -27,6 +27,11 @@ import { GetUserPerformanceData } from "../../../../store/reducers/activity/thun
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 import { FetchMarathonData } from "../../../../../app/store/reducers/story/thunks/fetch-marathon-data.thunk";
 import { selectCurrentUserRank } from "../../../../../app/store/reducers/marathon/marathon.slice";
+import { selectCurrentStory } from "../../../../../app/store/reducers/story/story.slice";
+import { FetchUserStoryActivity } from "../../../../store/reducers/story/thunks/fetch-user-story-activity.thunk";
+import { ScrollView } from "react-native";
+import { HomeScrollView } from "./styled";
+import { Font } from "../../../../../app/src/components/font/Font";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavType>();
@@ -37,7 +42,8 @@ export const HomeScreen = () => {
   const userPerformanceData = useSelector(selectUserPerformance);
   const userIsSubscribed = useSelector(selectUserIsSubscribed);
   const currentUserRank = useSelector(selectCurrentUserRank);
-
+  const currentStory = useSelector(selectCurrentStory);
+  
   const [showSubscribeModal, setShowSubscribeModal] = React.useState(false);
 
   React.useEffect(() => {
@@ -56,9 +62,32 @@ export const HomeScreen = () => {
     }
   }, [userIsSubscribed]);
 
-  const handleNavigateToStoryIntro = (storyId: any) => {
+
+  const getdata=(storyId:any)=>{
+    dispatch(FetchUserStoryActivity(
+      storyId,
+      currentUser?.userId,
+     onHandleStorySuccess,
+     onHandleStoryFailure,
+  ))
+  }
+
+const onHandleStorySuccess=(currentStory:any)=>{
+  if(!currentStory?.playedStory?.userSteps){
+    navigation.navigate("StoryScreen",{storyId:currentStory?.playedStory?.storyId});
+  }else{
+    navigation.navigate("StoryIntroScreen",{storyId :currentStory?.playedStory?.storyId});
+  }
+}
+
+const onHandleStoryFailure=()=>{
+
+}
+
+  
+  const handleNavigateToStoryIntro = async(storyId: any) => {
     if (storyId && storyId != null) {
-      navigation.navigate("StoryIntroScreen", { storyId });
+      await getdata(storyId)
     } else {
       setShowSubscribeModal(true);
     }
@@ -87,9 +116,13 @@ export const HomeScreen = () => {
         <Section title="Your activity today">
           <ActivityTodayList todaysActivity={todaysActivity} />
         </Section>
-        <Section title="Your stories">
+        <HomeScrollView showsVerticalScrollIndicator={false}>
+        <Font variant="smb" spacing={1} caps color="lightblue">
+        Your stories
+        </Font>
+        <Spacer h={10}/>
           <StoryList handleNavigateToStory={handleNavigateToStoryIntro} />
-        </Section>
+        </HomeScrollView>
       </Screen>
     </>
   );

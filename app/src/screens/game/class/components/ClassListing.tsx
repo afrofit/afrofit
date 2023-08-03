@@ -17,6 +17,7 @@ import {
 import { ResizeMode, Video } from "expo-av";
 import { AntDesign } from "@expo/vector-icons";
 import { Image, View } from "react-native";
+import { windowHeight, windowWidth } from "../../../../../../app/utils/constant";
 
 interface Props {
   allClass?: any;
@@ -47,12 +48,12 @@ export const ClassList: React.FC<Props> = ({ allClass }) => {
                           resizeMode={"center"}
                           style={{
                             alignSelf: "center",
-                            height: 130,
-                            width: 130,
+                            width: windowWidth/2.75,
+                            height: windowHeight/4,
                           }}
                         />
                     </EventClassFirstView>
-                    <EventClassSecondView  style={{paddingHorizontal:10}} > 
+                    <EventClassSecondView  style={{paddingHorizontal:20}} > 
                       <Font variant={"h2"} numberOfLines={1} > 
                         {item?.title}
                       </Font>

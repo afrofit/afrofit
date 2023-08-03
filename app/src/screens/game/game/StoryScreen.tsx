@@ -24,6 +24,9 @@ import { Section } from "../../../../src/components/section/Section";
 import { ChapterList } from "./components/ChapterList";
 import { FetchStoryChapters } from "../../../../store/reducers/story/thunks/fetch-story-chapters.thunk";
 import { STORY_DATA_EXTRAS_MAP } from "../../../../../app/data/story_data";
+import { VertiCardStory } from "../../../../../app/src/components/cards/VertiCardStory";
+import { selectUserPerformance } from "../../../../../app/store/reducers/activity/activity.slice";
+import { formattedStat } from "../../../../../app/utils/formatters";
 
 interface Props {
   route: { params: { storyId: string } };
@@ -40,6 +43,7 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
   const currentUser = useSelector(selectUser);
   const currentStory = useSelector(selectCurrentStory);
   const currentChapters = useSelector(selectCurrentChapters);
+  const userPerformance = useSelector(selectUserPerformance);
 
   React.useEffect(() => {
     currentUser &&
@@ -99,21 +103,20 @@ export const StoryScreen: React.FC<Props> = ({ route }) => {
           {currentStory ? currentStory?.title : "Loading title..."}
         </Font>
         <Spacer />
-        <VertiCard
-          bodyMoves={
-            currentStory
-              ? currentStory?.totalTargetSteps - currentStory?.userSteps
-              : 0
-          }
+        <VertiCardStory
+         burnCalories={formattedStat(userPerformance.caloriesBurned)}
+         bodyMoves={formattedStat(userPerformance.danceMoves)}
+         time={formattedStat(userPerformance.minutesDanced / 1000 / 60)}
         />
-        <Spacer />
-        <Section title="Story Chapters">
+        <Font variant="smb" spacing={1} caps color="lightblue">
+         {"Story Chapters"}
+        </Font>
+        <Spacer h={15}/>
           <ChapterList
             currentChapters={currentChapters}
             onTapCell={handleGoToChapter}
             lastCompletedChapter={currentStory!.lastChapterCompleted}
           />
-        </Section>
       </Screen>
     </>
   );

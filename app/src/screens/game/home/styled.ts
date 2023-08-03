@@ -7,3 +7,6 @@ export const ImagePositioner = styled.View`
 export const TextPositioner = styled.View`
   flex: 1;
 `;
+
+export const HomeScrollView= styled.ScrollView`
+`

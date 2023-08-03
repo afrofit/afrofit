@@ -17,7 +17,7 @@ import {
 import { FetchChapterDetail } from "../../../../../app/store/reducers/story/thunks/fetch-user-chapter-detail.thunk";
 import Spacer from "../../../../../app/src/components/elements/Spacer";
 import { LargeButton } from "../../../../../app/src/components/buttons/LargeButton";
-import { ContentContainer, ImageContainer } from "./styled";
+import { ChapterIntroWrapper, ContentContainer, ImageContainer } from "./styled";
 import { ImageView } from "../../../../../app/src/components/image/ImageView/ImageView";
 import { MIXCLOUD_URL } from "../../../../../app/constants/device";
 import useAudio from "../../../../../app/src/hooks/useAudio";
@@ -108,6 +108,7 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
         <Font variant="sm2" align="center">
           Chapter {currentChapter.order}
         </Font>
+        <ChapterIntroWrapper>
         <Spacer h={30} />
         <Font variant="pb" align="center" color="hilite_purpink">
           {currentChapter.targetSteps - currentChapter.userSteps} Dance Steps
@@ -141,6 +142,7 @@ export const ChapterIntroScreen: React.FC<Props> = ({ route }) => {
           title={userHasPlayedChapter ? "Resume Dancing" : "Start Dancing"}
           onPress={handleStartChapter}
         />
+        </ChapterIntroWrapper>
       </Screen>
     </>
   );

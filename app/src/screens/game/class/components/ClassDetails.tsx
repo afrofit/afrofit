@@ -21,6 +21,7 @@ import {
 import { ClassDetailsCard } from "../../../../../../app/src/components/cards/ClassDetailsCard";
 import { MediumButton } from "../../../../../../app/src/components/buttons/MediumButton";
 import { Linking } from "react-native";
+import { YOUTUBE_URL_REGX } from "../../../../../../app/theme/globals";
 interface Props {
   route: { params: { item: any } };
 }
@@ -36,25 +37,30 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
   
   React.useEffect(() => {
     animationRef && animationRef.play();
-    getVideoId();
   }, []);
 
+  React.useEffect(() => {
+    if(item){
+      getVideoId();
+    }
+  }, []);
+
+
   const getVideoId = () => {
-    var urlRegExp =
-      /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-    var matchUrl = item?.videoUrl.match(urlRegExp);
-    if (matchUrl !== null) {
-      var regExp =
-        /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-      var match = item?.videoUrl.match(regExp);
-      console.log(match)
-      if (match && match[7].length==11) {
-        setVideoId(match[7]);
-      }else{
-        setVideoId(null);
+    if(item?.videoUrl){
+      var matchUrl = item?.videoUrl.match(YOUTUBE_URL_REGX);
+      if (matchUrl !== null) {
+        var regExp =
+          /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var match = item?.videoUrl.match(regExp);
+        if (match && match[7].length==11) {
+          setVideoId(match[7]);
+        }else{
+          setVideoId(null);
+        }
+      } else {
+        setVideoId(item?.videoUrl);
       }
-    } else {
-      setVideoId(item?.videoUrl);
     }
   };
 
@@ -71,7 +77,7 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
         <EventStyledScreen>
           <Screen>
             <Placer top={1} left={3}>
-              <IconButton onPress={() => navigation.goBack()} />
+              <IconButton onPress={() => navigation.pop()} />
             </Placer>
             <Font variant="p" align="center" color="light">
               Class Details
@@ -83,16 +89,22 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
                   {item?.title}
                 </Font>
                 <Spacer h={15} />
-                <EventDetailsImage
-                  source={{
-                    uri: `${APP_SETTINGS.apiUrl.replace("api/", "")}${
-                      item?.imageUrl
-                    }`,
-                  }}
-                  resizeMode={"contain"}
-                />
+                {
+                  item?.imageUrl ? 
+                  <EventDetailsImage
+                    source={{
+                      uri: `${APP_SETTINGS.apiUrl.replace("api/", "")}${
+                        item?.imageUrl
+                      }`,
+                    }}
+                    resizeMode={"contain"}
+                  />
+                  : null
+                }
                 <Spacer h={7} />
+                {item?.description ? 
                 <Font variant={"sm1"}>{item?.description}</Font>
+                : null}
                 <Spacer h={25} />
                <MediumButton  onPress={()=>onClick()} title="JOIN CHALLENGE" />
               <Spacer h={25} />

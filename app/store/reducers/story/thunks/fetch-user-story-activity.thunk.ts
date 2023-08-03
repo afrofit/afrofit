@@ -21,12 +21,13 @@ const fetchUserStoryActivityApi = async (userId: string, storyId: string) => {
 
 export function FetchUserStoryActivity(
   storyId: string,
-  userId: string
+  userId: string,
+  onSuccess?: any,
+  onFailure?: any
 ): AppThunk {
   return async (dispatch) => {
     dispatch(newRequest());
     dispatch(hideGenericErrorDialog());
-
     try {
       const response: ApiResponse<any, any> = await fetchUserStoryActivityApi(
         userId,
@@ -34,7 +35,8 @@ export function FetchUserStoryActivity(
       );
 
       if (response && response.data) {
-        console.log("Story activity response", response.data);
+
+        console.log("Story activity response 11111", response);
         const {
           userSteps,
           userTime,
@@ -63,8 +65,10 @@ export function FetchUserStoryActivity(
           lastChapterCompleted,
         };
         dispatch(setCurrentStory(currentStory));
+        onSuccess(response.data)
       } else if (response && !response.ok && response.data) {
         dispatch(finishedRequest());
+        onFailure()
         return dispatch(
           setGenericErrorMessage(
             response.data ??
@@ -76,7 +80,7 @@ export function FetchUserStoryActivity(
       dispatch(finishedRequest());
     } catch (error: unknown) {
       const err = error as AxiosError;
-      console.log("Error!", err);
+      console.log("Error!!!!!!", err);
       dispatch(setGenericErrorMessage(` ${err.response?.data as string}`));
       dispatch(finishedRequest());
     }

@@ -52,7 +52,7 @@ export const StoryList: React.FC<Props> = ({ handleNavigateToStory }) => {
   );
 
   return (
-    <StoryListWrapper showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:35}}>
+    <StoryListWrapper showsVerticalScrollIndicator={false} >
       {STORY_DATA.sort((a, b) => (a.order > b.order ? 1 : -1)).map((story) => {
         const imageSource = STORY_DATA_EXTRAS_MAP[story.id].thumbUrl;
         return (
