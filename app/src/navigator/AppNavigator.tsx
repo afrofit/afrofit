@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 
@@ -111,8 +111,8 @@ const GameNavigator = () => (
     <Screen name={"StoryFinish"} component={StoryFinishScreen} />
     <Screen name={"ChapterPass"} component={ChapterPassScreen} />
     <Screen name={"ChapterFail"} component={ChapterFailScreen} />
-    <Screen name={'ClassDetails'} component={ClassDetails}/>
-    <Screen name={'EventDetails'} component={EventDetails}/>
+    <Screen name={'ClassDetails'} component={ClassDetails} options={{cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,animationEnabled:false}}/>
+    <Screen name={'EventDetails'} component={EventDetails} options={{animationEnabled:false}}/>
     <Screen name={'ContactUsScreen'} component={ContactUsScreen}/>
 
   </Navigator>

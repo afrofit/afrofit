@@ -77,7 +77,7 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
         <EventStyledScreen>
           <Screen>
             <Placer top={1} left={3}>
-              <IconButton onPress={() => navigation.pop()} />
+              <IconButton onPress={() => navigation.goBack()} />
             </Placer>
             <Font variant="p" align="center" color="light">
               Class Details
@@ -113,7 +113,8 @@ export const ClassDetails: React.FC<Props> = ({ route }) => {
                     height={windowHeight / 4}
                     width={windowWidth - 80}
                     videoId={videoId}
-                  />
+                    webViewStyle={{opacity: 0.99}}
+                    />
                 ) : null}
               </ClassDetailsCard>
             </EventListWrapper>

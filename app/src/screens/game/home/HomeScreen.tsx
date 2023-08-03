@@ -73,7 +73,7 @@ export const HomeScreen = () => {
   }
 
 const onHandleStorySuccess=(currentStory:any)=>{
-  if(!currentStory?.playedStory?.userSteps){
+  if(currentStory?.playedStory?.userSteps){
     navigation.navigate("StoryScreen",{storyId:currentStory?.playedStory?.storyId});
   }else{
     navigation.navigate("StoryIntroScreen",{storyId :currentStory?.playedStory?.storyId});
