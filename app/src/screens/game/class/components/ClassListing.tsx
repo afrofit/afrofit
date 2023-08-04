@@ -49,7 +49,7 @@ export const ClassList: React.FC<Props> = ({ allClass }) => {
                           style={{
                             alignSelf: "center",
                             width: windowWidth/2.75,
-                            height: windowHeight/4,
+                            height: 180
                           }}
                         />
                     </EventClassFirstView>

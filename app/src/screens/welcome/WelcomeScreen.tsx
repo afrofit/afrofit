@@ -9,7 +9,7 @@ import { Screen } from "../../../src/components/screen/Screen";
 import { ScreenMarker } from "../../../src/components/screen/ScreenMarker";
 import { SolidBackground } from "../../../src/components/screen/SolidBackground";
 import { WelcomeScreenNavType } from "../../../src/navigator/types";
-import { Linking, ScrollView, View } from "react-native";
+import { Linking, SafeAreaView, ScrollView, View } from "react-native";
 import { RegisterDetailsView, RegisterLinkTouchableHighlight, WelcomeFirstView, WelcomeScreenWrapper, WelcomeSecondView } from "./styled";
 import { windowHeight } from "../../../../app/utils/constant";
 
@@ -28,7 +28,7 @@ export const WelcomeScreen = () => {
   return (
     <>
       <SolidBackground />
-      <WelcomeScreenWrapper showsVerticalScrollIndicator={false}>
+      <WelcomeScreenWrapper showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="automatic">
         <Screen>
           <Spacer />
           <WelcomeFirstView>

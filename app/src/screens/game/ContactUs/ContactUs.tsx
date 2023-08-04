@@ -28,6 +28,8 @@ import { useSelector } from "react-redux";
 import { getContactus } from "../../../../../app/store/reducers/contactus/contactus.slice";
 import { AlertModal } from "../../../../../app/src/components/modals/AlertModal";
 import { selectUser } from "../../../../../app/store/reducers/auth/auth.slice";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 export const ContactUsScreen = () => {
   const navigation = useNavigation<any>();
@@ -179,8 +181,7 @@ export const ContactUsScreen = () => {
           Contact Us
         </Font>
         <Spacer h={20} />
-       <ContactWrapper>
-      <KeyboardAvoidingView>
+        <KeyboardAwareScrollView>
        <Card padding={15}>
           <Spacer h={10} />
           <StyledInput
@@ -243,10 +244,9 @@ export const ContactUsScreen = () => {
             rules={{required:"mes"}}
           />
        </Card>
-      </KeyboardAvoidingView>
 
         <LargeButton onPress={handleSubmit(onSubmit)} title="Submit" />
-    </ContactWrapper>
+      </KeyboardAwareScrollView>
       </Screen>
     </>
   );
