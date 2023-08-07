@@ -9,7 +9,7 @@ import { ContactusType } from "app/types/ContactusModel";
 
 const classApi = async (payload:ContactusType) => {
   console.log(payload,"payload from api side")
-    return await API_CLIENT.post(`contact/create`);
+    return await API_CLIENT.post(`contact/create`,payload);
     };
   
     export function contactusCreate(payload:ContactusType): AppThunk {

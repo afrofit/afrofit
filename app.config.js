@@ -28,7 +28,7 @@ export default {
     },
     android: {
       package: "com.djminddgap.afrofit",
-      versionCode: 7,
+      versionCode: 8,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",
