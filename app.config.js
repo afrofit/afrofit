@@ -27,8 +27,8 @@ export default {
       bundleIdentifier: "com.djminddgap.afrofit",
     },
     android: {
-      package: "com.djminddgap.afrofit",
-      versionCode: 8,
+      package: "com.djminddgap.afrofitapp",
+      versionCode: 2,
       adaptiveIcon: {
         foregroundImage: "./app/assets/adaptive-icon.png",
         backgroundColor: "#141723",

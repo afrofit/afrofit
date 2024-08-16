@@ -46,7 +46,7 @@ export const RankingsTable: React.FC<Props> = ({
 
   return (
     <Section title="Rankings">
-      <RankingsListWrapper>
+      <RankingsListWrapper nestedScrollEnabled={true} contentContainerStyle={{paddingBottom:1}}>
         {filteredRankings.map((user, index: number) => {
           return (
             <RankingItem

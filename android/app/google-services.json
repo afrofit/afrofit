@@ -29,6 +29,49 @@
             {
               "client_id": "1066691596301-cbd7ln880d66th6pte075g2a0kvlqplu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1066691596301-hmj7n62nrjvec8lr76qpgv9tbt2plc71.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.djminddgap.afrofit"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066691596301:android:19246aa0a07e0c3d2b8544",
+        "android_client_info": {
+          "package_name": "com.djminddgap.afrofitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066691596301-cbd7ln880d66th6pte075g2a0kvlqplu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqqM4CAzxVOzfo7CL2_bpEip6_68-gjz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066691596301-cbd7ln880d66th6pte075g2a0kvlqplu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1066691596301-hmj7n62nrjvec8lr76qpgv9tbt2plc71.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.djminddgap.afrofit"
+              }
             }
           ]
         }

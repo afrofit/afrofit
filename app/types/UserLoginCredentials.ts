@@ -9,3 +9,7 @@ export type UserLogoutCredential={
   FCMToken:any;
   userId: any;
 }
+
+export type UserForgotPassword = {
+  email:string
+}

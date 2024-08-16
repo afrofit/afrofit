@@ -115,13 +115,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.djminddgap.afrofit'
+    namespace 'com.djminddgap.afrofitapp'
     defaultConfig {
-        applicationId 'com.djminddgap.afrofit'
+        applicationId 'com.djminddgap.afrofitapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.0"
     }
 
     splits {

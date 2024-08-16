@@ -29,6 +29,7 @@ export const Font: React.FC<Props> = ({
 }) => {
   return (
     <StyledFont
+      allowFontScaling={false}
       variant={variant}
       caps={caps}
       color={color}

@@ -118,6 +118,7 @@ switch(name){
               />
             </IconWrapper>
             <InputField
+              allowFontScaling={false}
               autoCapitalize="none"
               secureTextEntry={type === "password" && currentIcon === "eye-off"}
               keyboardType={keyboardType ? keyboardType : "default"}

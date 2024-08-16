@@ -1,4 +1,4 @@
-package com.djminddgap.afrofit;
+package com.djminddgap.afrofitapp;
 
 import android.os.Build;
 import android.os.Bundle;

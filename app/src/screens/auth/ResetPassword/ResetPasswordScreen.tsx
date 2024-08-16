@@ -16,7 +16,7 @@ import { Placer } from "../../../../src/components/elements/Placer";
 import { IconButton } from "../../../../src/components/buttons/IconButton";
 import { LoaderAbsolute } from "../../../../src/components/loaders/LoaderAbsolute";
 import { useDispatch } from "react-redux";
-// import { SendPasswordResetEmail } from "../../../../store/reducers/auth/auth.thunks";
+import { SendPasswordResetEmail } from "../../../../store/reducers/auth/thunks/ResetPassword.thunk";
 import { AlertModal } from "../../../../src/components/modals/AlertModal";
 import { useSelector } from "react-redux";
 import {
@@ -39,10 +39,9 @@ export const ResetPasswordScreen = () => {
 
   const passwordResetEmailSent = useSelector(selectedActionCompleted);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data:any) => {
     Keyboard.dismiss();
-    // dispatch(SendPasswordResetEmail(data));
-    console.log("Data", data);
+    dispatch(SendPasswordResetEmail(data));
   };
 
   const clearField = (name: string) => {
@@ -63,8 +62,7 @@ export const ResetPasswordScreen = () => {
           return console.log("Alert dismissed!");
         }}
         visible={passwordResetEmailSent}
-        body="This represents the body of this modal and it can contain an awful
-        amount of text and handle it just fine!"
+        body="Your Request Done Successfully"
         title="Success!"
       />
       <LoaderAbsolute message="Sending reset link" visible={false} />
@@ -88,6 +86,7 @@ export const ResetPasswordScreen = () => {
             rules={{ required: true, pattern: EMAIL_REGEX }}
             clearError={clearError}
             type="regular"
+            placeholder={"Your email.."}
           />
 
           <ClearButton
